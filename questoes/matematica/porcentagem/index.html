@@ -158,47 +158,82 @@ const status =
 
 async function carregarQuestoes() {
 
-  const { data, error } = await supabase
-    .from("questoes")
-    .select("*")
-    .eq("materia", "Matemática")
-    .eq("assunto", "Porcentagem")
-    .order("id", { ascending: true });
+  status.textContent = "Testando conexão com o banco...";
 
+  try {
 
-  if (error) {
+    const resultado = await supabase
+      .from("questoes")
+      .select("*");
 
-    console.error(error);
+    console.log("Resultado Supabase:", resultado);
+
+    const { data, error } = resultado;
+
+    if (error) {
+      status.textContent = "ERRO: " + error.message;
+      console.error(error);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      status.textContent = "Conectou ao Supabase, mas não encontrou questões.";
+      return;
+    }
 
     status.textContent =
-      "Não foi possível carregar os exercícios.";
+      "Conexão funcionando! Encontradas " +
+      data.length +
+      " questão(ões).";
 
-    return;
-  }
+    container.innerHTML = "";
 
+    data.forEach((questao, index) => {
 
-  if (!data || data.length === 0) {
+      const article = document.createElement("article");
+
+      article.className = "card question";
+
+      article.innerHTML = `
+        <h2>Questão ${index + 1} — ${questao.titulo}</h2>
+
+        <p>${questao.enunciado}</p>
+
+        <button class="alternative">
+          A) ${questao.alternativa_a}
+        </button>
+
+        <button class="alternative">
+          B) ${questao.alternativa_b}
+        </button>
+
+        <button class="alternative">
+          C) ${questao.alternativa_c}
+        </button>
+
+        <button class="alternative">
+          D) ${questao.alternativa_d}
+        </button>
+
+        <button class="alternative">
+          E) ${questao.alternativa_e}
+        </button>
+      `;
+
+      container.appendChild(article);
+
+    });
+
+  } catch (erro) {
+
+    console.error(erro);
 
     status.textContent =
-      "Nenhum exercício encontrado.";
+      "Erro inesperado: " + erro.message;
 
-    return;
   }
-
-
-  status.textContent =
-    `${data.length} exercício(s) encontrado(s).`;
-
-
-  data.forEach((questao, index) => {
-
-    criarQuestao(questao, index);
-
-  });
 
 }
-
-
 function criarQuestao(questao, index) {
 
   const article =

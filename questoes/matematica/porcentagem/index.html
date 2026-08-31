@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -9,7 +10,7 @@
 
   <meta
     name="description"
-    content="Resolva exercícios de porcentagem com gabarito e explicação. Pratique descontos, aumentos e cálculos percentuais para ENEM e vestibulares."
+    content="Resolva exercícios de porcentagem com gabarito e explicação. Pratique descontos, aumentos e variações percentuais para ENEM e vestibulares."
   >
 
   <link rel="stylesheet" href="../../../css/style.css">
@@ -54,48 +55,11 @@
     Confira o gabarito e a explicação depois de responder.
   </p>
 
+  <div id="status">
+    Carregando exercícios...
+  </div>
 
-  <article class="card">
-
-    <h2>Questão 1 — Porcentagem</h2>
-
-    <p>
-      Uma camiseta custa R$ 100. Em uma promoção, ela recebeu
-      um desconto de 20%. Qual é o preço da camiseta após o desconto?
-    </p>
-
-    <div class="topics">
-
-      <button>A) R$ 70</button>
-
-      <button>B) R$ 80</button>
-
-      <button>C) R$ 85</button>
-
-      <button>D) R$ 90</button>
-
-      <button>E) R$ 95</button>
-
-    </div>
-
-    <details>
-
-      <summary>Ver gabarito e explicação</summary>
-
-      <p><strong>Gabarito: B</strong></p>
-
-      <p>
-        20% de R$ 100 corresponde a R$ 20.
-        Portanto:
-      </p>
-
-      <p>
-        R$ 100 − R$ 20 = <strong>R$ 80</strong>.
-      </p>
-
-    </details>
-
-  </article>
+  <section id="questoes-container"></section>
 
 </div>
 
@@ -114,6 +78,125 @@
 
 </footer>
 
+
+<script type="module">
+
+import { supabase } from "../../../js/supabase.js";
+
+
+const container = document.getElementById("questoes-container");
+const status = document.getElementById("status");
+
+
+async function carregarQuestoes() {
+
+  const { data, error } = await supabase
+    .from("questoes")
+    .select("*")
+    .eq("materia", "Matemática")
+    .eq("assunto", "Porcentagem")
+    .order("id", { ascending: true });
+
+
+  if (error) {
+
+    console.error(error);
+
+    status.textContent =
+      "Não foi possível carregar os exercícios.";
+
+    return;
+  }
+
+
+  if (!data || data.length === 0) {
+
+    status.textContent =
+      "Nenhum exercício encontrado.";
+
+    return;
+  }
+
+
+  status.textContent =
+    `${data.length} exercício(s) encontrado(s).`;
+
+
+  data.forEach((questao, index) => {
+
+    const article = document.createElement("article");
+
+    article.className = "card";
+
+    article.style.marginTop = "25px";
+
+
+    article.innerHTML = `
+
+      <h2>
+        Questão ${index + 1} — ${questao.titulo}
+      </h2>
+
+      <p>
+        ${questao.enunciado}
+      </p>
+
+      <div class="topics">
+
+        <button>A) ${questao.alternativa_a}</button>
+
+        <button>B) ${questao.alternativa_b}</button>
+
+        <button>C) ${questao.alternativa_c}</button>
+
+        <button>D) ${questao.alternativa_d}</button>
+
+        <button>E) ${questao.alternativa_e}</button>
+
+      </div>
+
+
+      <details>
+
+        <summary>
+          Ver gabarito e explicação
+        </summary>
+
+        <p>
+          <strong>
+            Gabarito: ${questao.resposta_correta}
+          </strong>
+        </p>
+
+        ${
+          questao.explicacao
+            ? `<p>${questao.explicacao}</p>`
+            : ""
+        }
+
+        ${
+          questao.dica
+            ? `<p><strong>Dica:</strong> ${questao.dica}</p>`
+            : ""
+        }
+
+      </details>
+
+    `;
+
+
+    container.appendChild(article);
+
+  });
+
+}
+
+
+carregarQuestoes();
+
+</script>
+
 </body>
 
 </html>
+```

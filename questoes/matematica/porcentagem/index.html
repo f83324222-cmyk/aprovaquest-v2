@@ -14,6 +14,71 @@
   >
 
   <link rel="stylesheet" href="../../../css/style.css">
+
+  <style>
+    .question {
+      margin-top: 25px;
+    }
+
+    .alternatives {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .alternative {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      text-align: left;
+      cursor: pointer;
+      font-size: 16px;
+      transition: .2s;
+    }
+
+    .alternative:hover:not(:disabled) {
+      background: #f0efff;
+      border-color: #4f46e5;
+    }
+
+    .alternative:disabled {
+      cursor: default;
+    }
+
+    .alternative.correct {
+      background: #e8f7ed;
+      border-color: #22a05a;
+    }
+
+    .alternative.wrong {
+      background: #fdeaea;
+      border-color: #dc3545;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .result.correct {
+      background: #e8f7ed;
+    }
+
+    .result.wrong {
+      background: #fdeaea;
+    }
+
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f6f7fb;
+      border-radius: 8px;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -51,8 +116,8 @@
   <h1>Exercícios de Porcentagem</h1>
 
   <p>
-    Pratique porcentagem com exercícios para ENEM e vestibulares.
-    Confira o gabarito e a explicação depois de responder.
+    Pratique porcentagem para ENEM e vestibulares.
+    Escolha uma alternativa para responder.
   </p>
 
   <div id="status">
@@ -84,8 +149,11 @@
 import { supabase } from "../../../js/supabase.js";
 
 
-const container = document.getElementById("questoes-container");
-const status = document.getElementById("status");
+const container =
+  document.getElementById("questoes-container");
+
+const status =
+  document.getElementById("status");
 
 
 async function carregarQuestoes() {
@@ -124,70 +192,214 @@ async function carregarQuestoes() {
 
   data.forEach((questao, index) => {
 
-    const article = document.createElement("article");
-
-    article.className = "card";
-
-    article.style.marginTop = "25px";
-
-
-    article.innerHTML = `
-
-      <h2>
-        Questão ${index + 1} — ${questao.titulo}
-      </h2>
-
-      <p>
-        ${questao.enunciado}
-      </p>
-
-      <div class="topics">
-
-        <button>A) ${questao.alternativa_a}</button>
-
-        <button>B) ${questao.alternativa_b}</button>
-
-        <button>C) ${questao.alternativa_c}</button>
-
-        <button>D) ${questao.alternativa_d}</button>
-
-        <button>E) ${questao.alternativa_e}</button>
-
-      </div>
-
-
-      <details>
-
-        <summary>
-          Ver gabarito e explicação
-        </summary>
-
-        <p>
-          <strong>
-            Gabarito: ${questao.resposta_correta}
-          </strong>
-        </p>
-
-        ${
-          questao.explicacao
-            ? `<p>${questao.explicacao}</p>`
-            : ""
-        }
-
-        ${
-          questao.dica
-            ? `<p><strong>Dica:</strong> ${questao.dica}</p>`
-            : ""
-        }
-
-      </details>
-
-    `;
-
-
-    container.appendChild(article);
+    criarQuestao(questao, index);
 
   });
+
+}
+
+
+function criarQuestao(questao, index) {
+
+  const article =
+    document.createElement("article");
+
+  article.className =
+    "card question";
+
+
+  const alternativas = [
+
+    {
+      letra: "A",
+      texto: questao.alternativa_a
+    },
+
+    {
+      letra: "B",
+      texto: questao.alternativa_b
+    },
+
+    {
+      letra: "C",
+      texto: questao.alternativa_c
+    },
+
+    {
+      letra: "D",
+      texto: questao.alternativa_d
+    },
+
+    {
+      letra: "E",
+      texto: questao.alternativa_e
+    }
+
+  ];
+
+
+  article.innerHTML = `
+
+    <h2>
+      Questão ${index + 1} — ${questao.titulo}
+    </h2>
+
+    <p>
+      ${questao.enunciado}
+    </p>
+
+    <div class="alternatives"></div>
+
+    <div class="result"></div>
+
+    <div class="explanation" hidden>
+
+      <strong>Explicação:</strong>
+
+      <p>
+        ${questao.explicacao || "Explicação não disponível."}
+      </p>
+
+      ${
+        questao.dica
+          ? `<p><strong>Dica:</strong> ${questao.dica}</p>`
+          : ""
+      }
+
+    </div>
+
+  `;
+
+
+  const alternativesContainer =
+    article.querySelector(".alternatives");
+
+  const result =
+    article.querySelector(".result");
+
+  const explanation =
+    article.querySelector(".explanation");
+
+
+  result.hidden = true;
+
+
+  alternativas.forEach((alternativa) => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "alternative";
+
+    button.textContent =
+      `${alternativa.letra}) ${alternativa.texto}`;
+
+
+    button.addEventListener("click", () => {
+
+      responderQuestao(
+        alternativa.letra,
+        questao.resposta_correta,
+        alternativesContainer,
+        result,
+        explanation
+      );
+
+    });
+
+
+    alternativesContainer.appendChild(button);
+
+  });
+
+
+  container.appendChild(article);
+
+}
+
+
+function responderQuestao(
+  resposta,
+  correta,
+  alternativesContainer,
+  result,
+  explanation
+) {
+
+  const botoes =
+    alternativesContainer.querySelectorAll(
+      ".alternative"
+    );
+
+
+  botoes.forEach((botao) => {
+
+    botao.disabled = true;
+
+    const letra =
+      botao.textContent.charAt(0);
+
+
+    if (letra === correta) {
+
+      botao.classList.add("correct");
+
+    }
+
+  });
+
+
+  if (resposta === correta) {
+
+    const botaoSelecionado =
+      [...botoes].find(
+        botao =>
+          botao.textContent.charAt(0) === resposta
+      );
+
+    if (botaoSelecionado) {
+
+      botaoSelecionado.classList.add("correct");
+
+    }
+
+
+    result.hidden = false;
+
+    result.className =
+      "result correct";
+
+    result.innerHTML =
+      "<strong>✅ Você acertou!</strong>";
+
+  } else {
+
+    const botaoSelecionado =
+      [...botoes].find(
+        botao =>
+          botao.textContent.charAt(0) === resposta
+      );
+
+    if (botaoSelecionado) {
+
+      botaoSelecionado.classList.add("wrong");
+
+    }
+
+
+    result.hidden = false;
+
+    result.className =
+      "result wrong";
+
+    result.innerHTML =
+      "<strong>❌ Você errou.</strong> A alternativa correta está marcada em verde.";
+
+  }
+
+
+  explanation.hidden = false;
 
 }
 

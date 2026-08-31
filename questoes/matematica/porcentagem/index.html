@@ -160,19 +160,7 @@
 
 <script type="module">
 
-import { createClient } from
-"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
-
-
-const SUPABASE_URL =
-  "https://xmhuxjgsgsivqlkzrvml.supabase.co/rest/v1/";
-
-const SUPABASE_KEY =
-  "sb_publishable_4cxqEDZD5ENc66pZEtinJA_8yNKBshm";
-
-
-const supabase =
-  createClient(SUPABASE_URL, SUPABASE_KEY);
+import { supabase } from "../../../js/supabase.js";
 
 
 const container =

@@ -10,7 +10,7 @@
 
   <meta
     name="description"
-    content="Resolva exercícios de porcentagem com gabarito e explicação. Pratique descontos, aumentos e variações percentuais para ENEM e vestibulares."
+    content="Resolva exercícios de porcentagem com gabarito e explicação. Pratique para ENEM e vestibulares."
   >
 
   <link rel="stylesheet" href="../../../css/style.css">
@@ -28,14 +28,13 @@
 
     .alternative {
       width: 100%;
-      padding: 14px 16px;
+      padding: 15px;
       border: 1px solid #ddd;
       border-radius: 8px;
       background: white;
       text-align: left;
       cursor: pointer;
       font-size: 16px;
-      transition: .2s;
     }
 
     .alternative:hover:not(:disabled) {
@@ -45,15 +44,16 @@
 
     .alternative:disabled {
       cursor: default;
+      opacity: 1;
     }
 
     .alternative.correct {
-      background: #e8f7ed;
+      background: #dff5e7;
       border-color: #22a05a;
     }
 
     .alternative.wrong {
-      background: #fdeaea;
+      background: #fde2e2;
       border-color: #dc3545;
     }
 
@@ -64,11 +64,11 @@
     }
 
     .result.correct {
-      background: #e8f7ed;
+      background: #dff5e7;
     }
 
     .result.wrong {
-      background: #fdeaea;
+      background: #fde2e2;
     }
 
     .explanation {
@@ -76,6 +76,20 @@
       padding: 15px;
       background: #f6f7fb;
       border-radius: 8px;
+    }
+
+    .loading {
+      margin-top: 25px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .error {
+      margin-top: 25px;
+      padding: 20px;
+      background: #fde2e2;
+      border-radius: 10px;
     }
   </style>
 
@@ -120,7 +134,7 @@
     Escolha uma alternativa para responder.
   </p>
 
-  <div id="status">
+  <div id="status" class="loading">
     Carregando exercícios...
   </div>
 
@@ -146,7 +160,19 @@
 
 <script type="module">
 
-import { supabase } from "../../../js/supabase.js";
+import { createClient } from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+const SUPABASE_URL =
+  "https://xmhuxjgsgsivqlkzrvml.supabase.co/rest/v1/";
+
+const SUPABASE_KEY =
+  "sb_publishable_4cxqEDZD5ENc66pZEtinJA_8yNKBshm";
+
+
+const supabase =
+  createClient(SUPABASE_URL, SUPABASE_KEY);
 
 
 const container =
@@ -158,82 +184,72 @@ const status =
 
 async function carregarQuestoes() {
 
-  status.textContent = "Testando conexão com o banco...";
-
   try {
 
-    const resultado = await supabase
+    const { data, error } = await supabase
       .from("questoes")
-      .select("*");
+      .select("*")
+      .eq("materia", "Matemática")
+      .eq("assunto", "Porcentagem")
+      .order("id", { ascending: true });
 
-    console.log("Resultado Supabase:", resultado);
-
-    const { data, error } = resultado;
 
     if (error) {
-      status.textContent = "ERRO: " + error.message;
-      console.error(error);
+
+      console.error("Erro Supabase:", error);
+
+      status.className = "error";
+
+      status.textContent =
+        "Erro ao carregar questões: " +
+        error.message;
+
       return;
+
     }
+
 
     if (!data || data.length === 0) {
-      status.textContent = "Conectou ao Supabase, mas não encontrou questões.";
+
+      status.className = "loading";
+
+      status.textContent =
+        "Nenhuma questão de porcentagem encontrada.";
+
       return;
+
     }
 
-    status.textContent =
-      "Conexão funcionando! Encontradas " +
-      data.length +
-      " questão(ões).";
 
-    container.innerHTML = "";
+    status.className = "";
+
+    status.textContent =
+      data.length +
+      " exercício(s) encontrado(s).";
+
 
     data.forEach((questao, index) => {
 
-      const article = document.createElement("article");
-
-      article.className = "card question";
-
-      article.innerHTML = `
-        <h2>Questão ${index + 1} — ${questao.titulo}</h2>
-
-        <p>${questao.enunciado}</p>
-
-        <button class="alternative">
-          A) ${questao.alternativa_a}
-        </button>
-
-        <button class="alternative">
-          B) ${questao.alternativa_b}
-        </button>
-
-        <button class="alternative">
-          C) ${questao.alternativa_c}
-        </button>
-
-        <button class="alternative">
-          D) ${questao.alternativa_d}
-        </button>
-
-        <button class="alternative">
-          E) ${questao.alternativa_e}
-        </button>
-      `;
-
-      container.appendChild(article);
+      criarQuestao(questao, index);
 
     });
+
 
   } catch (erro) {
 
     console.error(erro);
 
+    status.className = "error";
+
     status.textContent =
-      "Erro inesperado: " + erro.message;
+      "Erro de conexão: " +
+      erro.message;
 
   }
 
 }
+
+
 function criarQuestao(questao, index) {
 
   const article =
@@ -241,36 +257,6 @@ function criarQuestao(questao, index) {
 
   article.className =
     "card question";
-
-
-  const alternativas = [
-
-    {
-      letra: "A",
-      texto: questao.alternativa_a
-    },
-
-    {
-      letra: "B",
-      texto: questao.alternativa_b
-    },
-
-    {
-      letra: "C",
-      texto: questao.alternativa_c
-    },
-
-    {
-      letra: "D",
-      texto: questao.alternativa_d
-    },
-
-    {
-      letra: "E",
-      texto: questao.alternativa_e
-    }
-
-  ];
 
 
   article.innerHTML = `
@@ -283,13 +269,35 @@ function criarQuestao(questao, index) {
       ${questao.enunciado}
     </p>
 
-    <div class="alternatives"></div>
+    <div class="alternatives">
 
-    <div class="result"></div>
+      <button class="alternative" data-answer="A">
+        A) ${questao.alternativa_a}
+      </button>
+
+      <button class="alternative" data-answer="B">
+        B) ${questao.alternativa_b}
+      </button>
+
+      <button class="alternative" data-answer="C">
+        C) ${questao.alternativa_c}
+      </button>
+
+      <button class="alternative" data-answer="D">
+        D) ${questao.alternativa_d}
+      </button>
+
+      <button class="alternative" data-answer="E">
+        E) ${questao.alternativa_e}
+      </button>
+
+    </div>
+
+    <div class="result" hidden></div>
 
     <div class="explanation" hidden>
 
-      <strong>Explicação:</strong>
+      <strong>Explicação</strong>
 
       <p>
         ${questao.explicacao || "Explicação não disponível."}
@@ -306,8 +314,8 @@ function criarQuestao(questao, index) {
   `;
 
 
-  const alternativesContainer =
-    article.querySelector(".alternatives");
+  const botoes =
+    article.querySelectorAll(".alternative");
 
   const result =
     article.querySelector(".result");
@@ -316,125 +324,67 @@ function criarQuestao(questao, index) {
     article.querySelector(".explanation");
 
 
-  result.hidden = true;
+  botoes.forEach((botao) => {
+
+    botao.addEventListener("click", () => {
+
+      const resposta =
+        botao.dataset.answer;
+
+      const correta =
+        String(questao.resposta_correta)
+          .trim()
+          .toUpperCase();
 
 
-  alternativas.forEach((alternativa) => {
+      botoes.forEach((b) => {
 
-    const button =
-      document.createElement("button");
+        b.disabled = true;
 
-    button.className =
-      "alternative";
+        if (
+          b.dataset.answer === correta
+        ) {
 
-    button.textContent =
-      `${alternativa.letra}) ${alternativa.texto}`;
+          b.classList.add("correct");
+
+        }
+
+      });
 
 
-    button.addEventListener("click", () => {
+      if (resposta === correta) {
 
-      responderQuestao(
-        alternativa.letra,
-        questao.resposta_correta,
-        alternativesContainer,
-        result,
-        explanation
-      );
+        botao.classList.add("correct");
+
+        result.className =
+          "result correct";
+
+        result.innerHTML =
+          "<strong>✅ Você acertou!</strong>";
+
+      } else {
+
+        botao.classList.add("wrong");
+
+        result.className =
+          "result wrong";
+
+        result.innerHTML =
+          "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
+
+      }
+
+
+      result.hidden = false;
+
+      explanation.hidden = false;
 
     });
-
-
-    alternativesContainer.appendChild(button);
 
   });
 
 
   container.appendChild(article);
-
-}
-
-
-function responderQuestao(
-  resposta,
-  correta,
-  alternativesContainer,
-  result,
-  explanation
-) {
-
-  const botoes =
-    alternativesContainer.querySelectorAll(
-      ".alternative"
-    );
-
-
-  botoes.forEach((botao) => {
-
-    botao.disabled = true;
-
-    const letra =
-      botao.textContent.charAt(0);
-
-
-    if (letra === correta) {
-
-      botao.classList.add("correct");
-
-    }
-
-  });
-
-
-  if (resposta === correta) {
-
-    const botaoSelecionado =
-      [...botoes].find(
-        botao =>
-          botao.textContent.charAt(0) === resposta
-      );
-
-    if (botaoSelecionado) {
-
-      botaoSelecionado.classList.add("correct");
-
-    }
-
-
-    result.hidden = false;
-
-    result.className =
-      "result correct";
-
-    result.innerHTML =
-      "<strong>✅ Você acertou!</strong>";
-
-  } else {
-
-    const botaoSelecionado =
-      [...botoes].find(
-        botao =>
-          botao.textContent.charAt(0) === resposta
-      );
-
-    if (botaoSelecionado) {
-
-      botaoSelecionado.classList.add("wrong");
-
-    }
-
-
-    result.hidden = false;
-
-    result.className =
-      "result wrong";
-
-    result.innerHTML =
-      "<strong>❌ Você errou.</strong> A alternativa correta está marcada em verde.";
-
-  }
-
-
-  explanation.hidden = false;
 
 }
 

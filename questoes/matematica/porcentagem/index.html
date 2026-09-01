@@ -6,11 +6,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Exercícios de Porcentagem com Gabarito | AprovaQuest</title>
+  <title>Exercícios de Porcentagem | AprovaQuest</title>
 
   <meta
     name="description"
-    content="Resolva exercícios de porcentagem com gabarito e explicação. Pratique para ENEM e vestibulares."
+    content="Resolva exercícios de porcentagem para ENEM e vestibulares."
   >
 
   <link rel="stylesheet" href="../../../css/style.css">
@@ -173,29 +173,35 @@ const status =
 
 async function carregarQuestoes() {
 
+  status.textContent =
+    "Conectando ao banco...";
+
+
   try {
 
-    status.textContent =
-      "Conectando ao banco de questões...";
+    /*
+      TESTE:
+      Primeiro vamos buscar todas as questões,
+      sem filtros.
+    */
+
+    const { data, error } =
+      await supabase
+        .from("questoes")
+        .select("*");
 
 
-    const { data, error } = await supabase
-      .from("questoes")
-      .select("*")
-      .eq("materia", "Matemática")
-      .eq("assunto", "Porcentagem")
-      .order("id", { ascending: true });
+    console.log("DADOS:", data);
+    console.log("ERRO:", error);
 
 
     if (error) {
 
-      console.error("Erro Supabase:", error);
-
       status.className = "error";
 
       status.textContent =
-        "Erro ao carregar questões: " +
-        error.message;
+        "Erro Supabase: " +
+        (error.message || "erro desconhecido");
 
       return;
 
@@ -207,7 +213,7 @@ async function carregarQuestoes() {
       status.className = "loading";
 
       status.textContent =
-        "Nenhuma questão de porcentagem encontrada.";
+        "O Supabase respondeu, mas a tabela está vazia.";
 
       return;
 
@@ -217,9 +223,15 @@ async function carregarQuestoes() {
     status.className = "";
 
     status.textContent =
+      "Conexão funcionando! " +
       data.length +
-      " exercício(s) encontrado(s).";
+      " questão(ões) encontrada(s).";
 
+
+    /*
+      Por enquanto mostramos TODAS as questões.
+      Depois vamos colocar o filtro de Porcentagem.
+    */
 
     data.forEach((questao, index) => {
 
@@ -230,7 +242,7 @@ async function carregarQuestoes() {
 
   } catch (erro) {
 
-    console.error("Erro:", erro);
+    console.error("ERRO GERAL:", erro);
 
     status.className = "error";
 
@@ -255,33 +267,34 @@ function criarQuestao(questao, index) {
   article.innerHTML = `
 
     <h2>
-      Questão ${index + 1} — ${questao.titulo || "Porcentagem"}
+      Questão ${index + 1} —
+      ${questao.titulo || "Questão"}
     </h2>
 
     <p>
-      ${questao.enunciado}
+      ${questao.enunciado || ""}
     </p>
 
     <div class="alternatives">
 
       <button class="alternative" data-answer="A">
-        A) ${questao.alternativa_a}
+        A) ${questao.alternativa_a || ""}
       </button>
 
       <button class="alternative" data-answer="B">
-        B) ${questao.alternativa_b}
+        B) ${questao.alternativa_b || ""}
       </button>
 
       <button class="alternative" data-answer="C">
-        C) ${questao.alternativa_c}
+        C) ${questao.alternativa_c || ""}
       </button>
 
       <button class="alternative" data-answer="D">
-        D) ${questao.alternativa_d}
+        D) ${questao.alternativa_d || ""}
       </button>
 
       <button class="alternative" data-answer="E">
-        E) ${questao.alternativa_e}
+        E) ${questao.alternativa_e || ""}
       </button>
 
     </div>
@@ -290,7 +303,7 @@ function criarQuestao(questao, index) {
 
     <div class="explanation" hidden>
 
-      <strong>Explicação</strong>
+      <strong>Explicação:</strong>
 
       <p>
         ${questao.explicacao || "Explicação não disponível."}
@@ -324,17 +337,22 @@ function criarQuestao(questao, index) {
       const resposta =
         botao.dataset.answer;
 
+
       const correta =
-        String(questao.resposta_correta || "")
-          .trim()
-          .toUpperCase();
+        String(
+          questao.resposta_correta || ""
+        )
+        .trim()
+        .toUpperCase();
 
 
       botoes.forEach((b) => {
 
         b.disabled = true;
 
-        if (b.dataset.answer === correta) {
+        if (
+          b.dataset.answer === correta
+        ) {
 
           b.classList.add("correct");
 

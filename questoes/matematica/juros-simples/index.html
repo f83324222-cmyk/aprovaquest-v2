@@ -21,9 +21,31 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
       margin-top: 25px;
     }
 
+    .filter-box {
+      margin-top: 25px;
+      padding: 18px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .filter-box label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .filter-box select {
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      background: white;
+    }
+
     .difficulty {
       display: inline-block;
       margin-top: 8px;
+      margin-bottom: 10px;
       padding: 5px 10px;
       border-radius: 6px;
       background: #f0f0f0;
@@ -105,6 +127,13 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
       color: #8b0000;
       word-break: break-word;
     }
+
+    .no-results {
+      margin-top: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+    }
   </style>
 
 </head>
@@ -149,6 +178,36 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
     Escolha uma alternativa para responder.
   </p>
 
+  <div class="filter-box">
+
+```
+<label for="filtro-dificuldade">
+  Filtrar por dificuldade:
+</label>
+
+<select id="filtro-dificuldade">
+
+  <option value="Todas">
+    Todas
+  </option>
+
+  <option value="Fácil">
+    Fácil
+  </option>
+
+  <option value="Médio">
+    Médio
+  </option>
+
+  <option value="Difícil">
+    Difícil
+  </option>
+
+</select>
+```
+
+  </div>
+
   <div id="status" class="loading">
     Conectando ao banco de questões...
   </div>
@@ -181,6 +240,12 @@ const container =
 
 const status =
   document.getElementById("status");
+
+const filtro =
+  document.getElementById("filtro-dificuldade");
+
+
+let todasQuestoes = [];
 
 
 async function carregarQuestoes() {
@@ -251,17 +316,11 @@ async function carregarQuestoes() {
     }
 
 
+    todasQuestoes = data;
+
     status.className = "";
 
-    status.textContent =
-      `${data.length} questão(ões) encontrada(s).`;
-
-
-    data.forEach((questao, index) => {
-
-      criarQuestao(questao, index);
-
-    });
+    atualizarQuestoes();
 
 
   } catch (erro) {
@@ -276,6 +335,57 @@ async function carregarQuestoes() {
     `;
 
   }
+
+}
+
+
+function atualizarQuestoes() {
+
+  container.innerHTML = "";
+
+
+  const dificuldadeSelecionada =
+    filtro.value;
+
+
+  const questoesFiltradas =
+    dificuldadeSelecionada === "Todas"
+      ? todasQuestoes
+      : todasQuestoes.filter((questao) =>
+          String(questao.dificuldade || "")
+            .trim()
+            .toLowerCase() ===
+          dificuldadeSelecionada.toLowerCase()
+        );
+
+
+  status.className = "";
+
+  status.textContent =
+    `${questoesFiltradas.length} questão(ões) encontrada(s).`;
+
+
+  if (questoesFiltradas.length === 0) {
+
+    container.innerHTML = `
+      <div class="no-results">
+        <strong>Nenhuma questão encontrada.</strong>
+        <p>
+          Não há questões com essa dificuldade no momento.
+        </p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  questoesFiltradas.forEach((questao, index) => {
+
+    criarQuestao(questao, index);
+
+  });
 
 }
 
@@ -435,6 +545,13 @@ function criarQuestao(questao, index) {
   container.appendChild(article);
 
 }
+
+
+filtro.addEventListener("change", () => {
+
+  atualizarQuestoes();
+
+});
 
 
 carregarQuestoes();

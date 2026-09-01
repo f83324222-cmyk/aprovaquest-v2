@@ -1,4 +1,2 @@
-window.APROVAQUEST_CONFIG = {
-  SUPABASE_URL: "https://xmhuxjgsgsivqlkzrvml.supabase.co/rest/v1/",
-  SUPABASE_ANON_KEY: "sb_publishable_4cxqEDZD5ENc66pZEtinJA_8yNKBshm"
-};
+export const SUPABASE_URL = "https://xmhuxjgsgsivqlkzrvml.supabase.co/rest/v1/";
+export const SUPABASE_ANON_KEY = "sb_publishable_4cxqEDZD5ENc66pZEtinJA_8yNKBshm";

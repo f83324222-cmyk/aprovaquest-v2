@@ -173,6 +173,22 @@
 
 
     /* =========================
+       MENSAGEM PARA INICIAR
+    ========================= */
+
+    .start-message {
+      margin-top: 12px;
+      padding: 10px 15px;
+      background: #fff3cd;
+      border: 1px solid #ffecb5;
+      border-radius: 8px;
+      color: #664d03;
+      font-weight: bold;
+      text-align: center;
+    }
+
+
+    /* =========================
        PROGRESSO
     ========================= */
 
@@ -600,6 +616,15 @@
 
     </button>
 
+
+    <div
+      id="mensagem-iniciar"
+      class="start-message">
+
+      🔒 Inicie a prova para marcar as questões.
+
+    </div>
+
   </section>
 
 
@@ -754,6 +779,11 @@ const botaoEmbaralhar =
 const botaoIniciar =
   document.getElementById(
     "iniciar-prova"
+  );
+
+const mensagemIniciar =
+  document.getElementById(
+    "mensagem-iniciar"
   );
 
 const botaoTentarNovamente =
@@ -917,7 +947,9 @@ function atualizarCronometroVisual() {
   );
 
 
-  if (segundosRestantes <= 60) {
+  if (
+    segundosRestantes <= 60
+  ) {
 
     cronometro.classList.add(
       "danger"
@@ -966,7 +998,12 @@ function iniciarCronometro() {
 
   provaIniciada = true;
 
+
   botaoIniciar.style.display =
+    "none";
+
+
+  mensagemIniciar.style.display =
     "none";
 
 
@@ -1148,6 +1185,10 @@ function resetarProva() {
 
 
   botaoIniciar.style.display =
+    "block";
+
+
+  mensagemIniciar.style.display =
     "block";
 
 
@@ -1361,6 +1402,10 @@ function atualizarQuestoes() {
       "none";
 
 
+    mensagemIniciar.style.display =
+      "none";
+
+
     return;
 
   }
@@ -1378,13 +1423,13 @@ function atualizarQuestoes() {
   );
 
 
+  status.className =
+    "loading";
+
+
   status.textContent =
     questoesAtuais.length +
     " questão(ões) encontrada(s).";
-
-
-  status.className =
-    "loading";
 
 
   atualizarProgresso();
@@ -1693,6 +1738,7 @@ tempoProva.addEventListener(
   () => {
 
     resetarProva();
+
 
     if (
       questoesAtuais.length > 0

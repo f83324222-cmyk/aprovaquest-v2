@@ -16,8 +16,214 @@
   <link rel="stylesheet" href="../../../css/style.css">
 
   <style>
+
+    /* =========================
+       DESEMPENHO
+    ========================= */
+
+    .score-box,
+    .filter-box,
+    .timer-box,
+    .progress-box,
+    .resultado-final {
+      margin-top: 20px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    .score-box h2 {
+      margin-top: 0;
+    }
+
+    .score-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .score-item {
+      text-align: center;
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+
+    .score-item strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .retry-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .retry-button,
+    .start-button,
+    .shuffle-button {
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .retry-button {
+      background: #333;
+      color: white;
+    }
+
+    .start-button {
+      background: #198754;
+      color: white;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .start-button:hover {
+      background: #157347;
+    }
+
+    .shuffle-button {
+      background: #0d6efd;
+      color: white;
+      margin-top: 15px;
+    }
+
+    .shuffle-button:hover {
+      background: #0b5ed7;
+    }
+
+
+    /* =========================
+       FILTROS
+    ========================= */
+
+    .filter-box h3 {
+      margin-top: 0;
+    }
+
+    .filter-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .filter-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .filter-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: white;
+      font-size: 15px;
+    }
+
+
+    /* =========================
+       CRONÔMETRO
+    ========================= */
+
+    .timer-box {
+      text-align: center;
+    }
+
+    .timer-label {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .timer {
+      font-size: 42px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .timer.warning {
+      color: #e67e22;
+    }
+
+    .timer.danger {
+      color: #dc3545;
+      animation: pulseTimer 1s infinite;
+    }
+
+    @keyframes pulseTimer {
+
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+    }
+
+
+    /* =========================
+       PROGRESSO
+    ========================= */
+
+    .progress-box {
+      position: sticky;
+      top: 10px;
+      z-index: 1000;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 14px;
+      background: #e9ecef;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #198754;
+      transition: width 0.3s ease;
+    }
+
+
+    /* =========================
+       QUESTÕES
+    ========================= */
+
     .question {
       margin-top: 25px;
+    }
+
+    .question h2 {
+      margin-bottom: 10px;
+    }
+
+    .difficulty {
+      margin-top: 8px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      color: #555;
     }
 
     .alternatives {
@@ -58,6 +264,11 @@
       border-color: #dc3545;
     }
 
+
+    /* =========================
+       RESULTADO
+    ========================= */
+
     .result {
       margin-top: 18px;
       padding: 15px;
@@ -79,6 +290,31 @@
       border-radius: 8px;
     }
 
+    .resultado-final {
+      display: none;
+      text-align: center;
+    }
+
+    .resultado-final h2 {
+      margin-top: 0;
+    }
+
+    .resultado-pontuacao {
+      font-size: 36px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .resultado-detalhes {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
     .loading {
       margin-top: 25px;
       padding: 20px;
@@ -94,11 +330,45 @@
       color: #8b0000;
       word-break: break-word;
     }
+
+    .no-results {
+      margin-top: 20px;
+      padding: 20px;
+      text-align: center;
+      background: white;
+      border-radius: 10px;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      .score-stats,
+      .filter-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .timer {
+        font-size: 34px;
+      }
+
+      .progress-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+    }
+
   </style>
 
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -117,17 +387,22 @@
 
 </header>
 
+
 <main>
 
 <section class="section">
 
 <div class="container">
 
+
+  <!-- BREADCRUMB -->
+
   <p>
     <a href="../../../">Início</a> →
     <a href="../../">Questões</a> →
     Matemática → Porcentagem
   </p>
+
 
   <h1>Exercícios de Porcentagem</h1>
 
@@ -136,17 +411,293 @@
     Escolha uma alternativa para responder.
   </p>
 
-  <div id="status" class="loading">
+
+  <!-- =========================
+       DESEMPENHO
+  ========================= -->
+
+  <section class="score-box">
+
+    <h2>📊 Seu desempenho</h2>
+
+    <div class="score-stats">
+
+      <div class="score-item">
+        <strong id="acertos">0</strong>
+        <span>✅ Acertos</span>
+      </div>
+
+      <div class="score-item">
+        <strong id="erros">0</strong>
+        <span>❌ Erros</span>
+      </div>
+
+      <div class="score-item">
+        <strong id="aproveitamento">0%</strong>
+        <span>🎯 Aproveitamento</span>
+      </div>
+
+    </div>
+
+
+    <div class="retry-box">
+
+      <button
+        id="tentar-novamente"
+        class="retry-button"
+        type="button">
+
+        🔄 Tentar novamente
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CONFIGURAÇÃO
+  ========================= -->
+
+  <section class="filter-box">
+
+    <h3>⚙️ Configurar prova</h3>
+
+
+    <div class="filter-controls">
+
+
+      <div class="filter-group">
+
+        <label for="filtro-dificuldade">
+          Dificuldade
+        </label>
+
+        <select id="filtro-dificuldade">
+
+          <option value="Todas">
+            Todas
+          </option>
+
+          <option value="Fácil">
+            Fácil
+          </option>
+
+          <option value="Médio">
+            Médio
+          </option>
+
+          <option value="Difícil">
+            Difícil
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label for="quantidade-questoes">
+          Quantidade
+        </label>
+
+        <select id="quantidade-questoes">
+
+          <option value="5">
+            5 questões
+          </option>
+
+          <option value="10">
+            10 questões
+          </option>
+
+          <option value="20">
+            20 questões
+          </option>
+
+          <option value="Todas">
+            Todas
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label for="tempo-prova">
+          Tempo da prova
+        </label>
+
+        <select id="tempo-prova">
+
+          <option value="5">
+            5 minutos
+          </option>
+
+          <option value="10">
+            10 minutos
+          </option>
+
+          <option value="20">
+            20 minutos
+          </option>
+
+          <option value="30" selected>
+            30 minutos
+          </option>
+
+        </select>
+
+      </div>
+
+
+    </div>
+
+
+    <button
+      id="embaralhar"
+      class="shuffle-button"
+      type="button">
+
+      🔀 Embaralhar questões
+
+    </button>
+
+  </section>
+
+
+  <!-- =========================
+       CRONÔMETRO
+  ========================= -->
+
+  <section
+    id="cronometro-box"
+    class="timer-box">
+
+    <div class="timer-label">
+      ⏱️ Tempo restante
+    </div>
+
+    <div
+      id="cronometro"
+      class="timer">
+
+      30:00
+
+    </div>
+
+
+    <button
+      id="iniciar-prova"
+      class="start-button"
+      type="button">
+
+      ▶️ Iniciar prova
+
+    </button>
+
+  </section>
+
+
+  <!-- =========================
+       PROGRESSO
+  ========================= -->
+
+  <section class="progress-box">
+
+    <div class="progress-top">
+
+      <span id="progresso-texto">
+        Questão 0 de 0
+      </span>
+
+      <span id="progresso-porcentagem">
+        0%
+      </span>
+
+    </div>
+
+
+    <div class="progress-bar">
+
+      <div
+        id="progresso-fill"
+        class="progress-fill">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STATUS -->
+
+  <div
+    id="status"
+    class="loading">
+
     Conectando ao banco de questões...
+
   </div>
 
+
+  <!-- QUESTÕES -->
+
   <section id="questoes-container"></section>
+
+
+  <!-- =========================
+       RESULTADO FINAL
+  ========================= -->
+
+  <section
+    id="resultado-final"
+    class="resultado-final">
+
+    <h2 id="resultado-titulo">
+      🎉 Quiz concluído!
+    </h2>
+
+    <p id="resultado-descricao">
+      Você respondeu todas as questões.
+    </p>
+
+    <div
+      id="resultado-pontuacao"
+      class="resultado-pontuacao">
+
+      0%
+
+    </div>
+
+    <div
+      id="resultado-detalhes"
+      class="resultado-detalhes">
+    </div>
+
+
+    <button
+      id="refazer-final"
+      class="retry-button"
+      type="button">
+
+      🔄 Fazer novamente
+
+    </button>
+
+  </section>
+
 
 </div>
 
 </section>
 
 </main>
+
 
 <footer class="footer">
 
@@ -161,39 +712,1078 @@
 
 <script type="module">
 
-import { supabase } from "/aprovaquest-v2/js/supabase.js";
 
+import { supabase }
+  from "/aprovaquest-v2/js/supabase.js";
+
+
+/* =========================
+   ELEMENTOS
+========================= */
 
 const container =
-  document.getElementById("questoes-container");
+  document.getElementById(
+    "questoes-container"
+  );
 
 const status =
-  document.getElementById("status");
+  document.getElementById(
+    "status"
+  );
 
+const filtroDificuldade =
+  document.getElementById(
+    "filtro-dificuldade"
+  );
+
+const quantidadeQuestoes =
+  document.getElementById(
+    "quantidade-questoes"
+  );
+
+const tempoProva =
+  document.getElementById(
+    "tempo-prova"
+  );
+
+const botaoEmbaralhar =
+  document.getElementById(
+    "embaralhar"
+  );
+
+const botaoIniciar =
+  document.getElementById(
+    "iniciar-prova"
+  );
+
+const botaoTentarNovamente =
+  document.getElementById(
+    "tentar-novamente"
+  );
+
+const cronometro =
+  document.getElementById(
+    "cronometro"
+  );
+
+const resultadoFinal =
+  document.getElementById(
+    "resultado-final"
+  );
+
+const resultadoTitulo =
+  document.getElementById(
+    "resultado-titulo"
+  );
+
+const resultadoDescricao =
+  document.getElementById(
+    "resultado-descricao"
+  );
+
+const resultadoPontuacao =
+  document.getElementById(
+    "resultado-pontuacao"
+  );
+
+const resultadoDetalhes =
+  document.getElementById(
+    "resultado-detalhes"
+  );
+
+const botaoRefazerFinal =
+  document.getElementById(
+    "refazer-final"
+  );
+
+const acertosElemento =
+  document.getElementById(
+    "acertos"
+  );
+
+const errosElemento =
+  document.getElementById(
+    "erros"
+  );
+
+const aproveitamentoElemento =
+  document.getElementById(
+    "aproveitamento"
+  );
+
+const progressoTexto =
+  document.getElementById(
+    "progresso-texto"
+  );
+
+const progressoPorcentagem =
+  document.getElementById(
+    "progresso-porcentagem"
+  );
+
+const progressoFill =
+  document.getElementById(
+    "progresso-fill"
+  );
+
+
+/* =========================
+   VARIÁVEIS
+========================= */
+
+let todasQuestoes = [];
+
+let questoesAtuais = [];
+
+let acertos = 0;
+
+let erros = 0;
+
+let intervaloCronometro = null;
+
+let segundosRestantes = 0;
+
+let provaIniciada = false;
+
+let provaEncerrada = false;
+
+
+/* =========================
+   EMBARALHAR
+========================= */
+
+function embaralharArray(array) {
+
+  const novoArray = [...array];
+
+  for (
+    let i = novoArray.length - 1;
+    i > 0;
+    i--
+  ) {
+
+    const j =
+      Math.floor(
+        Math.random() * (i + 1)
+      );
+
+    [
+      novoArray[i],
+      novoArray[j]
+    ] =
+    [
+      novoArray[j],
+      novoArray[i]
+    ];
+
+  }
+
+  return novoArray;
+
+}
+
+
+/* =========================
+   CRONÔMETRO
+========================= */
+
+function formatarTempo(segundos) {
+
+  const minutos =
+    Math.floor(segundos / 60);
+
+  const segundosFormatados =
+    segundos % 60;
+
+  return (
+    String(minutos).padStart(2, "0") +
+    ":" +
+    String(segundosFormatados).padStart(2, "0")
+  );
+
+}
+
+
+function atualizarCronometroVisual() {
+
+  cronometro.textContent =
+    formatarTempo(
+      segundosRestantes
+    );
+
+  cronometro.classList.remove(
+    "warning",
+    "danger"
+  );
+
+
+  if (segundosRestantes <= 60) {
+
+    cronometro.classList.add(
+      "danger"
+    );
+
+  } else if (
+    segundosRestantes <= 300
+  ) {
+
+    cronometro.classList.add(
+      "warning"
+    );
+
+  }
+
+}
+
+
+function pararCronometro() {
+
+  if (intervaloCronometro) {
+
+    clearInterval(
+      intervaloCronometro
+    );
+
+    intervaloCronometro = null;
+
+  }
+
+}
+
+
+function iniciarCronometro() {
+
+  if (
+    provaIniciada ||
+    provaEncerrada ||
+    questoesAtuais.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  provaIniciada = true;
+
+  botaoIniciar.style.display =
+    "none";
+
+
+  segundosRestantes =
+    Number(
+      tempoProva.value
+    ) * 60;
+
+
+  atualizarCronometroVisual();
+
+
+  intervaloCronometro =
+    setInterval(() => {
+
+      segundosRestantes--;
+
+      atualizarCronometroVisual();
+
+
+      if (
+        segundosRestantes <= 0
+      ) {
+
+        pararCronometro();
+
+        encerrarPorTempo();
+
+      }
+
+    }, 1000);
+
+}
+
+
+/* =========================
+   TEMPO ESGOTADO
+========================= */
+
+function encerrarPorTempo() {
+
+  provaEncerrada = true;
+
+
+  cronometro.textContent =
+    "00:00";
+
+
+  document
+    .querySelectorAll(
+      ".alternative"
+    )
+    .forEach(botao => {
+
+      botao.disabled = true;
+
+      botao.style.cursor =
+        "not-allowed";
+
+    });
+
+
+  resultadoTitulo.textContent =
+    "⏰ Tempo esgotado!";
+
+
+  resultadoDescricao.textContent =
+    "O tempo da prova acabou. Confira seu resultado abaixo.";
+
+
+  mostrarResultadoFinal();
+
+}
+
+
+/* =========================
+   DESEMPENHO
+========================= */
+
+function atualizarDesempenho() {
+
+  acertosElemento.textContent =
+    acertos;
+
+  errosElemento.textContent =
+    erros;
+
+
+  const totalRespondidas =
+    acertos + erros;
+
+
+  const aproveitamento =
+    totalRespondidas > 0
+      ? Math.round(
+          (
+            acertos /
+            totalRespondidas
+          ) * 100
+        )
+      : 0;
+
+
+  aproveitamentoElemento.textContent =
+    aproveitamento + "%";
+
+}
+
+
+/* =========================
+   PROGRESSO
+========================= */
+
+function atualizarProgresso() {
+
+  const total =
+    questoesAtuais.length;
+
+
+  const respondidas =
+    document.querySelectorAll(
+      ".alternative.respondida"
+    ).length;
+
+
+  const porcentagem =
+    total > 0
+      ? Math.round(
+          (
+            respondidas /
+            total
+          ) * 100
+        )
+      : 0;
+
+
+  progressoTexto.textContent =
+    `Questão ${respondidas} de ${total}`;
+
+
+  progressoPorcentagem.textContent =
+    porcentagem + "%";
+
+
+  progressoFill.style.width =
+    porcentagem + "%";
+
+}
+
+
+/* =========================
+   RESETAR PROVA
+========================= */
+
+function resetarProva() {
+
+  pararCronometro();
+
+
+  provaIniciada = false;
+
+  provaEncerrada = false;
+
+
+  acertos = 0;
+
+  erros = 0;
+
+
+  segundosRestantes =
+    Number(
+      tempoProva.value
+    ) * 60;
+
+
+  atualizarCronometroVisual();
+
+  atualizarDesempenho();
+
+
+  botaoIniciar.style.display =
+    "block";
+
+
+  resultadoFinal.style.display =
+    "none";
+
+
+  resultadoTitulo.textContent =
+    "🎉 Quiz concluído!";
+
+
+  resultadoDescricao.textContent =
+    "Você respondeu todas as questões.";
+
+}
+
+
+/* =========================
+   RESULTADO FINAL
+========================= */
+
+function mostrarResultadoFinal() {
+
+  pararCronometro();
+
+
+  const total =
+    questoesAtuais.length;
+
+
+  const porcentagem =
+    total > 0
+      ? Math.round(
+          (
+            acertos /
+            total
+          ) * 100
+        )
+      : 0;
+
+
+  resultadoPontuacao.textContent =
+    porcentagem + "%";
+
+
+  resultadoDetalhes.innerHTML = `
+
+    <p>
+      ✅ Acertos:
+      <strong>${acertos}</strong>
+    </p>
+
+    <p>
+      ❌ Erros:
+      <strong>${erros}</strong>
+    </p>
+
+    <p>
+      📝 Total de questões:
+      <strong>${total}</strong>
+    </p>
+
+  `;
+
+
+  resultadoFinal.style.display =
+    "block";
+
+}
+
+
+/* =========================
+   VERIFICAR FIM
+========================= */
+
+function verificarFim() {
+
+  if (provaEncerrada) {
+
+    return;
+
+  }
+
+
+  const respondidas =
+    document.querySelectorAll(
+      ".alternative.respondida"
+    ).length;
+
+
+  if (
+    respondidas >=
+    questoesAtuais.length
+  ) {
+
+    provaEncerrada = true;
+
+    pararCronometro();
+
+
+    resultadoTitulo.textContent =
+      "🎉 Quiz concluído!";
+
+
+    resultadoDescricao.textContent =
+      "Você respondeu todas as questões.";
+
+
+    mostrarResultadoFinal();
+
+  }
+
+}
+
+
+/* =========================
+   FILTRAR QUESTÕES
+========================= */
+
+function obterQuestoesFiltradas() {
+
+  const dificuldade =
+    filtroDificuldade.value;
+
+
+  let filtradas =
+    [...todasQuestoes];
+
+
+  if (
+    dificuldade !== "Todas"
+  ) {
+
+    filtradas =
+      filtradas.filter(
+        questao =>
+          String(
+            questao.dificuldade || ""
+          )
+          .toLowerCase() ===
+          dificuldade.toLowerCase()
+      );
+
+  }
+
+
+  filtradas =
+    embaralharArray(
+      filtradas
+    );
+
+
+  const quantidade =
+    quantidadeQuestoes.value;
+
+
+  if (
+    quantidade !== "Todas"
+  ) {
+
+    filtradas =
+      filtradas.slice(
+        0,
+        Number(quantidade)
+      );
+
+  }
+
+
+  return filtradas;
+
+}
+
+
+/* =========================
+   MOSTRAR QUESTÕES
+========================= */
+
+function atualizarQuestoes() {
+
+  resetarProva();
+
+
+  questoesAtuais =
+    obterQuestoesFiltradas();
+
+
+  container.innerHTML = "";
+
+
+  atualizarProgresso();
+
+
+  if (
+    questoesAtuais.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="no-results">
+
+        Nenhuma questão encontrada
+        para esse filtro.
+
+      </div>
+
+    `;
+
+
+    botaoIniciar.style.display =
+      "none";
+
+
+    return;
+
+  }
+
+
+  questoesAtuais.forEach(
+    (questao, index) => {
+
+      criarQuestao(
+        questao,
+        index
+      );
+
+    }
+  );
+
+
+  status.textContent =
+    questoesAtuais.length +
+    " questão(ões) encontrada(s).";
+
+
+  status.className =
+    "loading";
+
+
+  atualizarProgresso();
+
+}
+
+
+/* =========================
+   CRIAR QUESTÃO
+========================= */
+
+function criarQuestao(
+  questao,
+  index
+) {
+
+  const article =
+    document.createElement(
+      "article"
+    );
+
+
+  article.className =
+    "card question";
+
+
+  article.innerHTML = `
+
+    <h2>
+
+      Questão ${index + 1} —
+      ${questao.titulo || "Questão"}
+
+    </h2>
+
+
+    <div class="difficulty">
+
+      Dificuldade:
+      ${questao.dificuldade || "Não informada"}
+
+    </div>
+
+
+    <p>
+
+      ${questao.enunciado || ""}
+
+    </p>
+
+
+    <div class="alternatives">
+
+
+      <button
+        class="alternative"
+        data-answer="A">
+
+        A) ${questao.alternativa_a || ""}
+
+      </button>
+
+
+      <button
+        class="alternative"
+        data-answer="B">
+
+        B) ${questao.alternativa_b || ""}
+
+      </button>
+
+
+      <button
+        class="alternative"
+        data-answer="C">
+
+        C) ${questao.alternativa_c || ""}
+
+      </button>
+
+
+      <button
+        class="alternative"
+        data-answer="D">
+
+        D) ${questao.alternativa_d || ""}
+
+      </button>
+
+
+      <button
+        class="alternative"
+        data-answer="E">
+
+        E) ${questao.alternativa_e || ""}
+
+      </button>
+
+
+    </div>
+
+
+    <div
+      class="result"
+      hidden>
+    </div>
+
+
+    <div
+      class="explanation"
+      hidden>
+
+      <strong>
+        Explicação:
+      </strong>
+
+      <p>
+
+        ${
+          questao.explicacao ||
+          "Explicação não disponível."
+        }
+
+      </p>
+
+
+      ${
+        questao.dica
+          ? `
+            <p>
+              <strong>Dica:</strong>
+              ${questao.dica}
+            </p>
+          `
+          : ""
+      }
+
+    </div>
+
+  `;
+
+
+  const botoes =
+    article.querySelectorAll(
+      ".alternative"
+    );
+
+
+  const result =
+    article.querySelector(
+      ".result"
+    );
+
+
+  const explanation =
+    article.querySelector(
+      ".explanation"
+    );
+
+
+  botoes.forEach(
+    (botao) => {
+
+      botao.addEventListener(
+        "click",
+        () => {
+
+
+          if (
+            !provaIniciada ||
+            provaEncerrada ||
+            botao.classList.contains(
+              "respondida"
+            )
+          ) {
+
+            return;
+
+          }
+
+
+          const resposta =
+            botao.dataset.answer;
+
+
+          const correta =
+            String(
+              questao.resposta_correta || ""
+            )
+            .trim()
+            .toUpperCase();
+
+
+          botoes.forEach(
+            (b) => {
+
+              b.disabled = true;
+
+              b.classList.add(
+                "respondida"
+              );
+
+
+              if (
+                b.dataset.answer ===
+                correta
+              ) {
+
+                b.classList.add(
+                  "correct"
+                );
+
+              }
+
+            }
+          );
+
+
+          if (
+            resposta ===
+            correta
+          ) {
+
+            acertos++;
+
+
+            botao.classList.add(
+              "correct"
+            );
+
+
+            result.className =
+              "result correct";
+
+
+            result.innerHTML =
+              "<strong>✅ Você acertou!</strong>";
+
+
+          } else {
+
+            erros++;
+
+
+            botao.classList.add(
+              "wrong"
+            );
+
+
+            result.className =
+              "result wrong";
+
+
+            result.innerHTML =
+              "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
+
+          }
+
+
+          result.hidden =
+            false;
+
+
+          explanation.hidden =
+            false;
+
+
+          atualizarDesempenho();
+
+          atualizarProgresso();
+
+          verificarFim();
+
+        }
+      );
+
+    }
+  );
+
+
+  container.appendChild(
+    article
+  );
+
+}
+
+
+/* =========================
+   EVENTOS
+========================= */
+
+filtroDificuldade.addEventListener(
+  "change",
+  atualizarQuestoes
+);
+
+
+quantidadeQuestoes.addEventListener(
+  "change",
+  atualizarQuestoes
+);
+
+
+tempoProva.addEventListener(
+  "change",
+  () => {
+
+    resetarProva();
+
+    if (
+      questoesAtuais.length > 0
+    ) {
+
+      segundosRestantes =
+        Number(
+          tempoProva.value
+        ) * 60;
+
+      atualizarCronometroVisual();
+
+    }
+
+  }
+);
+
+
+botaoEmbaralhar.addEventListener(
+  "click",
+  atualizarQuestoes
+);
+
+
+botaoIniciar.addEventListener(
+  "click",
+  iniciarCronometro
+);
+
+
+botaoTentarNovamente.addEventListener(
+  "click",
+  atualizarQuestoes
+);
+
+
+botaoRefazerFinal.addEventListener(
+  "click",
+  atualizarQuestoes
+);
+
+
+/* =========================
+   CARREGAR QUESTÕES
+========================= */
 
 async function carregarQuestoes() {
 
   try {
 
-    /*
-      TESTE DE CONEXÃO
+    status.textContent =
+      "Conectando ao banco de questões...";
 
-      Aqui buscamos todas as questões.
-      Não usamos filtros ainda.
-    */
 
     const resposta =
       await supabase
         .from("questoes")
-        .select("*");
+        .select("*")
+        .eq(
+          "materia",
+          "Matemática"
+        )
+        .eq(
+          "assunto",
+          "Porcentagem"
+        )
+        .order(
+          "id",
+          {
+            ascending: true
+          }
+        );
 
 
-    const data = resposta.data;
-    const error = resposta.error;
+    const data =
+      resposta.data;
+
+    const error =
+      resposta.error;
 
 
-    console.log("SUPABASE DATA:", data);
-    console.log("SUPABASE ERROR:", error);
+    console.log(
+      "SUPABASE DATA:",
+      data
+    );
+
+    console.log(
+      "SUPABASE ERROR:",
+      error
+    );
+
 
     if (error) {
 
@@ -218,63 +1808,96 @@ async function carregarQuestoes() {
       );
 
 
-      status.className = "error";
+      status.className =
+        "error";
+
 
       status.innerHTML = `
-        <strong>Erro ao conectar ao banco.</strong>
+
+        <strong>
+          Erro ao conectar ao banco.
+        </strong>
 
         <p>
+
           <strong>Código:</strong>
           ${error.code || "não informado"}
+
         </p>
 
+
         <p>
+
           <strong>Mensagem:</strong>
           ${error.message || "não informado"}
+
         </p>
+
 
         ${
           error.details
-            ? `<p><strong>Detalhes:</strong> ${error.details}</p>`
+            ? `
+              <p>
+                <strong>Detalhes:</strong>
+                ${error.details}
+              </p>
+            `
             : ""
         }
+
 
         ${
           error.hint
-            ? `<p><strong>Dica:</strong> ${error.hint}</p>`
+            ? `
+              <p>
+                <strong>Dica:</strong>
+                ${error.hint}
+              </p>
+            `
             : ""
         }
+
       `;
 
+
       return;
+
     }
 
 
-    if (!data || data.length === 0) {
+    if (
+      !data ||
+      data.length === 0
+    ) {
 
-      status.className = "loading";
+      status.className =
+        "loading";
+
 
       status.innerHTML = `
-        <strong>Conexão funcionando!</strong>
-        <p>Porém, a tabela "questoes" não possui registros.</p>
+
+        <strong>
+          Nenhuma questão encontrada.
+        </strong>
+
+        <p>
+          Verifique se existem questões
+          de Porcentagem no banco.
+        </p>
+
       `;
 
+
       return;
+
     }
 
 
-    status.className = "";
-
-    status.textContent =
-      data.length +
-      " questão(ões) encontrada(s).";
+    todasQuestoes =
+      data;
 
 
-    data.forEach((questao, index) => {
-
-      criarQuestao(questao, index);
-
-    });
+    atualizarQuestoes();
 
 
   } catch (erro) {
@@ -284,167 +1907,24 @@ async function carregarQuestoes() {
       erro
     );
 
-    status.className = "error";
+
+    status.className =
+      "error";
+
 
     status.innerHTML = `
-      <strong>Erro inesperado.</strong>
-      <p>${erro.message || erro}</p>
+
+      <strong>
+        Erro inesperado.
+      </strong>
+
+      <p>
+        ${erro.message || erro}
+      </p>
+
     `;
 
   }
-
-}
-
-
-function criarQuestao(questao, index) {
-
-  const article =
-    document.createElement("article");
-
-  article.className =
-    "card question";
-
-
-  article.innerHTML = `
-
-    <h2>
-      Questão ${index + 1} —
-      ${questao.titulo || "Questão"}
-    </h2>
-
-    <p>
-      ${questao.enunciado || ""}
-    </p>
-
-    <div class="alternatives">
-
-      <button
-        class="alternative"
-        data-answer="A">
-        A) ${questao.alternativa_a || ""}
-      </button>
-
-      <button
-        class="alternative"
-        data-answer="B">
-        B) ${questao.alternativa_b || ""}
-      </button>
-
-      <button
-        class="alternative"
-        data-answer="C">
-        C) ${questao.alternativa_c || ""}
-      </button>
-
-      <button
-        class="alternative"
-        data-answer="D">
-        D) ${questao.alternativa_d || ""}
-      </button>
-
-      <button
-        class="alternative"
-        data-answer="E">
-        E) ${questao.alternativa_e || ""}
-      </button>
-
-    </div>
-
-    <div class="result" hidden></div>
-
-    <div class="explanation" hidden>
-
-      <strong>Explicação:</strong>
-
-      <p>
-        ${questao.explicacao || "Explicação não disponível."}
-      </p>
-
-      ${
-        questao.dica
-          ? `<p><strong>Dica:</strong> ${questao.dica}</p>`
-          : ""
-      }
-
-    </div>
-
-  `;
-
-
-  const botoes =
-    article.querySelectorAll(".alternative");
-
-  const result =
-    article.querySelector(".result");
-
-  const explanation =
-    article.querySelector(".explanation");
-
-
-  botoes.forEach((botao) => {
-
-    botao.addEventListener("click", () => {
-
-      const resposta =
-        botao.dataset.answer;
-
-
-      const correta =
-        String(
-          questao.resposta_correta || ""
-        )
-        .trim()
-        .toUpperCase();
-
-
-      botoes.forEach((b) => {
-
-        b.disabled = true;
-
-        if (
-          b.dataset.answer === correta
-        ) {
-
-          b.classList.add("correct");
-
-        }
-
-      });
-
-
-      if (resposta === correta) {
-
-        botao.classList.add("correct");
-
-        result.className =
-          "result correct";
-
-        result.innerHTML =
-          "<strong>✅ Você acertou!</strong>";
-
-      } else {
-
-        botao.classList.add("wrong");
-
-        result.className =
-          "result wrong";
-
-        result.innerHTML =
-          "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
-
-      }
-
-
-      result.hidden = false;
-
-      explanation.hidden = false;
-
-    });
-
-  });
-
-
-  container.appendChild(article);
 
 }
 

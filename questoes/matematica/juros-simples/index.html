@@ -1,144 +1,228 @@
 ```html
-<script type="module">
-  import { supabase } from "/aprovaquest-v2/js/supabase.js";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  const container = document.getElementById("questoes-container");
-  const status = document.getElementById("status");
+  <title>Exercícios de Juros Simples</title>
 
-  async function carregarQuestoes() {
-    try {
-      status.textContent = "Carregando questão...";
+  <link rel="stylesheet" href="/aprovaquest-v2/css/style.css">
+</head>
 
-      const { data, error } = await supabase
-        .from("questoes")
-        .select("*")
-        .eq("id", 4);
+<body>
 
-      console.log("QUESTÃO ID 4:", data);
-      console.log("ERRO:", error);
+  <main class="container">
 
-      if (error) {
-        status.textContent = "Erro: " + error.message;
-        return;
-      }
+    <h1>Exercícios de Juros Simples</h1>
 
-      if (!data || data.length === 0) {
-        status.textContent = "Questão ID 4 não encontrada.";
-        return;
-      }
+    <p id="status">Carregando questão...</p>
 
-      status.textContent = "Questão de Juros Simples encontrada!";
+    <div id="questoes-container"></div>
 
-      container.innerHTML = "";
+  </main>
 
-      data.forEach((questao, index) => {
-        criarQuestao(questao, index);
-      });
+  <script type="module">
 
-    } catch (erro) {
-      console.error(erro);
-      status.textContent = "Erro ao carregar a questão.";
-    }
-  }
+    import { supabase } from "/aprovaquest-v2/js/supabase.js";
 
-  function criarQuestao(questao, index) {
+    const container = document.getElementById("questoes-container");
+    const status = document.getElementById("status");
 
-    const article = document.createElement("article");
-    article.className = "card question";
+    async function carregarQuestoes() {
 
-    article.innerHTML = `
-      <h2>Questão ${index + 1} — ${questao.titulo || "Juros Simples"}</h2>
+      try {
 
-      <p>${questao.enunciado || ""}</p>
+        status.textContent = "Carregando questão...";
 
-      <div class="alternatives">
+        const { data, error } = await supabase
+          .from("questoes")
+          .select("*")
+          .eq("id", 4);
 
-        <button class="alternative" data-answer="A">
-          A) ${questao.alternativa_a || ""}
-        </button>
+        console.log("QUESTÃO ID 4:", data);
+        console.log("ERRO:", error);
 
-        <button class="alternative" data-answer="B">
-          B) ${questao.alternativa_b || ""}
-        </button>
+        if (error) {
 
-        <button class="alternative" data-answer="C">
-          C) ${questao.alternativa_c || ""}
-        </button>
+          status.textContent = "Erro: " + error.message;
 
-        <button class="alternative" data-answer="D">
-          D) ${questao.alternativa_d || ""}
-        </button>
-
-        <button class="alternative" data-answer="E">
-          E) ${questao.alternativa_e || ""}
-        </button>
-
-      </div>
-
-      <div class="result" hidden></div>
-
-      <div class="explanation" hidden>
-        <strong>Explicação:</strong>
-
-        <p>${questao.explicacao || "Explicação não disponível."}</p>
-
-        ${
-          questao.dica
-            ? `<p><strong>Dica:</strong> ${questao.dica}</p>`
-            : ""
+          return;
         }
-      </div>
-    `;
 
-    const botoes = article.querySelectorAll(".alternative");
-    const result = article.querySelector(".result");
-    const explanation = article.querySelector(".explanation");
+        if (!data || data.length === 0) {
 
-    botoes.forEach((botao) => {
+          status.textContent = "Questão ID 4 não encontrada.";
 
-      botao.addEventListener("click", () => {
+          return;
+        }
 
-        const resposta = botao.dataset.answer;
+        status.textContent =
+          "Questão de Juros Simples encontrada!";
 
-        const correta = String(
-          questao.resposta_correta || ""
-        ).trim().toUpperCase();
+        container.innerHTML = "";
 
-        botoes.forEach((b) => {
+        data.forEach((questao, index) => {
 
-          b.disabled = true;
-
-          if (b.dataset.answer === correta) {
-            b.classList.add("correct");
-          }
+          criarQuestao(questao, index);
 
         });
 
-        if (resposta === correta) {
+      } catch (erro) {
 
-          botao.classList.add("correct");
+        console.error(erro);
 
-          result.className = "result correct";
-          result.innerHTML = "<strong>✅ Você acertou!</strong>";
+        status.textContent =
+          "Erro ao carregar a questão.";
 
-        } else {
+      }
 
-          botao.classList.add("wrong");
+    }
 
-          result.className = "result wrong";
-          result.innerHTML =
-            "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
 
-        }
+    function criarQuestao(questao, index) {
 
-        result.hidden = false;
-        explanation.hidden = false;
+      const article = document.createElement("article");
+
+      article.className = "card question";
+
+      article.innerHTML = `
+
+        <h2>
+          Questão ${index + 1} —
+          ${questao.titulo || "Juros Simples"}
+        </h2>
+
+        <p>
+          ${questao.enunciado || ""}
+        </p>
+
+        <div class="alternatives">
+
+          <button class="alternative" data-answer="A">
+            A) ${questao.alternativa_a || ""}
+          </button>
+
+          <button class="alternative" data-answer="B">
+            B) ${questao.alternativa_b || ""}
+          </button>
+
+          <button class="alternative" data-answer="C">
+            C) ${questao.alternativa_c || ""}
+          </button>
+
+          <button class="alternative" data-answer="D">
+            D) ${questao.alternativa_d || ""}
+          </button>
+
+          <button class="alternative" data-answer="E">
+            E) ${questao.alternativa_e || ""}
+          </button>
+
+        </div>
+
+        <div class="result" hidden></div>
+
+        <div class="explanation" hidden>
+
+          <strong>Explicação:</strong>
+
+          <p>
+            ${questao.explicacao || "Explicação não disponível."}
+          </p>
+
+          ${
+            questao.dica
+              ? `<p>
+                   <strong>Dica:</strong> ${questao.dica}
+                 </p>`
+              : ""
+          }
+
+        </div>
+
+      `;
+
+
+      const botoes =
+        article.querySelectorAll(".alternative");
+
+      const result =
+        article.querySelector(".result");
+
+      const explanation =
+        article.querySelector(".explanation");
+
+
+      botoes.forEach((botao) => {
+
+        botao.addEventListener("click", () => {
+
+          const resposta =
+            botao.dataset.answer;
+
+          const correta =
+            String(
+              questao.resposta_correta || ""
+            )
+            .trim()
+            .toUpperCase();
+
+
+          botoes.forEach((b) => {
+
+            b.disabled = true;
+
+            if (b.dataset.answer === correta) {
+
+              b.classList.add("correct");
+
+            }
+
+          });
+
+
+          if (resposta === correta) {
+
+            botao.classList.add("correct");
+
+            result.className =
+              "result correct";
+
+            result.innerHTML =
+              "<strong>✅ Você acertou!</strong>";
+
+          } else {
+
+            botao.classList.add("wrong");
+
+            result.className =
+              "result wrong";
+
+            result.innerHTML =
+              "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
+
+          }
+
+
+          result.hidden = false;
+
+          explanation.hidden = false;
+
+        });
+
       });
-    });
 
-    container.appendChild(article);
-  }
 
-  carregarQuestoes();
-</script>
+      container.appendChild(article);
+
+    }
+
+
+    carregarQuestoes();
+
+  </script>
+
+</body>
+</html>
 ```

@@ -91,6 +91,30 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
       font-weight: bold;
     }
 
+    /* BOTÃO TENTAR NOVAMENTE */
+
+    .retry-box {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .retry-button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #4f46e5;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .retry-button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
     .alternatives {
       display: grid;
       gap: 10px;
@@ -180,7 +204,6 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
       }
 
     }
-
   </style>
 
 </head>
@@ -250,9 +273,22 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
   </div>
 
 </div>
+
+<div class="retry-box">
+
+  <button
+    id="tentar-novamente"
+    class="retry-button"
+    type="button">
+    🔄 Tentar novamente
+  </button>
+
+</div>
 ```
 
   </div>
+
+  <!-- FILTRO -->
 
   <div class="filter-box">
 
@@ -300,11 +336,7 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
 
 <div class="container">
 
-<div class="container">
-
   <p>© 2026 AprovaQuest</p>
-
-</div>
 
 </div>
 
@@ -324,8 +356,13 @@ const status =
 const filtro =
   document.getElementById("filtro-dificuldade");
 
+const botaoTentarNovamente =
+  document.getElementById("tentar-novamente");
 
-/* CONTADORES */
+
+/* =========================
+   CONTADORES
+========================= */
 
 let acertos = 0;
 let erros = 0;
@@ -368,6 +405,20 @@ function atualizarDesempenho() {
 }
 
 
+function zerarDesempenho() {
+
+  acertos = 0;
+  erros = 0;
+
+  atualizarDesempenho();
+
+}
+
+
+/* =========================
+   QUESTÕES
+========================= */
+
 let todasQuestoes = [];
 
 
@@ -392,19 +443,43 @@ async function carregarQuestoes() {
     const error = resposta.error;
 
 
-    console.log("QUESTÕES DE JUROS SIMPLES:", data);
-    console.log("SUPABASE ERROR:", error);
+    console.log(
+      "QUESTÕES DE JUROS SIMPLES:",
+      data
+    );
+
+    console.log(
+      "SUPABASE ERROR:",
+      error
+    );
 
 
     if (error) {
 
-      console.error("MESSAGE:", error.message);
-      console.error("CODE:", error.code);
-      console.error("DETAILS:", error.details);
-      console.error("HINT:", error.hint);
+      console.error(
+        "MESSAGE:",
+        error.message
+      );
+
+      console.error(
+        "CODE:",
+        error.code
+      );
+
+      console.error(
+        "DETAILS:",
+        error.details
+      );
+
+      console.error(
+        "HINT:",
+        error.hint
+      );
 
 
-      status.className = "error";
+      status.className =
+        "error";
+
 
       status.innerHTML = `
         <strong>Erro ao conectar ao banco.</strong>
@@ -427,11 +502,16 @@ async function carregarQuestoes() {
 
     if (!data || data.length === 0) {
 
-      status.className = "loading";
+      status.className =
+        "loading";
+
 
       status.innerHTML = `
         <strong>Nenhuma questão encontrada.</strong>
-        <p>O banco ainda não possui questões de Juros Simples.</p>
+
+        <p>
+          O banco ainda não possui questões de Juros Simples.
+        </p>
       `;
 
       return;
@@ -439,22 +519,35 @@ async function carregarQuestoes() {
     }
 
 
-    todasQuestoes = data;
+    todasQuestoes =
+      data;
 
-    status.className = "";
+
+    status.className =
+      "";
+
 
     atualizarQuestoes();
 
 
   } catch (erro) {
 
-    console.error("ERRO GERAL:", erro);
+    console.error(
+      "ERRO GERAL:",
+      erro
+    );
 
-    status.className = "error";
+
+    status.className =
+      "error";
+
 
     status.innerHTML = `
       <strong>Erro inesperado.</strong>
-      <p>${erro.message || erro}</p>
+
+      <p>
+        ${erro.message || erro}
+      </p>
     `;
 
   }
@@ -462,9 +555,14 @@ async function carregarQuestoes() {
 }
 
 
+/* =========================
+   FILTRO
+========================= */
+
 function atualizarQuestoes() {
 
-  container.innerHTML = "";
+  container.innerHTML =
+    "";
 
 
   const dificuldadeSelecionada =
@@ -474,15 +572,20 @@ function atualizarQuestoes() {
   const questoesFiltradas =
     dificuldadeSelecionada === "Todas"
       ? todasQuestoes
-      : todasQuestoes.filter((questao) =>
-          String(questao.dificuldade || "")
+      : todasQuestoes.filter(
+          (questao) =>
+            String(
+              questao.dificuldade || ""
+            )
             .trim()
             .toLowerCase() ===
-          dificuldadeSelecionada.toLowerCase()
+            dificuldadeSelecionada.toLowerCase()
         );
 
 
-  status.className = "";
+  status.className =
+    "";
+
 
   status.textContent =
     `${questoesFiltradas.length} questão(ões) encontrada(s).`;
@@ -492,10 +595,15 @@ function atualizarQuestoes() {
 
     container.innerHTML = `
       <div class="no-results">
-        <strong>Nenhuma questão encontrada.</strong>
+
+        <strong>
+          Nenhuma questão encontrada.
+        </strong>
+
         <p>
           Não há questões com essa dificuldade no momento.
         </p>
+
       </div>
     `;
 
@@ -504,19 +612,32 @@ function atualizarQuestoes() {
   }
 
 
-  questoesFiltradas.forEach((questao, index) => {
+  questoesFiltradas.forEach(
+    (questao, index) => {
 
-    criarQuestao(questao, index);
+      criarQuestao(
+        questao,
+        index
+      );
 
-  });
+    }
+  );
 
 }
 
 
-function criarQuestao(questao, index) {
+/* =========================
+   CRIAR QUESTÃO
+========================= */
+
+function criarQuestao(
+  questao,
+  index
+) {
 
   const article =
     document.createElement("article");
+
 
   article.className =
     "card question";
@@ -530,7 +651,8 @@ function criarQuestao(questao, index) {
     </h2>
 
     <div class="difficulty">
-      Dificuldade: ${questao.dificuldade || "Não informada"}
+      Dificuldade:
+      ${questao.dificuldade || "Não informada"}
     </div>
 
     <p>
@@ -571,11 +693,18 @@ function criarQuestao(questao, index) {
 
     </div>
 
-    <div class="result" hidden></div>
+    <div
+      class="result"
+      hidden>
+    </div>
 
-    <div class="explanation" hidden>
+    <div
+      class="explanation"
+      hidden>
 
-      <strong>Explicação:</strong>
+      <strong>
+        Explicação:
+      </strong>
 
       <p>
         ${questao.explicacao || "Explicação não disponível."}
@@ -583,7 +712,12 @@ function criarQuestao(questao, index) {
 
       ${
         questao.dica
-          ? `<p><strong>Dica:</strong> ${questao.dica}</p>`
+          ? `
+            <p>
+              <strong>Dica:</strong>
+              ${questao.dica}
+            </p>
+          `
           : ""
       }
 
@@ -593,109 +727,181 @@ function criarQuestao(questao, index) {
 
 
   const botoes =
-    article.querySelectorAll(".alternative");
+    article.querySelectorAll(
+      ".alternative"
+    );
+
 
   const result =
-    article.querySelector(".result");
+    article.querySelector(
+      ".result"
+    );
+
 
   const explanation =
-    article.querySelector(".explanation");
+    article.querySelector(
+      ".explanation"
+    );
 
+
+  /* EVITA CONTAR DUAS VEZES */
 
   let respondida =
     false;
 
 
-  botoes.forEach((botao) => {
+  botoes.forEach(
+    (botao) => {
 
-    botao.addEventListener("click", () => {
+      botao.addEventListener(
+        "click",
+        () => {
 
-      /* EVITA CONTAR A MESMA QUESTÃO DUAS VEZES */
-
-      if (respondida) {
-        return;
-      }
-
-      respondida = true;
-
-
-      const resposta =
-        botao.dataset.answer;
+          if (respondida) {
+            return;
+          }
 
 
-      const correta =
-        String(
-          questao.resposta_correta || ""
-        )
-        .trim()
-        .toUpperCase();
+          respondida =
+            true;
 
 
-      botoes.forEach((b) => {
+          const resposta =
+            botao.dataset.answer;
 
-        b.disabled = true;
 
-        if (
-          b.dataset.answer === correta
-        ) {
+          const correta =
+            String(
+              questao.resposta_correta || ""
+            )
+            .trim()
+            .toUpperCase();
 
-          b.classList.add("correct");
+
+          botoes.forEach(
+            (b) => {
+
+              b.disabled =
+                true;
+
+
+              if (
+                b.dataset.answer ===
+                correta
+              ) {
+
+                b.classList.add(
+                  "correct"
+                );
+
+              }
+
+            }
+          );
+
+
+          if (
+            resposta ===
+            correta
+          ) {
+
+            botao.classList.add(
+              "correct"
+            );
+
+
+            acertos++;
+
+
+            result.className =
+              "result correct";
+
+
+            result.innerHTML =
+              "<strong>✅ Você acertou!</strong>";
+
+          } else {
+
+            botao.classList.add(
+              "wrong"
+            );
+
+
+            erros++;
+
+
+            result.className =
+              "result wrong";
+
+
+            result.innerHTML =
+              "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
+
+          }
+
+
+          atualizarDesempenho();
+
+
+          result.hidden =
+            false;
+
+
+          explanation.hidden =
+            false;
 
         }
+      );
 
-      });
-
-
-      if (resposta === correta) {
-
-        botao.classList.add("correct");
-
-        acertos++;
-
-        result.className =
-          "result correct";
-
-        result.innerHTML =
-          "<strong>✅ Você acertou!</strong>";
-
-      } else {
-
-        botao.classList.add("wrong");
-
-        erros++;
-
-        result.className =
-          "result wrong";
-
-        result.innerHTML =
-          "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
-
-      }
+    }
+  );
 
 
-      atualizarDesempenho();
-
-
-      result.hidden = false;
-
-      explanation.hidden = false;
-
-    });
-
-  });
-
-
-  container.appendChild(article);
+  container.appendChild(
+    article
+  );
 
 }
 
 
-filtro.addEventListener("change", () => {
+/* =========================
+   FILTRO
+========================= */
 
-  atualizarQuestoes();
+filtro.addEventListener(
+  "change",
+  () => {
 
-});
+    atualizarQuestoes();
 
+  }
+);
+
+
+/* =========================
+   TENTAR NOVAMENTE
+========================= */
+
+botaoTentarNovamente.addEventListener(
+  "click",
+  () => {
+
+    zerarDesempenho();
+
+    atualizarQuestoes();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+);
+
+
+/* =========================
+   INICIAR
+========================= */
 
 carregarQuestoes();
 

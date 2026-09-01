@@ -1,3 +1,4 @@
+```html
 <script type="module">
   import { supabase } from "/aprovaquest-v2/js/supabase.js";
 
@@ -44,7 +45,6 @@
   }
 
   function criarQuestao(questao, index) {
-
     const article = document.createElement("article");
     article.className = "card question";
 
@@ -54,7 +54,6 @@
       <p>${questao.enunciado || ""}</p>
 
       <div class="alternatives">
-
         <button class="alternative" data-answer="A">
           A) ${questao.alternativa_a || ""}
         </button>
@@ -74,14 +73,12 @@
         <button class="alternative" data-answer="E">
           E) ${questao.alternativa_e || ""}
         </button>
-
       </div>
 
       <div class="result" hidden></div>
 
       <div class="explanation" hidden>
         <strong>Explicação:</strong>
-
         <p>${questao.explicacao || "Explicação não disponível."}</p>
 
         ${
@@ -97,9 +94,7 @@
     const explanation = article.querySelector(".explanation");
 
     botoes.forEach((botao) => {
-
       botao.addEventListener("click", () => {
-
         const resposta = botao.dataset.answer;
 
         const correta = String(
@@ -107,40 +102,29 @@
         ).trim().toUpperCase();
 
         botoes.forEach((b) => {
-
           b.disabled = true;
 
           if (b.dataset.answer === correta) {
             b.classList.add("correct");
           }
-
         });
 
         if (resposta === correta) {
-
           botao.classList.add("correct");
 
           result.className = "result correct";
-
-          result.innerHTML =
-            "<strong>✅ Você acertou!</strong>";
-
+          result.innerHTML = "<strong>✅ Você acertou!</strong>";
         } else {
-
           botao.classList.add("wrong");
 
           result.className = "result wrong";
-
           result.innerHTML =
             "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
-
         }
 
         result.hidden = false;
         explanation.hidden = false;
-
       });
-
     });
 
     container.appendChild(article);
@@ -148,3 +132,4 @@
 
   carregarQuestoes();
 </script>
+```

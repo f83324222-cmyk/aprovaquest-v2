@@ -1,1 +1,686 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Exercícios de Juros com Gabarito | AprovaQuest</title>
+
+  <meta
+    name="description"
+    content="Resolva exercícios de juros simples e compostos com gabarito e explicação. Pratique para ENEM e vestibulares."
+  >
+
+  <link
+    rel="stylesheet"
+    href="../../../../css/style.css"
+  >
+
+  <style>
+
+    .question {
+      margin-top: 25px;
+    }
+
+    .alternatives {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .alternative {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      text-align: left;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .alternative:hover:not(:disabled) {
+      background: #f0efff;
+      border-color: #4f46e5;
+    }
+
+    .alternative:disabled {
+      cursor: default;
+      opacity: 1;
+    }
+
+    .alternative.correct {
+      background: #dff5e7;
+      border-color: #22a05a;
+    }
+
+    .alternative.wrong {
+      background: #fde2e2;
+      border-color: #dc3545;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .result.correct {
+      background: #dff5e7;
+    }
+
+    .result.wrong {
+      background: #fde2e2;
+    }
+
+    .explanation {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f6f7fb;
+      border-radius: 8px;
+    }
+
+    .loading {
+      margin-top: 25px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .error {
+      margin-top: 25px;
+      padding: 20px;
+      background: #fde2e2;
+      border-radius: 10px;
+      color: #8b0000;
+      word-break: break-word;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+  <div class="container header-content">
+
+    <a
+      href="../../../../"
+      class="logo"
+    >
+      Aprova<span>Quest</span>
+    </a>
+
+
+    <nav>
+
+      <a href="../../../../">
+        Início
+      </a>
+
+      <a href="../../../">
+        Questões
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+<main>
+
+<section class="section">
+
+<div class="container">
+
+
+  <p>
+
+    <a href="../../../../">
+      Início
+    </a>
+
+    →
+
+    <a href="../../../">
+      Questões
+    </a>
+
+    →
+
+    <a href="../">
+      Matemática
+    </a>
+
+    →
+
+    Juros
+
+  </p>
+
+
+
+  <h1>
+    Exercícios de Juros
+  </h1>
+
+
+  <p>
+    Pratique juros simples e compostos para ENEM e vestibulares.
+    Escolha uma alternativa para responder.
+  </p>
+
+
+
+  <div
+    id="status"
+    class="loading"
+  >
+    Conectando ao banco de questões...
+  </div>
+
+
+
+  <section id="questoes-container"></section>
+
+
+</div>
+
+</section>
+
+</main>
+
+
+
+<footer class="footer">
+
+<div class="container">
+
+  <p>
+    © 2026 AprovaQuest
+  </p>
+
+</div>
+
+</footer>
+
+
+
+<script type="module">
+
+import {
+  supabase
+} from "/aprovaquest-v2/js/supabase.js";
+
+
+
+const container =
+  document.getElementById(
+    "questoes-container"
+  );
+
+
+const status =
+  document.getElementById(
+    "status"
+  );
+
+
+
+async function carregarQuestoes() {
+
+  try {
+
+    status.textContent =
+      "Carregando questões de Juros...";
+
+
+    const resposta =
+      await supabase
+
+        .from("questoes")
+
+        .select("*")
+
+        .eq(
+          "materia",
+          "Matemática"
+        )
+
+        .eq(
+          "assunto",
+          "Juros"
+        )
+
+        .order(
+          "id",
+          {
+            ascending: true
+          }
+        );
+
+
+    const data =
+      resposta.data;
+
+    const error =
+      resposta.error;
+
+
+
+    console.log(
+      "SUPABASE DATA:",
+      data
+    );
+
+    console.log(
+      "SUPABASE ERROR:",
+      error
+    );
+
+
+
+    if (error) {
+
+      console.error(
+        "MESSAGE:",
+        error.message
+      );
+
+      console.error(
+        "CODE:",
+        error.code
+      );
+
+      console.error(
+        "DETAILS:",
+        error.details
+      );
+
+      console.error(
+        "HINT:",
+        error.hint
+      );
+
+
+      status.className =
+        "error";
+
+
+      status.innerHTML = `
+
+        <strong>
+          Erro ao carregar questões.
+        </strong>
+
+        <p>
+          <strong>Código:</strong>
+          ${error.code || "não informado"}
+        </p>
+
+        <p>
+          <strong>Mensagem:</strong>
+          ${error.message || "não informado"}
+        </p>
+
+      `;
+
+      return;
+
+    }
+
+
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      status.className =
+        "loading";
+
+
+      status.innerHTML = `
+
+        <strong>
+          Nenhuma questão encontrada.
+        </strong>
+
+        <p>
+          Ainda não existem questões cadastradas
+          para Matemática → Juros.
+        </p>
+
+      `;
+
+      return;
+
+    }
+
+
+
+    status.className =
+      "";
+
+
+    status.textContent =
+      data.length +
+      " questão(ões) de Juros encontrada(s).";
+
+
+
+    data.forEach(
+      (questao, index) => {
+
+        criarQuestao(
+          questao,
+          index
+        );
+
+      }
+    );
+
+
+  } catch (erro) {
+
+    console.error(
+      "ERRO GERAL:",
+      erro
+    );
+
+
+    status.className =
+      "error";
+
+
+    status.innerHTML = `
+
+      <strong>
+        Erro inesperado.
+      </strong>
+
+      <p>
+        ${erro.message || erro}
+      </p>
+
+    `;
+
+  }
+
+}
+
+
+
+function criarQuestao(
+  questao,
+  index
+) {
+
+  const article =
+    document.createElement(
+      "article"
+    );
+
+
+  article.className =
+    "card question";
+
+
+
+  article.innerHTML = `
+
+    <h2>
+
+      Questão ${index + 1} —
+
+      ${questao.titulo || "Juros"}
+
+    </h2>
+
+
+    <p>
+
+      ${questao.enunciado || ""}
+
+    </p>
+
+
+    <div class="alternatives">
+
+
+      <button
+        class="alternative"
+        data-answer="A"
+      >
+        A) ${questao.alternativa_a || ""}
+      </button>
+
+
+      <button
+        class="alternative"
+        data-answer="B"
+      >
+        B) ${questao.alternativa_b || ""}
+      </button>
+
+
+      <button
+        class="alternative"
+        data-answer="C"
+      >
+        C) ${questao.alternativa_c || ""}
+      </button>
+
+
+      <button
+        class="alternative"
+        data-answer="D"
+      >
+        D) ${questao.alternativa_d || ""}
+      </button>
+
+
+      <button
+        class="alternative"
+        data-answer="E"
+      >
+        E) ${questao.alternativa_e || ""}
+      </button>
+
+
+    </div>
+
+
+    <div
+      class="result"
+      hidden
+    ></div>
+
+
+    <div
+      class="explanation"
+      hidden
+    >
+
+      <strong>
+        Explicação:
+      </strong>
+
+
+      <p>
+
+        ${
+          questao.explicacao ||
+          "Explicação não disponível."
+        }
+
+      </p>
+
+
+      ${
+        questao.dica
+
+          ? `
+            <p>
+              <strong>Dica:</strong>
+              ${questao.dica}
+            </p>
+          `
+
+          : ""
+      }
+
+
+    </div>
+
+  `;
+
+
+
+  const botoes =
+    article.querySelectorAll(
+      ".alternative"
+    );
+
+
+  const result =
+    article.querySelector(
+      ".result"
+    );
+
+
+  const explanation =
+    article.querySelector(
+      ".explanation"
+    );
+
+
+
+  botoes.forEach(
+    (botao) => {
+
+      botao.addEventListener(
+        "click",
+        () => {
+
+
+          const resposta =
+            botao.dataset.answer;
+
+
+
+          const correta =
+            String(
+              questao.resposta_correta || ""
+            )
+            .trim()
+            .toUpperCase();
+
+
+
+          botoes.forEach(
+            (b) => {
+
+              b.disabled = true;
+
+
+              if (
+                b.dataset.answer ===
+                correta
+              ) {
+
+                b.classList.add(
+                  "correct"
+                );
+
+              }
+
+            }
+          );
+
+
+
+          if (
+            resposta ===
+            correta
+          ) {
+
+            botao.classList.add(
+              "correct"
+            );
+
+
+            result.className =
+              "result correct";
+
+
+            result.innerHTML =
+              "<strong>✅ Você acertou!</strong>";
+
+          } else {
+
+            botao.classList.add(
+              "wrong"
+            );
+
+
+            result.className =
+              "result wrong";
+
+
+            result.innerHTML =
+              "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
+
+          }
+
+
+
+          result.hidden =
+            false;
+
+
+          explanation.hidden =
+            false;
+
+
+        }
+      );
+
+    }
+  );
+
+
+
+  container.appendChild(
+    article
+  );
+
+}
+
+
+
+carregarQuestoes();
+
+</script>
+
+
+</body>
+
+</html>
+```
 

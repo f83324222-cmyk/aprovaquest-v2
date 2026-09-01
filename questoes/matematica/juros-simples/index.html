@@ -1,228 +1,147 @@
 ```html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="module">
+  import { supabase } from "/aprovaquest-v2/js/supabase.js";
 
-  <title>Exercícios de Juros Simples</title>
+  const container = document.getElementById("questoes-container");
+  const status = document.getElementById("status");
 
-  <link rel="stylesheet" href="/aprovaquest-v2/css/style.css">
-</head>
+  async function carregarQuestoes() {
+    try {
+      status.textContent = "Carregando questões...";
 
-<body>
+      const { data, error } = await supabase
+        .from("questoes")
+        .select("*")
+        .eq("materia", "Matemática")
+        .eq("assunto", "Juros Simples")
+        .order("id", { ascending: true });
 
-  <main class="container">
+      console.log("QUESTÕES DE JUROS SIMPLES:", data);
+      console.log("ERRO:", error);
 
-    <h1>Exercícios de Juros Simples</h1>
-
-    <p id="status">Carregando questão...</p>
-
-    <div id="questoes-container"></div>
-
-  </main>
-
-  <script type="module">
-
-    import { supabase } from "/aprovaquest-v2/js/supabase.js";
-
-    const container = document.getElementById("questoes-container");
-    const status = document.getElementById("status");
-
-    async function carregarQuestoes() {
-
-      try {
-
-        status.textContent = "Carregando questão...";
-
-        const { data, error } = await supabase
-          .from("questoes")
-          .select("*")
-          .eq("id", 4);
-
-        console.log("QUESTÃO ID 4:", data);
-        console.log("ERRO:", error);
-
-        if (error) {
-
-          status.textContent = "Erro: " + error.message;
-
-          return;
-        }
-
-        if (!data || data.length === 0) {
-
-          status.textContent = "Questão ID 4 não encontrada.";
-
-          return;
-        }
-
-        status.textContent =
-          "Questão de Juros Simples encontrada!";
-
-        container.innerHTML = "";
-
-        data.forEach((questao, index) => {
-
-          criarQuestao(questao, index);
-
-        });
-
-      } catch (erro) {
-
-        console.error(erro);
-
-        status.textContent =
-          "Erro ao carregar a questão.";
-
+      if (error) {
+        status.textContent = "Erro: " + error.message;
+        return;
       }
 
+      if (!data || data.length === 0) {
+        status.textContent = "Nenhuma questão de Juros Simples encontrada.";
+        return;
+      }
+
+      status.textContent =
+        data.length + " questão(ões) de Juros Simples encontrada(s).";
+
+      container.innerHTML = "";
+
+      data.forEach((questao, index) => {
+        criarQuestao(questao, index);
+      });
+
+    } catch (erro) {
+      console.error(erro);
+      status.textContent = "Erro ao carregar as questões.";
     }
+  }
 
+  function criarQuestao(questao, index) {
 
-    function criarQuestao(questao, index) {
+    const article = document.createElement("article");
+    article.className = "card question";
 
-      const article = document.createElement("article");
+    article.innerHTML = `
+      <h2>Questão ${index + 1} — ${questao.titulo || "Juros Simples"}</h2>
 
-      article.className = "card question";
+      <p>${questao.enunciado || ""}</p>
 
-      article.innerHTML = `
+      <div class="alternatives">
 
-        <h2>
-          Questão ${index + 1} —
-          ${questao.titulo || "Juros Simples"}
-        </h2>
+        <button class="alternative" data-answer="A">
+          A) ${questao.alternativa_a || ""}
+        </button>
 
-        <p>
-          ${questao.enunciado || ""}
-        </p>
+        <button class="alternative" data-answer="B">
+          B) ${questao.alternativa_b || ""}
+        </button>
 
-        <div class="alternatives">
+        <button class="alternative" data-answer="C">
+          C) ${questao.alternativa_c || ""}
+        </button>
 
-          <button class="alternative" data-answer="A">
-            A) ${questao.alternativa_a || ""}
-          </button>
+        <button class="alternative" data-answer="D">
+          D) ${questao.alternativa_d || ""}
+        </button>
 
-          <button class="alternative" data-answer="B">
-            B) ${questao.alternativa_b || ""}
-          </button>
+        <button class="alternative" data-answer="E">
+          E) ${questao.alternativa_e || ""}
+        </button>
 
-          <button class="alternative" data-answer="C">
-            C) ${questao.alternativa_c || ""}
-          </button>
+      </div>
 
-          <button class="alternative" data-answer="D">
-            D) ${questao.alternativa_d || ""}
-          </button>
+      <div class="result" hidden></div>
 
-          <button class="alternative" data-answer="E">
-            E) ${questao.alternativa_e || ""}
-          </button>
+      <div class="explanation" hidden>
+        <strong>Explicação:</strong>
 
-        </div>
+        <p>${questao.explicacao || "Explicação não disponível."}</p>
 
-        <div class="result" hidden></div>
+        ${
+          questao.dica
+            ? `<p><strong>Dica:</strong> ${questao.dica}</p>`
+            : ""
+        }
+      </div>
+    `;
 
-        <div class="explanation" hidden>
+    const botoes = article.querySelectorAll(".alternative");
+    const result = article.querySelector(".result");
+    const explanation = article.querySelector(".explanation");
 
-          <strong>Explicação:</strong>
+    botoes.forEach((botao) => {
 
-          <p>
-            ${questao.explicacao || "Explicação não disponível."}
-          </p>
+      botao.addEventListener("click", () => {
 
-          ${
-            questao.dica
-              ? `<p>
-                   <strong>Dica:</strong> ${questao.dica}
-                 </p>`
-              : ""
+        const resposta = botao.dataset.answer;
+
+        const correta = String(
+          questao.resposta_correta || ""
+        ).trim().toUpperCase();
+
+        botoes.forEach((b) => {
+
+          b.disabled = true;
+
+          if (b.dataset.answer === correta) {
+            b.classList.add("correct");
           }
-
-        </div>
-
-      `;
-
-
-      const botoes =
-        article.querySelectorAll(".alternative");
-
-      const result =
-        article.querySelector(".result");
-
-      const explanation =
-        article.querySelector(".explanation");
-
-
-      botoes.forEach((botao) => {
-
-        botao.addEventListener("click", () => {
-
-          const resposta =
-            botao.dataset.answer;
-
-          const correta =
-            String(
-              questao.resposta_correta || ""
-            )
-            .trim()
-            .toUpperCase();
-
-
-          botoes.forEach((b) => {
-
-            b.disabled = true;
-
-            if (b.dataset.answer === correta) {
-
-              b.classList.add("correct");
-
-            }
-
-          });
-
-
-          if (resposta === correta) {
-
-            botao.classList.add("correct");
-
-            result.className =
-              "result correct";
-
-            result.innerHTML =
-              "<strong>✅ Você acertou!</strong>";
-
-          } else {
-
-            botao.classList.add("wrong");
-
-            result.className =
-              "result wrong";
-
-            result.innerHTML =
-              "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
-
-          }
-
-
-          result.hidden = false;
-
-          explanation.hidden = false;
 
         });
 
+        if (resposta === correta) {
+
+          botao.classList.add("correct");
+
+          result.className = "result correct";
+          result.innerHTML = "<strong>✅ Você acertou!</strong>";
+
+        } else {
+
+          botao.classList.add("wrong");
+
+          result.className = "result wrong";
+          result.innerHTML =
+            "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
+
+        }
+
+        result.hidden = false;
+        explanation.hidden = false;
       });
+    });
 
+    container.appendChild(article);
+  }
 
-      container.appendChild(article);
-
-    }
-
-
-    carregarQuestoes();
-
-  </script>
-
-</body>
-</html>
+  carregarQuestoes();
+</script>
 ```

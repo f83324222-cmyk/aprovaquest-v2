@@ -6,11 +6,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Exercícios de Porcentagem | AprovaQuest</title>
+  <title>Exercícios de Porcentagem com Gabarito | AprovaQuest</title>
 
   <meta
     name="description"
-    content="Resolva exercícios de porcentagem para ENEM e vestibulares."
+    content="Resolva exercícios de porcentagem com gabarito e explicação. Pratique para ENEM e vestibulares."
   >
 
   <link rel="stylesheet" href="../../../css/style.css">
@@ -91,6 +91,8 @@
       padding: 20px;
       background: #fde2e2;
       border-radius: 10px;
+      color: #8b0000;
+      word-break: break-word;
     }
   </style>
 
@@ -115,7 +117,6 @@
 
 </header>
 
-
 <main>
 
 <section class="section">
@@ -136,7 +137,7 @@
   </p>
 
   <div id="status" class="loading">
-    Carregando exercícios...
+    Conectando ao banco de questões...
   </div>
 
   <section id="questoes-container"></section>
@@ -146,7 +147,6 @@
 </section>
 
 </main>
-
 
 <footer class="footer">
 
@@ -173,38 +173,80 @@ const status =
 
 async function carregarQuestoes() {
 
-  status.textContent =
-    "Conectando ao banco...";
-
-
   try {
 
     /*
-      TESTE:
-      Primeiro vamos buscar todas as questões,
-      sem filtros.
+      TESTE DE CONEXÃO
+
+      Aqui buscamos todas as questões.
+      Não usamos filtros ainda.
     */
 
-    const { data, error } =
+    const resposta =
       await supabase
         .from("questoes")
         .select("*");
 
 
-    console.log("DADOS:", data);
-    console.log("ERRO:", error);
+    const data = resposta.data;
+    const error = resposta.error;
 
+
+    console.log("SUPABASE DATA:", data);
+    console.log("SUPABASE ERROR:", error);
 
     if (error) {
 
+      console.error(
+        "MESSAGE:",
+        error.message
+      );
+
+      console.error(
+        "CODE:",
+        error.code
+      );
+
+      console.error(
+        "DETAILS:",
+        error.details
+      );
+
+      console.error(
+        "HINT:",
+        error.hint
+      );
+
+
       status.className = "error";
 
-      status.textContent =
-        "Erro Supabase: " +
-        (error.message || "erro desconhecido");
+      status.innerHTML = `
+        <strong>Erro ao conectar ao banco.</strong>
+
+        <p>
+          <strong>Código:</strong>
+          ${error.code || "não informado"}
+        </p>
+
+        <p>
+          <strong>Mensagem:</strong>
+          ${error.message || "não informado"}
+        </p>
+
+        ${
+          error.details
+            ? `<p><strong>Detalhes:</strong> ${error.details}</p>`
+            : ""
+        }
+
+        ${
+          error.hint
+            ? `<p><strong>Dica:</strong> ${error.hint}</p>`
+            : ""
+        }
+      `;
 
       return;
-
     }
 
 
@@ -212,26 +254,21 @@ async function carregarQuestoes() {
 
       status.className = "loading";
 
-      status.textContent =
-        "O Supabase respondeu, mas a tabela está vazia.";
+      status.innerHTML = `
+        <strong>Conexão funcionando!</strong>
+        <p>Porém, a tabela "questoes" não possui registros.</p>
+      `;
 
       return;
-
     }
 
 
     status.className = "";
 
     status.textContent =
-      "Conexão funcionando! " +
       data.length +
       " questão(ões) encontrada(s).";
 
-
-    /*
-      Por enquanto mostramos TODAS as questões.
-      Depois vamos colocar o filtro de Porcentagem.
-    */
 
     data.forEach((questao, index) => {
 
@@ -242,13 +279,17 @@ async function carregarQuestoes() {
 
   } catch (erro) {
 
-    console.error("ERRO GERAL:", erro);
+    console.error(
+      "ERRO GERAL:",
+      erro
+    );
 
     status.className = "error";
 
-    status.textContent =
-      "Erro de conexão: " +
-      erro.message;
+    status.innerHTML = `
+      <strong>Erro inesperado.</strong>
+      <p>${erro.message || erro}</p>
+    `;
 
   }
 
@@ -277,23 +318,33 @@ function criarQuestao(questao, index) {
 
     <div class="alternatives">
 
-      <button class="alternative" data-answer="A">
+      <button
+        class="alternative"
+        data-answer="A">
         A) ${questao.alternativa_a || ""}
       </button>
 
-      <button class="alternative" data-answer="B">
+      <button
+        class="alternative"
+        data-answer="B">
         B) ${questao.alternativa_b || ""}
       </button>
 
-      <button class="alternative" data-answer="C">
+      <button
+        class="alternative"
+        data-answer="C">
         C) ${questao.alternativa_c || ""}
       </button>
 
-      <button class="alternative" data-answer="D">
+      <button
+        class="alternative"
+        data-answer="D">
         D) ${questao.alternativa_d || ""}
       </button>
 
-      <button class="alternative" data-answer="E">
+      <button
+        class="alternative"
+        data-answer="E">
         E) ${questao.alternativa_e || ""}
       </button>
 

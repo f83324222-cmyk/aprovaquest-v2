@@ -131,6 +131,31 @@
       </select>
 
 
+      <label for="tempo-prova">
+        ⏱️ Tempo:
+      </label>
+
+      <select id="tempo-prova">
+
+        <option value="5">
+          5 minutos
+        </option>
+
+        <option value="10">
+          10 minutos
+        </option>
+
+        <option value="20">
+          20 minutos
+        </option>
+
+        <option value="30" selected>
+          30 minutos
+        </option>
+
+      </select>
+
+
       <button
         id="embaralhar"
         class="shuffle-button"
@@ -140,6 +165,26 @@
       </button>
 
     </div>
+
+
+    <!-- CRONÔMETRO -->
+    <section
+      id="cronometro-box"
+      class="timer-box"
+    >
+
+      <div class="timer-label">
+        ⏱️ Tempo restante
+      </div>
+
+      <div
+        id="cronometro"
+        class="timer"
+      >
+        30:00
+      </div>
+
+    </section>
 
 
     <!-- PROGRESSO FIXO -->
@@ -186,9 +231,11 @@
       hidden
     >
 
-      <h2>🎉 Quiz concluído!</h2>
+      <h2 id="resultado-titulo">
+        🎉 Quiz concluído!
+      </h2>
 
-      <p>
+      <p id="resultado-descricao">
         Você terminou todas as questões desta prova.
       </p>
 
@@ -307,6 +354,63 @@
       border: 1px solid #ccc;
       font-size: 15px;
       cursor: pointer;
+    }
+
+
+    /* ================================
+       CRONÔMETRO
+    ================================= */
+
+    .timer-box {
+      margin-top: 20px;
+      padding: 18px;
+
+      background: white;
+
+      border-radius: 10px;
+
+      text-align: center;
+
+      box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+
+      transition: 0.3s;
+    }
+
+    .timer-label {
+      font-weight: bold;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .timer {
+      font-size: 34px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .timer.warning {
+      color: #f59e0b;
+    }
+
+    .timer.danger {
+      color: #ef4444;
+      animation: pulseTimer 1s infinite;
+    }
+
+    @keyframes pulseTimer {
+
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.04);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+
     }
 
 
@@ -608,6 +712,10 @@
         width: 100%;
       }
 
+      .timer {
+        font-size: 30px;
+      }
+
     }
 
   </style>
@@ -634,6 +742,9 @@
     const quantidade =
       document.getElementById("quantidade-questoes");
 
+    const tempoProva =
+      document.getElementById("tempo-prova");
+
     const botaoEmbaralhar =
       document.getElementById("embaralhar");
 
@@ -643,6 +754,12 @@
     const resultadoFinal =
       document.getElementById("resultado-final");
 
+    const resultadoTitulo =
+      document.getElementById("resultado-titulo");
+
+    const resultadoDescricao =
+      document.getElementById("resultado-descricao");
+
     const resultadoPontuacao =
       document.getElementById("resultado-pontuacao");
 
@@ -651,6 +768,9 @@
 
     const botaoRefazerFinal =
       document.getElementById("refazer-final");
+
+    const cronometro =
+      document.getElementById("cronometro");
 
 
     /* ================================
@@ -673,8 +793,6 @@
 
     let todasQuestoes = [];
 
-    let questoesAtuais = [];
-
     let acertos = 0;
 
     let erros = 0;
@@ -683,9 +801,15 @@
 
     let questoesRespondidas = 0;
 
+    let intervaloCronometro = null;
+
+    let segundosRestantes = 0;
+
+    let provaEncerrada = false;
+
 
     /* ================================
-       EMBARALHAR ARRAY
+       EMBARALHAR
     ================================= */
 
     function embaralharArray(array) {
@@ -718,34 +842,212 @@
 
 
     /* ================================
-       ATUALIZAR DESEMPENHO
+       CRONÔMETRO
+    ================================= */
+
+    function formatarTempo(segundos) {
+
+      const minutos =
+        Math.floor(segundos / 60);
+
+      const segundosRestantes =
+        segundos % 60;
+
+      return (
+        String(minutos).padStart(2, "0") +
+        ":" +
+        String(segundosRestantes).padStart(2, "0")
+      );
+    }
+
+
+    function atualizarCronometroVisual() {
+
+      cronometro.textContent =
+        formatarTempo(segundosRestantes);
+
+
+      cronometro.classList.remove(
+        "warning",
+        "danger"
+      );
+
+
+      if (segundosRestantes <= 30) {
+
+        cronometro.classList.add(
+          "danger"
+        );
+
+      } else if (segundosRestantes <= 60) {
+
+        cronometro.classList.add(
+          "warning"
+        );
+
+      }
+
+    }
+
+
+    function pararCronometro() {
+
+      if (intervaloCronometro) {
+
+        clearInterval(
+          intervaloCronometro
+        );
+
+        intervaloCronometro =
+          null;
+      }
+
+    }
+
+
+    function iniciarCronometro() {
+
+      pararCronometro();
+
+
+      const minutos =
+        Number(
+          tempoProva.value
+        );
+
+
+      segundosRestantes =
+        minutos * 60;
+
+
+      provaEncerrada =
+        false;
+
+
+      atualizarCronometroVisual();
+
+
+      intervaloCronometro =
+        setInterval(
+          () => {
+
+            if (provaEncerrada) {
+
+              pararCronometro();
+
+              return;
+            }
+
+
+            segundosRestantes--;
+
+
+            atualizarCronometroVisual();
+
+
+            if (
+              segundosRestantes <= 0
+            ) {
+
+              segundosRestantes = 0;
+
+              atualizarCronometroVisual();
+
+              encerrarPorTempo();
+
+            }
+
+          },
+          1000
+        );
+
+    }
+
+
+    function encerrarPorTempo() {
+
+      if (provaEncerrada) {
+        return;
+      }
+
+
+      provaEncerrada =
+        true;
+
+
+      pararCronometro();
+
+
+      /* Desabilita todas as alternativas */
+
+      const botoes =
+        document.querySelectorAll(
+          ".alternativa"
+        );
+
+
+      botoes.forEach(
+        botao => {
+
+          botao.disabled =
+            true;
+
+        }
+      );
+
+
+      resultadoTitulo.textContent =
+        "⏰ Tempo esgotado!";
+
+      resultadoDescricao.textContent =
+        "O tempo da prova acabou. Confira seu resultado abaixo.";
+
+
+      mostrarResultadoFinal();
+
+    }
+
+
+    /* ================================
+       DESEMPENHO
     ================================= */
 
     function atualizarDesempenho() {
 
-      document.getElementById("acertos").textContent =
+      document.getElementById(
+        "acertos"
+      ).textContent =
         acertos;
 
-      document.getElementById("erros").textContent =
+      document.getElementById(
+        "erros"
+      ).textContent =
         erros;
+
 
       const totalRespondidas =
         acertos + erros;
+
 
       const aproveitamento =
         totalRespondidas === 0
           ? 0
           : Math.round(
-              (acertos / totalRespondidas) * 100
+              (acertos /
+                totalRespondidas) * 100
             );
 
-      document.getElementById("aproveitamento").textContent =
+
+      document.getElementById(
+        "aproveitamento"
+      ).textContent =
         `${aproveitamento}%`;
+
     }
 
 
     /* ================================
-       ATUALIZAR PROGRESSO
+       PROGRESSO
     ================================= */
 
     function atualizarProgresso() {
@@ -758,28 +1060,36 @@
                 totalQuestoesAtuais) * 100
             );
 
+
       const questaoAtual =
         Math.min(
           questoesRespondidas,
           totalQuestoesAtuais
         );
 
+
       progressoTexto.textContent =
         `Questão ${questaoAtual} de ${totalQuestoesAtuais}`;
+
 
       progressoPercentual.textContent =
         `${percentual}%`;
 
+
       progressoPreenchido.style.width =
         `${percentual}%`;
+
     }
 
 
     /* ================================
-       ZERAR DESEMPENHO
+       ZERAR
     ================================= */
 
     function zerarDesempenho() {
+
+      pararCronometro();
+
 
       acertos = 0;
 
@@ -787,9 +1097,15 @@
 
       questoesRespondidas = 0;
 
+      provaEncerrada = false;
+
+
       atualizarDesempenho();
 
-      resultadoFinal.hidden = true;
+
+      resultadoFinal.hidden =
+        true;
+
     }
 
 
@@ -799,8 +1115,12 @@
 
     function mostrarResultadoFinal() {
 
+      pararCronometro();
+
+
       const total =
         totalQuestoesAtuais;
+
 
       const percentual =
         total === 0
@@ -809,10 +1129,13 @@
               (acertos / total) * 100
             );
 
+
       resultadoPontuacao.textContent =
         `${acertos} de ${total}`;
 
+
       let mensagem = "";
+
 
       if (percentual === 100) {
 
@@ -838,21 +1161,40 @@
 
         mensagem =
           "📚 Não desanime! Revise o conteúdo e tente novamente.";
+
       }
 
+
       resultadoDetalhes.innerHTML = `
-        <p><strong>${percentual}% de aproveitamento</strong></p>
-        <p>✅ ${acertos} acerto(s)</p>
-        <p>❌ ${erros} erro(s)</p>
-        <p>${mensagem}</p>
+        <p>
+          <strong>
+            ${percentual}% de aproveitamento
+          </strong>
+        </p>
+
+        <p>
+          ✅ ${acertos} acerto(s)
+        </p>
+
+        <p>
+          ❌ ${erros} erro(s)
+        </p>
+
+        <p>
+          ${mensagem}
+        </p>
       `;
 
-      resultadoFinal.hidden = false;
+
+      resultadoFinal.hidden =
+        false;
+
 
       resultadoFinal.scrollIntoView({
         behavior: "smooth",
         block: "center"
       });
+
     }
 
 
@@ -864,18 +1206,21 @@
 
       if (
         totalQuestoesAtuais > 0 &&
-        questoesRespondidas >= totalQuestoesAtuais
+        questoesRespondidas >=
+        totalQuestoesAtuais
       ) {
 
         atualizarProgresso();
 
         mostrarResultadoFinal();
+
       }
+
     }
 
 
     /* ================================
-       OBTER QUESTÕES DO FILTRO
+       FILTRAR QUESTÕES
     ================================= */
 
     function obterQuestoesFiltradas() {
@@ -883,14 +1228,19 @@
       const dificuldadeSelecionada =
         filtro.value.toLowerCase();
 
+
       return todasQuestoes.filter(
         questao => {
 
           if (
-            dificuldadeSelecionada === "todas"
+            dificuldadeSelecionada ===
+            "todas"
           ) {
+
             return true;
+
           }
+
 
           return (
             String(
@@ -901,6 +1251,7 @@
 
         }
       );
+
     }
 
 
@@ -912,18 +1263,18 @@
       embaralhar = true
     ) {
 
+      pararCronometro();
+
+
       container.innerHTML = "";
 
-      resultadoFinal.hidden = true;
+      resultadoFinal.hidden =
+        true;
 
 
       let questoesFiltradas =
         obterQuestoesFiltradas();
 
-
-      /* ================================
-         EMBARALHAMENTO
-      ================================= */
 
       if (embaralhar) {
 
@@ -935,16 +1286,15 @@
       }
 
 
-      /* ================================
-         QUANTIDADE
-      ================================= */
+      /* Quantidade */
 
       const quantidadeSelecionada =
         quantidade.value;
 
 
       if (
-        quantidadeSelecionada !== "todas"
+        quantidadeSelecionada !==
+        "todas"
       ) {
 
         const limite =
@@ -952,28 +1302,29 @@
             quantidadeSelecionada
           );
 
+
         questoesFiltradas =
           questoesFiltradas.slice(
             0,
             limite
           );
+
       }
 
 
-      questoesAtuais =
-        questoesFiltradas;
-
-
       totalQuestoesAtuais =
-        questoesAtuais.length;
+        questoesFiltradas.length;
 
-      questoesRespondidas = 0;
+
+      questoesRespondidas =
+        0;
+
 
       atualizarProgresso();
 
 
       if (
-        questoesAtuais.length === 0
+        questoesFiltradas.length === 0
       ) {
 
         status.textContent =
@@ -983,17 +1334,18 @@
           "no-results";
 
         return;
+
       }
 
 
       status.textContent =
-        `${questoesAtuais.length} questão(ões) selecionada(s).`;
+        `${questoesFiltradas.length} questão(ões) selecionada(s).`;
 
       status.className =
         "";
 
 
-      questoesAtuais.forEach(
+      questoesFiltradas.forEach(
         (questao, index) => {
 
           criarQuestao(
@@ -1003,6 +1355,10 @@
 
         }
       );
+
+
+      iniciarCronometro();
+
     }
 
 
@@ -1018,33 +1374,46 @@
       const div =
         document.createElement("div");
 
+
       div.className =
         "questao";
 
 
       const alternativas = [
+
         ["A", questao.alternativa_a],
+
         ["B", questao.alternativa_b],
+
         ["C", questao.alternativa_c],
+
         ["D", questao.alternativa_d],
+
         ["E", questao.alternativa_e]
+
       ];
 
 
       div.innerHTML = `
 
         <h2>
-          ${index + 1}. ${questao.titulo || "Questão"}
+          ${index + 1}.
+          ${questao.titulo || "Questão"}
         </h2>
 
+
         <div class="difficulty">
+
           Dificuldade:
           ${questao.dificuldade || "Não informada"}
+
         </div>
+
 
         <p>
           ${questao.enunciado}
         </p>
+
 
         <div class="alternativas">
 
@@ -1056,42 +1425,61 @@
                 data-letra="${letra}"
                 type="button"
               >
-                <strong>${letra})</strong>
+
+                <strong>
+                  ${letra})
+                </strong>
+
                 ${texto}
+
               </button>
 
           `).join("")}
 
         </div>
 
+
         <div
           class="resultado"
           hidden
         ></div>
+
 
         <div
           class="explicacao"
           hidden
         >
 
-          <strong>📖 Explicação:</strong>
+          <strong>
+            📖 Explicação:
+          </strong>
+
 
           <p>
-            ${questao.explicacao || "Nenhuma explicação disponível."}
+            ${
+              questao.explicacao ||
+              "Nenhuma explicação disponível."
+            }
           </p>
+
 
           ${
             questao.dica
               ? `
                 <div class="dica">
-                  💡 <strong>Dica:</strong>
+
+                  💡
+                  <strong>Dica:</strong>
+
                   ${questao.dica}
+
                 </div>
               `
               : ""
           }
 
         </div>
+
       `;
 
 
@@ -1103,10 +1491,12 @@
           ".alternativa"
         );
 
+
       const resultado =
         div.querySelector(
           ".resultado"
         );
+
 
       const explicacao =
         div.querySelector(
@@ -1114,7 +1504,8 @@
         );
 
 
-      let respondida = false;
+      let respondida =
+        false;
 
 
       botoes.forEach(
@@ -1124,19 +1515,29 @@
             "click",
             () => {
 
-              if (respondida) {
+              if (
+                respondida ||
+                provaEncerrada
+              ) {
+
                 return;
+
               }
 
-              respondida = true;
+
+              respondida =
+                true;
+
 
               questoesRespondidas++;
+
 
               atualizarProgresso();
 
 
               const respostaSelecionada =
                 botao.dataset.letra;
+
 
               const respostaCorreta =
                 String(
@@ -1173,9 +1574,11 @@
 
                 acertos++;
 
+
                 botao.classList.add(
                   "correta"
                 );
+
 
                 resultado.textContent =
                   "✅ Resposta correta!";
@@ -1184,9 +1587,11 @@
 
                 erros++;
 
+
                 botao.classList.add(
                   "errada"
                 );
+
 
                 resultado.textContent =
                   `❌ Resposta incorreta. A resposta correta é ${respostaCorreta}.`;
@@ -1196,8 +1601,10 @@
 
               atualizarDesempenho();
 
+
               resultado.hidden =
                 false;
+
 
               explicacao.hidden =
                 false;
@@ -1215,7 +1622,7 @@
 
 
     /* ================================
-       FILTRO DE DIFICULDADE
+       FILTRO
     ================================= */
 
     filtro.addEventListener(
@@ -1247,6 +1654,22 @@
 
 
     /* ================================
+       TEMPO
+    ================================= */
+
+    tempoProva.addEventListener(
+      "change",
+      () => {
+
+        zerarDesempenho();
+
+        atualizarQuestoes(true);
+
+      }
+    );
+
+
+    /* ================================
        EMBARALHAR
     ================================= */
 
@@ -1257,6 +1680,7 @@
         zerarDesempenho();
 
         atualizarQuestoes(true);
+
 
         window.scrollTo({
           top: 0,
@@ -1279,6 +1703,7 @@
 
         atualizarQuestoes(true);
 
+
         window.scrollTo({
           top: 0,
           behavior: "smooth"
@@ -1289,7 +1714,7 @@
 
 
     /* ================================
-       REFAZER PELO RESULTADO
+       REFAZER
     ================================= */
 
     botaoRefazerFinal.addEventListener(
@@ -1299,6 +1724,7 @@
         zerarDesempenho();
 
         atualizarQuestoes(true);
+
 
         window.scrollTo({
           top: 0,
@@ -1318,6 +1744,7 @@
       status.textContent =
         "Carregando questões...";
 
+
       status.className =
         "loading";
 
@@ -1326,11 +1753,20 @@
         await supabase
           .from("questoes")
           .select("*")
-          .eq("materia", "Matemática")
-          .eq("assunto", "Juros Simples")
-          .order("id", {
-            ascending: true
-          });
+          .eq(
+            "materia",
+            "Matemática"
+          )
+          .eq(
+            "assunto",
+            "Juros Simples"
+          )
+          .order(
+            "id",
+            {
+              ascending: true
+            }
+          );
 
 
       if (resposta.error) {
@@ -1340,13 +1776,17 @@
           resposta.error
         );
 
+
         status.textContent =
           "❌ Erro ao carregar as questões.";
+
 
         status.className =
           "error";
 
+
         return;
+
       }
 
 

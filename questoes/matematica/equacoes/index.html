@@ -6,11 +6,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Exercícios de Equações de 1º e 2º Grau com Gabarito | AprovaQuest</title>
+  <title>Questões de Equações de 1º e 2º Grau com Gabarito | AprovaQuest</title>
 
   <meta
     name="description"
-    content="Resolva exercícios de equações de primeiro e segundo grau com gabarito e explicação. Pratique para ENEM e vestibulares."
+    content="Resolva questões de Equações de 1º e 2º Grau para ENEM, vestibulares e concursos. Pratique com gabarito, explicações e dicas."
   >
 
   <link rel="stylesheet" href="../../../css/style.css">
@@ -18,418 +18,569 @@
 
 <body>
 
-<header>
-  <div class="container">
+<header class="header">
+
+  <div class="container header-content">
 
     <a href="../../../" class="logo">
-      AprovaQuest
+      Aprova<span>Quest</span>
     </a>
 
     <nav>
       <a href="../../../">Início</a>
-      <a href="../../../questoes/">Questões</a>
+      <a href="../../">Questões</a>
+      <a href="../">Matemática</a>
     </nav>
 
   </div>
+
 </header>
 
 
-<main class="container">
+<main>
 
-  <!-- BREADCRUMB -->
+<section class="section">
 
-  <div class="breadcrumb">
-    <a href="../../../">Início</a>
-    →
-    <a href="../../../questoes/">Questões</a>
-    →
-    <span>Matemática</span>
-    →
-    <span>Equações</span>
+<div class="container">
+
+  <p>
+    <a href="../../../">Início</a> →
+    <a href="../../">Questões</a> →
+    <a href="../">Matemática</a> →
+    Equações
+  </p>
+
+
+  <h1>Questões de Equações</h1>
+
+  <p>
+    Pratique Equações de 1º e 2º Grau com questões de diferentes níveis
+    de dificuldade.
+  </p>
+
+
+  <!-- CONTROLES -->
+
+  <div class="controls">
+
+    <label for="filtro-dificuldade">
+      Dificuldade:
+    </label>
+
+    <select id="filtro-dificuldade">
+
+      <option value="Todas">
+        Todas
+      </option>
+
+      <option value="Fácil">
+        Fácil
+      </option>
+
+      <option value="Médio">
+        Médio
+      </option>
+
+      <option value="Difícil">
+        Difícil
+      </option>
+
+    </select>
+
+
+    <label for="quantidade">
+      Quantidade:
+    </label>
+
+    <select id="quantidade">
+
+      <option value="5">
+        5 questões
+      </option>
+
+      <option value="10">
+        10 questões
+      </option>
+
+      <option value="20">
+        20 questões
+      </option>
+
+      <option value="todas">
+        Todas
+      </option>
+
+    </select>
+
+
+    <label for="tempo">
+      Tempo:
+    </label>
+
+    <select id="tempo">
+
+      <option value="5">
+        5 minutos
+      </option>
+
+      <option value="10">
+        10 minutos
+      </option>
+
+      <option value="20">
+        20 minutos
+      </option>
+
+      <option value="30">
+        30 minutos
+      </option>
+
+    </select>
+
+
+    <button
+      id="embaralhar"
+      type="button">
+
+      🔀 Embaralhar
+
+    </button>
+
   </div>
 
 
-  <!-- TÍTULO -->
+  <!-- PLACAR -->
 
-  <section class="page-header">
+  <div
+    id="placar"
+    class="score-box">
 
-    <h1>Exercícios de Equações</h1>
-
-    <p>
-      Pratique equações de 1º e 2º grau com questões
-      de diferentes níveis de dificuldade.
-    </p>
-
-  </section>
-
-
-  <!-- DESEMPENHO -->
-
-  <section class="score-box">
+    <strong>
+      Pontuação
+    </strong>
 
     <div>
-      <strong id="acertos">0</strong>
-      <span>Acertos</span>
+      Acertos:
+      <span id="acertos">0</span>
     </div>
 
     <div>
-      <strong id="erros">0</strong>
-      <span>Erros</span>
+      Erros:
+      <span id="erros">0</span>
     </div>
 
     <div>
-      <strong id="aproveitamento">0%</strong>
-      <span>Aproveitamento</span>
+      Aproveitamento:
+      <span id="aproveitamento">0%</span>
     </div>
 
-  </section>
-
-
-  <!-- CONFIGURAÇÕES -->
-
-  <section class="quiz-config">
-
-    <div class="config-item">
-
-      <label for="filtro-dificuldade">
-        Dificuldade
-      </label>
-
-      <select id="filtro-dificuldade">
-
-        <option value="Todas">
-          Todas
-        </option>
-
-        <option value="Fácil">
-          Fácil
-        </option>
-
-        <option value="Médio">
-          Médio
-        </option>
-
-        <option value="Difícil">
-          Difícil
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="config-item">
-
-      <label for="quantidade-questoes">
-        Quantidade
-      </label>
-
-      <select id="quantidade-questoes">
-
-        <option value="5">
-          5 questões
-        </option>
-
-        <option value="10">
-          10 questões
-        </option>
-
-        <option value="20">
-          20 questões
-        </option>
-
-        <option value="Todas">
-          Todas
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="config-item">
-
-      <label for="tempo-prova">
-        Tempo
-      </label>
-
-      <select id="tempo-prova">
-
-        <option value="5">
-          5 minutos
-        </option>
-
-        <option value="10">
-          10 minutos
-        </option>
-
-        <option value="20">
-          20 minutos
-        </option>
-
-        <option value="30" selected>
-          30 minutos
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="config-actions">
-
-      <button
-        id="embaralhar"
-        type="button"
-      >
-        🔀 Embaralhar
-      </button>
-
-      <button
-        id="iniciar-prova"
-        type="button"
-      >
-        ▶ Iniciar prova
-      </button>
-
-    </div>
-
-    <p id="mensagem-iniciar">
-      Clique em "Iniciar prova" para começar.
-    </p>
-
-  </section>
+  </div>
 
 
   <!-- CRONÔMETRO -->
 
-  <section class="timer-box">
+  <div
+    id="cronometro"
+    class="timer">
 
-    <span>⏱️ Tempo restante:</span>
+    ⏱️
+    <span id="tempo-restante">
+      00:00
+    </span>
 
-    <strong id="cronometro">
-      30:00
-    </strong>
+  </div>
 
-  </section>
+
+  <!-- INICIAR -->
+
+  <button
+    id="iniciar-prova"
+    class="start-button"
+    type="button">
+
+    ▶️ Iniciar prova
+
+  </button>
+
+
+  <!-- MENSAGEM -->
+
+  <div
+    id="mensagem-iniciar"
+    class="start-message">
+
+    🔒 Inicie a prova para marcar as questões.
+
+  </div>
 
 
   <!-- PROGRESSO -->
 
-  <section class="progress-box">
+  <div
+    id="progresso-container"
+    class="progress-container">
 
-    <div class="progress-header">
-
-      <span id="progresso-texto">
-        Questão 0 de 0
-      </span>
-
-      <strong id="progresso-porcentagem">
-        0%
-      </strong>
-
+    <div
+      id="progresso"
+      class="progress-bar">
     </div>
 
-    <div class="progress-bar">
-
-      <div
-        id="progresso-fill"
-        class="progress-fill"
-        style="width: 0%;"
-      ></div>
-
-    </div>
-
-  </section>
+  </div>
 
 
   <!-- STATUS -->
 
-  <p id="status"></p>
+  <div
+    id="status"
+    class="status">
+
+    Carregando questões...
+
+  </div>
 
 
   <!-- QUESTÕES -->
 
-  <section id="questoes-container"></section>
+  <div
+    id="questoes-container">
+  </div>
 
 
-  <!-- RESULTADO FINAL -->
+  <!-- RESULTADO -->
 
-  <section
+  <div
     id="resultado-final"
-    class="resultado-final"
-    style="display: none;"
-  >
+    class="final-result"
+    style="display:none;">
 
-    <h2 id="resultado-titulo">
-      🎉 Quiz concluído!
+    <h2>
+      🏆 Resultado da prova
     </h2>
 
-    <p id="resultado-descricao">
-      Você respondeu todas as questões.
+    <p>
+      Acertos:
+      <strong id="resultado-acertos">
+        0
+      </strong>
     </p>
 
-    <div id="resultado-score"></div>
+    <p>
+      Erros:
+      <strong id="resultado-erros">
+        0
+      </strong>
+    </p>
 
-    <div id="resultado-detalhes"></div>
+    <p>
+      Aproveitamento:
+      <strong id="resultado-percentual">
+        0%
+      </strong>
+    </p>
 
     <button
-      id="refazer-final"
-      type="button"
-    >
+      id="refazer-prova"
+      type="button">
+
       🔄 Refazer prova
+
     </button>
 
-  </section>
+  </div>
+
+</div>
+
+</section>
 
 </main>
 
 
+<footer class="footer">
+
+<div class="container">
+
+  <p>
+    © 2026 AprovaQuest
+  </p>
+
+</div>
+
+</footer>
+
+
+<style>
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  align-items: center;
+}
+
+.controls select,
+.controls button {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.score-box {
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f5f5f5;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.timer {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  margin: 15px 0;
+  padding: 12px;
+
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.start-button {
+  display: block;
+  width: 100%;
+
+  margin: 15px 0;
+  padding: 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.start-message {
+  margin-top: 12px;
+  padding: 10px 15px;
+
+  background: #fff3cd;
+  border: 1px solid #ffecb5;
+
+  border-radius: 8px;
+
+  color: #664d03;
+
+  font-weight: bold;
+  text-align: center;
+}
+
+.progress-container {
+  width: 100%;
+  height: 10px;
+
+  margin: 15px 0;
+
+  background: #e5e5e5;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+
+  transition: width 0.3s ease;
+}
+
+.question {
+  margin: 25px 0;
+  padding: 20px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+.question h3 {
+  margin-top: 0;
+}
+
+.alternatives {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+.alternative {
+  width: 100%;
+
+  padding: 12px 15px;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  background: white;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.alternative:hover {
+  transform: translateY(-1px);
+}
+
+.result {
+  margin-top: 15px;
+  padding: 12px;
+
+  border-radius: 8px;
+
+  font-weight: bold;
+}
+
+.explanation {
+  margin-top: 12px;
+  padding: 12px;
+
+  background: #f5f5f5;
+
+  border-radius: 8px;
+}
+
+.tip {
+  margin-top: 10px;
+  padding: 10px;
+
+  background: #fff3cd;
+
+  border-radius: 8px;
+}
+
+.final-result {
+  margin-top: 30px;
+  padding: 25px;
+
+  border: 2px solid #ddd;
+  border-radius: 12px;
+
+  text-align: center;
+}
+
+.final-result button {
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+
+</style>
+
+
 <script type="module">
 
-import { supabase }
-  from "/aprovaquest-v2/js/supabase.js";
+import { supabase } from "../../../js/supabase.js";
 
 
-/* =====================================================
-   VARIÁVEIS
-===================================================== */
+/* ELEMENTOS */
+
+const container =
+  document.getElementById("questoes-container");
+
+const status =
+  document.getElementById("status");
+
+const filtroDificuldade =
+  document.getElementById("filtro-dificuldade");
+
+const quantidade =
+  document.getElementById("quantidade");
+
+const tempo =
+  document.getElementById("tempo");
+
+const embaralhar =
+  document.getElementById("embaralhar");
+
+const iniciarProva =
+  document.getElementById("iniciar-prova");
+
+const mensagemIniciar =
+  document.getElementById("mensagem-iniciar");
+
+const tempoRestante =
+  document.getElementById("tempo-restante");
+
+const acertosElemento =
+  document.getElementById("acertos");
+
+const errosElemento =
+  document.getElementById("erros");
+
+const aproveitamentoElemento =
+  document.getElementById("aproveitamento");
+
+const progresso =
+  document.getElementById("progresso");
+
+const resultadoFinal =
+  document.getElementById("resultado-final");
+
+const resultadoAcertos =
+  document.getElementById("resultado-acertos");
+
+const resultadoErros =
+  document.getElementById("resultado-erros");
+
+const resultadoPercentual =
+  document.getElementById("resultado-percentual");
+
+const refazerProva =
+  document.getElementById("refazer-prova");
+
+
+/* VARIÁVEIS */
 
 let todasQuestoes = [];
-
 let questoesAtuais = [];
 
 let acertos = 0;
-
 let erros = 0;
 
-let provaIniciada = false;
+let intervaloCronometro = null;
+let segundosRestantes = 0;
 
+let provaIniciada = false;
 let provaEncerrada = false;
 
-let intervaloCronometro = null;
 
-let tempoRestante = 30 * 60;
-
-
-/* =====================================================
-   ELEMENTOS
-===================================================== */
-
-const container =
-  document.getElementById(
-    "questoes-container"
-  );
-
-const status =
-  document.getElementById(
-    "status"
-  );
-
-const acertosElemento =
-  document.getElementById(
-    "acertos"
-  );
-
-const errosElemento =
-  document.getElementById(
-    "erros"
-  );
-
-const aproveitamentoElemento =
-  document.getElementById(
-    "aproveitamento"
-  );
-
-const filtroDificuldade =
-  document.getElementById(
-    "filtro-dificuldade"
-  );
-
-const quantidadeQuestoes =
-  document.getElementById(
-    "quantidade-questoes"
-  );
-
-const tempoProva =
-  document.getElementById(
-    "tempo-prova"
-  );
-
-const iniciarProva =
-  document.getElementById(
-    "iniciar-prova"
-  );
-
-const embaralhar =
-  document.getElementById(
-    "embaralhar"
-  );
-
-const cronometro =
-  document.getElementById(
-    "cronometro"
-  );
-
-const mensagemIniciar =
-  document.getElementById(
-    "mensagem-iniciar"
-  );
-
-const progressoTexto =
-  document.getElementById(
-    "progresso-texto"
-  );
-
-const progressoPorcentagem =
-  document.getElementById(
-    "progresso-porcentagem"
-  );
-
-const progressoFill =
-  document.getElementById(
-    "progresso-fill"
-  );
-
-const resultadoFinal =
-  document.getElementById(
-    "resultado-final"
-  );
-
-const resultadoTitulo =
-  document.getElementById(
-    "resultado-titulo"
-  );
-
-const resultadoDescricao =
-  document.getElementById(
-    "resultado-descricao"
-  );
-
-const resultadoScore =
-  document.getElementById(
-    "resultado-score"
-  );
-
-const resultadoDetalhes =
-  document.getElementById(
-    "resultado-detalhes"
-  );
-
-const refazerFinal =
-  document.getElementById(
-    "refazer-final"
-  );
-
-
-/* =====================================================
-   CARREGAR QUESTÕES
-===================================================== */
+/* CARREGAR QUESTÕES */
 
 async function carregarQuestoes() {
 
   status.textContent =
     "Carregando questões...";
+
 
   const resposta =
     await supabase
@@ -440,58 +591,97 @@ async function carregarQuestoes() {
         "Equações de 1º Grau",
         "Equações de 2º Grau"
       ])
-      .order("id", {
-        ascending: true
-      });
+      .order("id", { ascending: true });
+
 
   if (resposta.error) {
 
-    console.error(
-      resposta.error
-    );
+    console.error(resposta.error);
 
     status.textContent =
-      "Erro ao carregar as questões.";
+      "❌ Erro ao carregar as questões.";
 
     return;
 
   }
 
+
   todasQuestoes =
     resposta.data || [];
 
-  status.textContent =
-    `${todasQuestoes.length} questões carregadas.`;
 
-  prepararQuestoes();
+  if (todasQuestoes.length === 0) {
+
+    status.textContent =
+      "⚠️ Nenhuma questão de Equações encontrada no Supabase.";
+
+    iniciarProva.style.display =
+      "none";
+
+    mensagemIniciar.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  status.textContent =
+    `${todasQuestoes.length} questão(ões) encontrada(s).`;
+
+
+  montarProva();
 
 }
 
 
-/* =====================================================
-   EMBARALHAR ARRAY
-===================================================== */
+/* EMBARALHAR */
 
 function embaralharArray(array) {
 
-  return [...array].sort(
-    () => Math.random() - 0.5
-  );
+  const copia =
+    [...array];
+
+
+  for (
+    let i = copia.length - 1;
+    i > 0;
+    i--
+  ) {
+
+    const j =
+      Math.floor(
+        Math.random() * (i + 1)
+      );
+
+
+    [
+      copia[i],
+      copia[j]
+    ] =
+    [
+      copia[j],
+      copia[i]
+    ];
+
+  }
+
+
+  return copia;
 
 }
 
 
-/* =====================================================
-   PREPARAR QUESTÕES
-===================================================== */
+/* MONTAR PROVA */
 
-function prepararQuestoes() {
-
-  const dificuldade =
-    filtroDificuldade.value;
+function montarProva() {
 
   let filtradas =
     [...todasQuestoes];
+
+
+  const dificuldade =
+    filtroDificuldade.value;
 
 
   if (dificuldade !== "Todas") {
@@ -499,135 +689,166 @@ function prepararQuestoes() {
     filtradas =
       filtradas.filter(
         questao =>
-          questao.dificuldade ===
-          dificuldade
+          questao.dificuldade === dificuldade
       );
 
   }
 
 
-  filtradas =
-    embaralharArray(
-      filtradas
-    );
+  if (
+    embaralhar.dataset.ativo === "true"
+  ) {
+
+    filtradas =
+      embaralharArray(filtradas);
+
+  }
 
 
-  const quantidade =
-    quantidadeQuestoes.value;
+  const quantidadeSelecionada =
+    quantidade.value;
 
 
-  if (quantidade === "Todas") {
+  if (
+    quantidadeSelecionada !== "todas"
+  ) {
 
-    questoesAtuais =
-      filtradas;
-
-  } else {
-
-    questoesAtuais =
+    filtradas =
       filtradas.slice(
         0,
-        Number(quantidade)
+        Number(quantidadeSelecionada)
       );
 
   }
 
 
-  criarQuestoes();
+  questoesAtuais =
+    filtradas;
+
+
+  renderizarQuestoes();
 
 }
 
 
-/* =====================================================
-   CRIAR QUESTÕES
-===================================================== */
+/* RENDERIZAR */
 
-function criarQuestoes() {
+function renderizarQuestoes() {
 
   container.innerHTML = "";
 
+  acertos = 0;
+  erros = 0;
+
+  atualizarPlacar();
+  atualizarProgresso();
+
+
   questoesAtuais.forEach(
-    (questao, index) => {
+    (questao, indice) => {
 
-      const article =
-        document.createElement(
-          "article"
-        );
+      const div =
+        document.createElement("div");
 
-      article.className =
-        "card question";
+      div.className =
+        "question";
 
 
-      article.innerHTML = `
+      div.innerHTML = `
 
-        <div class="question-header">
+        <h3>
+          ${indice + 1}. ${questao.titulo || "Questão"}
+        </h3>
 
-          <span class="question-number">
-            Questão ${index + 1}
-          </span>
-
-          <span class="question-difficulty">
-            ${questao.dificuldade || ""}
-          </span>
-
-        </div>
-
-
-        <h2>
-          ${questao.titulo || ""}
-        </h2>
-
-
-        <p class="question-text">
-          ${questao.enunciado || ""}
+        <p>
+          ${questao.enunciado}
         </p>
-
 
         <div class="alternatives">
 
-          ${criarAlternativa(
-            "A",
-            questao.alternativa_a
-          )}
+          <button
+            class="alternative"
+            data-resposta="A">
+            A) ${questao.alternativa_a}
+          </button>
 
-          ${criarAlternativa(
-            "B",
-            questao.alternativa_b
-          )}
+          <button
+            class="alternative"
+            data-resposta="B">
+            B) ${questao.alternativa_b}
+          </button>
 
-          ${criarAlternativa(
-            "C",
-            questao.alternativa_c
-          )}
+          <button
+            class="alternative"
+            data-resposta="C">
+            C) ${questao.alternativa_c}
+          </button>
 
-          ${criarAlternativa(
-            "D",
-            questao.alternativa_d
-          )}
+          <button
+            class="alternative"
+            data-resposta="D">
+            D) ${questao.alternativa_d}
+          </button>
 
-          ${criarAlternativa(
-            "E",
-            questao.alternativa_e
-          )}
+          <button
+            class="alternative"
+            data-resposta="E">
+            E) ${questao.alternativa_e}
+          </button>
 
         </div>
 
 
         <div
-          class="question-result"
-          style="display:none;"
-        ></div>
+          class="result"
+          style="display:none;">
+        </div>
+
+
+        <div
+          class="explanation"
+          style="display:none;">
+
+          <strong>
+            📖 Explicação:
+          </strong>
+
+          <p>
+            ${questao.explicacao || ""}
+          </p>
+
+
+          ${
+            questao.dica
+              ? `
+                <div class="tip">
+                  💡 <strong>Dica:</strong>
+                  ${questao.dica}
+                </div>
+              `
+              : ""
+          }
+
+        </div>
 
       `;
 
 
-      container.appendChild(
-        article
-      );
-
-
       const botoes =
-        article.querySelectorAll(
+        div.querySelectorAll(
           ".alternative"
+        );
+
+
+      const resultado =
+        div.querySelector(
+          ".result"
+        );
+
+
+      const explicacao =
+        div.querySelector(
+          ".explanation"
         );
 
 
@@ -638,12 +859,157 @@ function criarQuestoes() {
             "click",
             () => {
 
-              responder(
-                botao,
-                questao,
-                article,
-                botoes
+              if (
+                !provaIniciada ||
+                provaEncerrada ||
+                botao.classList.contains(
+                  "respondida"
+                )
+              ) {
+
+                return;
+
+              }
+
+
+              /*
+                Todas as alternativas da questão
+                recebem "respondida".
+
+                Isso NÃO significa 5 questões respondidas.
+                O progresso abaixo conta apenas
+                os blocos .question.
+              */
+
+              botoes.forEach(
+                b =>
+                  b.classList.add(
+                    "respondida"
+                  )
               );
+
+
+              const respostaUsuario =
+                botao.dataset.resposta;
+
+
+              const correta =
+                String(
+                  questao.resposta_correta
+                )
+                  .trim()
+                  .toUpperCase();
+
+
+              if (
+                respostaUsuario ===
+                correta
+              ) {
+
+                acertos++;
+
+                botao.style.background =
+                  "#d4edda";
+
+                botao.style.borderColor =
+                  "#28a745";
+
+                resultado.textContent =
+                  "✅ Resposta correta!";
+
+                resultado.style.background =
+                  "#d4edda";
+
+                resultado.style.color =
+                  "#155724";
+
+              } else {
+
+                erros++;
+
+                botao.style.background =
+                  "#f8d7da";
+
+                botao.style.borderColor =
+                  "#dc3545";
+
+                resultado.textContent =
+                  `❌ Resposta incorreta. A resposta correta é ${correta}.`;
+
+                resultado.style.background =
+                  "#f8d7da";
+
+                resultado.style.color =
+                  "#721c24";
+
+
+                botoes.forEach(
+                  b => {
+
+                    if (
+                      b.dataset.resposta ===
+                      correta
+                    ) {
+
+                      b.style.background =
+                        "#d4edda";
+
+                      b.style.borderColor =
+                        "#28a745";
+
+                    }
+
+                  }
+                );
+
+              }
+
+
+              resultado.style.display =
+                "block";
+
+              explicacao.style.display =
+                "block";
+
+
+              atualizarPlacar();
+              atualizarProgresso();
+
+
+              /*
+                CORREÇÃO DO BUG:
+
+                Conta quantos blocos .question
+                possuem pelo menos uma alternativa
+                respondida.
+
+                Assim:
+                1 questão = 1 respondida
+                10 questões = 10 respondidas
+                20 questões = 20 respondidas
+              */
+
+              const totalRespondidas =
+                Array.from(
+                  document.querySelectorAll(
+                    ".question"
+                  )
+                ).filter(
+                  questao =>
+                    questao.querySelector(
+                      ".alternative.respondida"
+                    )
+                ).length;
+
+
+              if (
+                totalRespondidas >=
+                questoesAtuais.length
+              ) {
+
+                encerrarProva();
+
+              }
 
             }
           );
@@ -651,173 +1017,33 @@ function criarQuestoes() {
         }
       );
 
-    }
-  );
 
-
-  atualizarProgresso();
-
-}
-
-
-/* =====================================================
-   CRIAR ALTERNATIVA
-===================================================== */
-
-function criarAlternativa(
-  letra,
-  texto
-) {
-
-  return `
-
-    <button
-      type="button"
-      class="alternative"
-      data-answer="${letra}"
-    >
-
-      <span class="alternative-letter">
-        ${letra}
-      </span>
-
-      <span>
-        ${texto || ""}
-      </span>
-
-    </button>
-
-  `;
-
-}
-
-
-/* =====================================================
-   RESPONDER
-===================================================== */
-
-function responder(
-  botao,
-  questao,
-  article,
-  botoes
-) {
-
-  if (!provaIniciada) {
-
-    mensagemIniciar.textContent =
-      "⚠️ Inicie a prova antes de responder.";
-
-    return;
-
-  }
-
-
-  if (provaEncerrada) {
-    return;
-  }
-
-
-  if (
-    botao.classList.contains(
-      "respondida"
-    )
-  ) {
-    return;
-  }
-
-
-  const escolhida =
-    botao.dataset.answer;
-
-  const correta =
-    questao.resposta_correta;
-
-
-  botoes.forEach(
-    b => {
-
-      b.disabled = true;
-
-      b.classList.add(
-        "respondida"
-      );
-
-
-      if (
-        b.dataset.answer ===
-        correta
-      ) {
-
-        b.classList.add(
-          "correct"
-        );
-
-      }
+      container.appendChild(div);
 
     }
   );
 
 
-  const resultado =
-    article.querySelector(
-      ".question-result"
-    );
-
-
   if (
-    escolhida === correta
+    questoesAtuais.length === 0
   ) {
 
-    acertos++;
-
-    botao.classList.add(
-      "correct"
-    );
-
-    resultado.innerHTML = `
-      <strong>✅ Correto!</strong>
-      <p>${questao.explicacao || ""}</p>
-    `;
+    status.textContent =
+      "⚠️ Nenhuma questão encontrada com esses filtros.";
 
   } else {
 
-    erros++;
-
-    botao.classList.add(
-      "incorrect"
-    );
-
-    resultado.innerHTML = `
-      <strong>❌ Incorreto!</strong>
-      <p>
-        Resposta correta:
-        <strong>${correta}</strong>
-      </p>
-      <p>${questao.explicacao || ""}</p>
-    `;
+    status.textContent =
+      `${questoesAtuais.length} questão(ões) selecionada(s).`;
 
   }
-
-
-  resultado.style.display =
-    "block";
-
-
-  atualizarDesempenho();
-
-  atualizarProgresso();
-
-  verificarFim();
 
 }
 
 
-/* =====================================================
-   DESEMPENHO
-===================================================== */
+/* PLACAR */
 
-function atualizarDesempenho() {
+function atualizarPlacar() {
 
   acertosElemento.textContent =
     acertos;
@@ -826,30 +1052,25 @@ function atualizarDesempenho() {
     erros;
 
 
-  const total =
+  const totalRespondidas =
     acertos + erros;
 
 
-  const aproveitamento =
-    total > 0
+  const percentual =
+    totalRespondidas > 0
       ? Math.round(
-          (acertos / total) * 100
+          (acertos / totalRespondidas) * 100
         )
       : 0;
 
 
   aproveitamentoElemento.textContent =
-    aproveitamento + "%";
+    `${percentual}%`;
 
 }
 
 
-/* =====================================================
-   PROGRESSO
-   CORREÇÃO:
-   cada QUESTÃO vale 1, mesmo que as 5 alternativas
-   recebam a classe "respondida"
-===================================================== */
+/* PROGRESSO */
 
 function atualizarProgresso() {
 
@@ -857,6 +1078,27 @@ function atualizarProgresso() {
     questoesAtuais.length;
 
 
+  if (!total) {
+
+    progresso.style.width =
+      "0%";
+
+    return;
+
+  }
+
+
+  /*
+    CORREÇÃO:
+
+    Antes:
+    número de alternativas respondidas / 5
+
+    Agora:
+    conta diretamente quantas questões
+    possuem uma alternativa respondida.
+  */
+
   const respondidas =
     Array.from(
       document.querySelectorAll(
@@ -870,80 +1112,146 @@ function atualizarProgresso() {
     ).length;
 
 
-  const porcentagem =
-    total > 0
-      ? Math.round(
-          (respondidas / total) * 100
-        )
-      : 0;
+  const percentual =
+    (respondidas / total) * 100;
 
 
-  progressoTexto.textContent =
-    `Questão ${respondidas} de ${total}`;
-
-
-  progressoPorcentagem.textContent =
-    porcentagem + "%";
-
-
-  progressoFill.style.width =
-    porcentagem + "%";
+  progresso.style.width =
+    `${percentual}%`;
 
 }
 
 
-/* =====================================================
-   VERIFICAR FIM
-===================================================== */
+/* CRONÔMETRO */
 
-function verificarFim() {
+function iniciarCronometro() {
 
-  if (provaEncerrada) {
+  if (
+    provaIniciada ||
+    provaEncerrada ||
+    questoesAtuais.length === 0
+  ) {
+
     return;
+
   }
 
 
-  const respondidas =
-    Array.from(
-      document.querySelectorAll(
-        ".question"
-      )
-    ).filter(
-      questao =>
-        questao.querySelector(
-          ".alternative.respondida"
-        )
-    ).length;
+  provaIniciada =
+    true;
+
+
+  iniciarProva.style.display =
+    "none";
+
+  mensagemIniciar.style.display =
+    "none";
+
+
+  segundosRestantes =
+    Number(tempo.value) * 60;
+
+
+  atualizarCronometro();
+
+
+  intervaloCronometro =
+    setInterval(
+      () => {
+
+        segundosRestantes--;
+
+        atualizarCronometro();
+
+
+        if (
+          segundosRestantes <= 0
+        ) {
+
+          encerrarProva();
+
+        }
+
+      },
+      1000
+    );
+
+}
+
+
+/* CRONÔMETRO */
+
+function atualizarCronometro() {
+
+  const minutos =
+    Math.floor(
+      segundosRestantes / 60
+    );
+
+  const segundos =
+    segundosRestantes % 60;
+
+
+  tempoRestante.textContent =
+    `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
 
 
   if (
-    respondidas >=
-    questoesAtuais.length
+    segundosRestantes <= 60
   ) {
 
-    provaEncerrada = true;
+    tempoRestante.style.color =
+      "#dc3545";
 
-    pararCronometro();
+  } else if (
+    segundosRestantes <= 300
+  ) {
 
+    tempoRestante.style.color =
+      "#d39e00";
 
-    resultadoTitulo.textContent =
-      "🎉 Quiz concluído!";
+  } else {
 
-
-    resultadoDescricao.textContent =
-      "Você respondeu todas as questões.";
-
-
-    mostrarResultadoFinal();
+    tempoRestante.style.color =
+      "";
 
   }
 
 }
 
 
-/* =====================================================
-   MOSTRAR RESULTADO
-===================================================== */
+/* ENCERRAR */
+
+function encerrarProva() {
+
+  if (
+    provaEncerrada
+  ) {
+
+    return;
+
+  }
+
+
+  provaEncerrada =
+    true;
+
+
+  clearInterval(
+    intervaloCronometro
+  );
+
+
+  intervaloCronometro =
+    null;
+
+
+  mostrarResultadoFinal();
+
+}
+
+
+/* RESULTADO */
 
 function mostrarResultadoFinal() {
 
@@ -951,7 +1259,7 @@ function mostrarResultadoFinal() {
     questoesAtuais.length;
 
 
-  const aproveitamento =
+  const percentual =
     total > 0
       ? Math.round(
           (acertos / total) * 100
@@ -959,34 +1267,14 @@ function mostrarResultadoFinal() {
       : 0;
 
 
-  resultadoScore.innerHTML = `
+  resultadoAcertos.textContent =
+    acertos;
 
-    <div class="final-score">
+  resultadoErros.textContent =
+    erros;
 
-      <strong>
-        ${acertos}/${total}
-      </strong>
-
-      <span>
-        ${aproveitamento}% de aproveitamento
-      </span>
-
-    </div>
-
-  `;
-
-
-  resultadoDetalhes.innerHTML = `
-
-    <p>
-      ✅ Acertos: <strong>${acertos}</strong>
-    </p>
-
-    <p>
-      ❌ Erros: <strong>${erros}</strong>
-    </p>
-
-  `;
+  resultadoPercentual.textContent =
+    `${percentual}%`;
 
 
   resultadoFinal.style.display =
@@ -1000,169 +1288,110 @@ function mostrarResultadoFinal() {
 }
 
 
-/* =====================================================
-   CRONÔMETRO
-===================================================== */
+/* RESETAR */
 
-function iniciarCronometro() {
+function resetarProva() {
 
-  pararCronometro();
+  clearInterval(
+    intervaloCronometro
+  );
 
 
   intervaloCronometro =
-    setInterval(
-      () => {
-
-        tempoRestante--;
+    null;
 
 
-        atualizarCronometro();
+  provaIniciada =
+    false;
+
+  provaEncerrada =
+    false;
 
 
-        if (
-          tempoRestante <= 0
-        ) {
+  acertos =
+    0;
 
-          pararCronometro();
-
-          finalizarPorTempo();
-
-        }
-
-      },
-      1000
-    );
-
-}
+  erros =
+    0;
 
 
-/* =====================================================
-   ATUALIZAR CRONÔMETRO
-===================================================== */
+  tempoRestante.textContent =
+    "00:00";
 
-function atualizarCronometro() {
-
-  const minutos =
-    Math.floor(
-      tempoRestante / 60
-    );
-
-  const segundos =
-    tempoRestante % 60;
+  tempoRestante.style.color =
+    "";
 
 
-  cronometro.textContent =
-    `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+  resultadoFinal.style.display =
+    "none";
+
+
+  iniciarProva.style.display =
+    "block";
+
+
+  mensagemIniciar.style.display =
+    "block";
+
+
+  embaralhar.dataset.ativo =
+    "false";
+
+
+  montarProva();
 
 }
 
 
-/* =====================================================
-   PARAR CRONÔMETRO
-===================================================== */
-
-function pararCronometro() {
-
-  if (
-    intervaloCronometro
-  ) {
-
-    clearInterval(
-      intervaloCronometro
-    );
-
-    intervaloCronometro =
-      null;
-
-  }
-
-}
-
-
-/* =====================================================
-   FINALIZAR POR TEMPO
-===================================================== */
-
-function finalizarPorTempo() {
-
-  if (provaEncerrada) {
-    return;
-  }
-
-
-  provaEncerrada = true;
-
-
-  resultadoTitulo.textContent =
-    "⏰ Tempo encerrado!";
-
-
-  resultadoDescricao.textContent =
-    "O tempo da prova terminou.";
-
-
-  mostrarResultadoFinal();
-
-}
-
-
-/* =====================================================
-   INICIAR PROVA
-===================================================== */
+/* EVENTOS */
 
 iniciarProva.addEventListener(
   "click",
+  iniciarCronometro
+);
+
+
+filtroDificuldade.addEventListener(
+  "change",
   () => {
 
-    prepararQuestoes();
+    if (!provaIniciada) {
 
+      montarProva();
 
-    acertos = 0;
-
-    erros = 0;
-
-    provaEncerrada = false;
-
-    provaIniciada = true;
-
-
-    const minutos =
-      Number(
-        tempoProva.value
-      );
-
-
-    tempoRestante =
-      minutos * 60;
-
-
-    atualizarCronometro();
-
-    atualizarDesempenho();
-
-    iniciarCronometro();
-
-
-    mensagemIniciar.textContent =
-      "🚀 Prova iniciada! Boa sorte!";
-
-
-    resultadoFinal.style.display =
-      "none";
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    }
 
   }
 );
 
 
-/* =====================================================
-   EMBARALHAR
-===================================================== */
+quantidade.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+
+      montarProva();
+
+    }
+
+  }
+);
+
+
+tempo.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+
+      montarProva();
+
+    }
+
+  }
+);
+
 
 embaralhar.addEventListener(
   "click",
@@ -1170,84 +1399,26 @@ embaralhar.addEventListener(
 
     if (provaIniciada) {
 
-      mensagemIniciar.textContent =
-        "⚠️ Não é possível embaralhar durante a prova.";
-
       return;
 
     }
 
 
-    prepararQuestoes();
+    embaralhar.dataset.ativo =
+      "true";
 
 
-    mensagemIniciar.textContent =
-      "🔀 Questões embaralhadas!";
-
-  }
-);
-
-
-/* =====================================================
-   FILTROS
-===================================================== */
-
-filtroDificuldade.addEventListener(
-  "change",
-  () => {
-
-    if (!provaIniciada) {
-      prepararQuestoes();
-    }
+    montarProva();
 
   }
 );
 
 
-quantidadeQuestoes.addEventListener(
-  "change",
-  () => {
-
-    if (!provaIniciada) {
-      prepararQuestoes();
-    }
-
-  }
-);
-
-
-/* =====================================================
-   REFAZER
-===================================================== */
-
-refazerFinal.addEventListener(
+refazerProva.addEventListener(
   "click",
   () => {
 
-    provaIniciada = false;
-
-    provaEncerrada = false;
-
-    acertos = 0;
-
-    erros = 0;
-
-
-    pararCronometro();
-
-
-    resultadoFinal.style.display =
-      "none";
-
-
-    atualizarDesempenho();
-
-
-    prepararQuestoes();
-
-
-    mensagemIniciar.textContent =
-      'Clique em "Iniciar prova" para começar.';
+    resetarProva();
 
 
     window.scrollTo({
@@ -1259,9 +1430,7 @@ refazerFinal.addEventListener(
 );
 
 
-/* =====================================================
-   INICIAR
-===================================================== */
+/* INICIAR CARREGAMENTO */
 
 carregarQuestoes();
 

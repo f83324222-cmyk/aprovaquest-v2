@@ -115,6 +115,54 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
       transform: translateY(-1px);
     }
 
+    /* TELA DE RESULTADO */
+
+    .final-result {
+      margin-top: 30px;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      text-align: center;
+      border: 2px solid #e5e7eb;
+    }
+
+    .final-result h2 {
+      margin-top: 0;
+      font-size: 28px;
+    }
+
+    .final-result p {
+      font-size: 18px;
+    }
+
+    .final-score {
+      font-size: 34px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .final-message {
+      padding: 15px;
+      border-radius: 8px;
+      background: #f6f7fb;
+      margin: 20px 0;
+    }
+
+    .final-retry {
+      padding: 13px 24px;
+      border: none;
+      border-radius: 8px;
+      background: #4f46e5;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .final-retry:hover {
+      opacity: 0.9;
+    }
+
     .alternatives {
       display: grid;
       gap: 10px;
@@ -201,6 +249,10 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
 
       .score-stats {
         grid-template-columns: 1fr;
+      }
+
+      .final-result {
+        padding: 20px;
       }
 
     }
@@ -326,6 +378,41 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
 
   <section id="questoes-container"></section>
 
+  <!-- RESULTADO FINAL -->
+
+  <section
+    id="resultado-final"
+    class="final-result"
+    hidden>
+
+```
+<h2>🎉 Quiz concluído!</h2>
+
+<p>
+  Você terminou todas as questões deste filtro.
+</p>
+
+<div
+  id="resultado-pontuacao"
+  class="final-score">
+  0 de 0
+</div>
+
+<div
+  id="resultado-detalhes"
+  class="final-message">
+</div>
+
+<button
+  id="refazer-final"
+  class="final-retry"
+  type="button">
+  🔄 Refazer questões
+</button>
+```
+
+  </section>
+
 </div>
 
 </section>
@@ -347,6 +434,10 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
 import { supabase } from "/aprovaquest-v2/js/supabase.js";
 
 
+/* =========================
+   ELEMENTOS
+========================= */
+
 const container =
   document.getElementById("questoes-container");
 
@@ -359,6 +450,18 @@ const filtro =
 const botaoTentarNovamente =
   document.getElementById("tentar-novamente");
 
+const resultadoFinal =
+  document.getElementById("resultado-final");
+
+const resultadoPontuacao =
+  document.getElementById("resultado-pontuacao");
+
+const resultadoDetalhes =
+  document.getElementById("resultado-detalhes");
+
+const botaoRefazerFinal =
+  document.getElementById("refazer-final");
+
 
 /* =========================
    CONTADORES
@@ -366,6 +469,9 @@ const botaoTentarNovamente =
 
 let acertos = 0;
 let erros = 0;
+
+let totalQuestoesAtuais = 0;
+let questoesRespondidas = 0;
 
 
 const elementoAcertos =
@@ -405,12 +511,121 @@ function atualizarDesempenho() {
 }
 
 
+/* =========================
+   ZERAR DESEMPENHO
+========================= */
+
 function zerarDesempenho() {
 
   acertos = 0;
   erros = 0;
+  questoesRespondidas = 0;
 
   atualizarDesempenho();
+
+  resultadoFinal.hidden = true;
+
+}
+
+
+/* =========================
+   MOSTRAR RESULTADO FINAL
+========================= */
+
+function mostrarResultadoFinal() {
+
+  const total =
+    acertos + erros;
+
+
+  const aproveitamento =
+    total === 0
+      ? 0
+      : Math.round(
+          (acertos / total) * 100
+        );
+
+
+  resultadoPontuacao.textContent =
+    `${acertos} de ${total}`;
+
+
+  let mensagem = "";
+
+
+  if (aproveitamento === 100) {
+
+    mensagem =
+      "🏆 Perfeito! Você acertou todas as questões!";
+
+  } else if (aproveitamento >= 80) {
+
+    mensagem =
+      "🔥 Excelente desempenho! Você está mandando muito bem.";
+
+  } else if (aproveitamento >= 60) {
+
+    mensagem =
+      "👏 Bom trabalho! Continue praticando para melhorar ainda mais.";
+
+  } else if (aproveitamento >= 40) {
+
+    mensagem =
+      "💪 Você está no caminho certo. Continue estudando e praticando.";
+
+  } else {
+
+    mensagem =
+      "📚 Não desanime! Revise o conteúdo e tente novamente.";
+
+  }
+
+
+  resultadoDetalhes.innerHTML = `
+
+    <strong>
+      🎯 Aproveitamento: ${aproveitamento}%
+    </strong>
+
+    <p>
+      ✅ ${acertos} acerto(s)
+      &nbsp; | &nbsp;
+      ❌ ${erros} erro(s)
+    </p>
+
+    <p>
+      ${mensagem}
+    </p>
+
+  `;
+
+
+  resultadoFinal.hidden =
+    false;
+
+
+  resultadoFinal.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+
+/* =========================
+   VERIFICAR FIM DO QUIZ
+========================= */
+
+function verificarFimDoQuiz() {
+
+  if (
+    totalQuestoesAtuais > 0 &&
+    questoesRespondidas >= totalQuestoesAtuais
+  ) {
+
+    mostrarResultadoFinal();
+
+  }
 
 }
 
@@ -439,8 +654,11 @@ async function carregarQuestoes() {
         .order("id", { ascending: true });
 
 
-    const data = resposta.data;
-    const error = resposta.error;
+    const data =
+      resposta.data;
+
+    const error =
+      resposta.error;
 
 
     console.log(
@@ -482,7 +700,9 @@ async function carregarQuestoes() {
 
 
       status.innerHTML = `
-        <strong>Erro ao conectar ao banco.</strong>
+        <strong>
+          Erro ao conectar ao banco.
+        </strong>
 
         <p>
           <strong>Código:</strong>
@@ -500,14 +720,19 @@ async function carregarQuestoes() {
     }
 
 
-    if (!data || data.length === 0) {
+    if (
+      !data ||
+      data.length === 0
+    ) {
 
       status.className =
         "loading";
 
 
       status.innerHTML = `
-        <strong>Nenhuma questão encontrada.</strong>
+        <strong>
+          Nenhuma questão encontrada.
+        </strong>
 
         <p>
           O banco ainda não possui questões de Juros Simples.
@@ -543,7 +768,9 @@ async function carregarQuestoes() {
 
 
     status.innerHTML = `
-      <strong>Erro inesperado.</strong>
+      <strong>
+        Erro inesperado.
+      </strong>
 
       <p>
         ${erro.message || erro}
@@ -565,6 +792,10 @@ function atualizarQuestoes() {
     "";
 
 
+  resultadoFinal.hidden =
+    true;
+
+
   const dificuldadeSelecionada =
     filtro.value;
 
@@ -583,6 +814,15 @@ function atualizarQuestoes() {
         );
 
 
+  /* DEFINE QUANTAS QUESTÕES ESTÃO SENDO FEITAS */
+
+  totalQuestoesAtuais =
+    questoesFiltradas.length;
+
+  questoesRespondidas =
+    0;
+
+
   status.className =
     "";
 
@@ -591,7 +831,9 @@ function atualizarQuestoes() {
     `${questoesFiltradas.length} questão(ões) encontrada(s).`;
 
 
-  if (questoesFiltradas.length === 0) {
+  if (
+    questoesFiltradas.length === 0
+  ) {
 
     container.innerHTML = `
       <div class="no-results">
@@ -766,6 +1008,9 @@ function criarQuestao(
             true;
 
 
+          questoesRespondidas++;
+
+
           const resposta =
             botao.dataset.answer;
 
@@ -850,6 +1095,11 @@ function criarQuestao(
           explanation.hidden =
             false;
 
+
+          /* VERIFICA SE TERMINOU */
+
+          verificarFimDoQuiz();
+
         }
       );
 
@@ -872,6 +1122,13 @@ filtro.addEventListener(
   "change",
   () => {
 
+    /*
+      Ao mudar o filtro,
+      começamos um novo quiz.
+    */
+
+    zerarDesempenho();
+
     atualizarQuestoes();
 
   }
@@ -883,6 +1140,27 @@ filtro.addEventListener(
 ========================= */
 
 botaoTentarNovamente.addEventListener(
+  "click",
+  () => {
+
+    zerarDesempenho();
+
+    atualizarQuestoes();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+);
+
+
+/* =========================
+   REFAZER PELO RESULTADO
+========================= */
+
+botaoRefazerFinal.addEventListener(
   "click",
   () => {
 

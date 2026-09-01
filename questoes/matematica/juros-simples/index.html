@@ -38,8 +38,10 @@
       Teste seus conhecimentos e confira a explicação após responder.
     </p>
 
+
     <!-- DESEMPENHO -->
     <section class="score-box">
+
       <h2>📊 Seu desempenho</h2>
 
       <div class="score-stats">
@@ -62,6 +64,7 @@
       </div>
 
       <div class="retry-box">
+
         <button
           id="tentar-novamente"
           class="retry-button"
@@ -69,29 +72,81 @@
         >
           🔄 Tentar novamente
         </button>
+
       </div>
+
     </section>
 
-    <!-- FILTRO -->
+
+    <!-- FILTROS -->
     <div class="filter-box">
 
       <label for="filtro-dificuldade">
-        🎯 Filtrar por dificuldade:
+        🎯 Dificuldade:
       </label>
 
       <select id="filtro-dificuldade">
-        <option value="Todas">Todas</option>
-        <option value="Fácil">Fácil</option>
-        <option value="Médio">Médio</option>
-        <option value="Difícil">Difícil</option>
+
+        <option value="Todas">
+          Todas
+        </option>
+
+        <option value="Fácil">
+          Fácil
+        </option>
+
+        <option value="Médio">
+          Médio
+        </option>
+
+        <option value="Difícil">
+          Difícil
+        </option>
+
       </select>
 
+
+      <label for="quantidade-questoes">
+        📚 Quantidade:
+      </label>
+
+      <select id="quantidade-questoes">
+
+        <option value="5">
+          5 questões
+        </option>
+
+        <option value="10">
+          10 questões
+        </option>
+
+        <option value="20">
+          20 questões
+        </option>
+
+        <option value="todas" selected>
+          Todas
+        </option>
+
+      </select>
+
+
+      <button
+        id="embaralhar"
+        class="shuffle-button"
+        type="button"
+      >
+        🔀 Embaralhar
+      </button>
+
     </div>
+
 
     <!-- PROGRESSO FIXO -->
     <section class="progress-box">
 
       <div class="progress-info">
+
         <span id="progresso-texto">
           Questão 0 de 0
         </span>
@@ -99,24 +154,30 @@
         <span id="progresso-percentual">
           0%
         </span>
+
       </div>
 
       <div class="progress-bar">
+
         <div
           id="progresso-preenchido"
           class="progress-filled"
         ></div>
+
       </div>
 
     </section>
+
 
     <!-- STATUS -->
     <div id="status" class="loading">
       Carregando questões...
     </div>
 
+
     <!-- QUESTÕES -->
     <div id="questoes-container"></div>
+
 
     <!-- RESULTADO FINAL -->
     <section
@@ -128,7 +189,7 @@
       <h2>🎉 Quiz concluído!</h2>
 
       <p>
-        Você terminou todas as questões deste filtro.
+        Você terminou todas as questões desta prova.
       </p>
 
       <div
@@ -148,7 +209,7 @@
         class="final-retry"
         type="button"
       >
-        🔄 Refazer questões
+        🔄 Refazer prova
       </button>
 
     </section>
@@ -201,7 +262,8 @@
       margin-top: 20px;
     }
 
-    .retry-button {
+    .retry-button,
+    .shuffle-button {
       padding: 10px 18px;
       border: none;
       border-radius: 8px;
@@ -212,13 +274,14 @@
       color: white;
     }
 
-    .retry-button:hover {
+    .retry-button:hover,
+    .shuffle-button:hover {
       opacity: 0.9;
     }
 
 
     /* ================================
-       FILTRO
+       FILTROS
     ================================= */
 
     .filter-box {
@@ -248,7 +311,7 @@
 
 
     /* ================================
-       BARRA DE PROGRESSO FIXA
+       PROGRESSO FIXO
     ================================= */
 
     .progress-box {
@@ -535,6 +598,16 @@
         padding: 18px;
       }
 
+      .filter-box {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-box select,
+      .shuffle-button {
+        width: 100%;
+      }
+
     }
 
   </style>
@@ -558,6 +631,12 @@
     const filtro =
       document.getElementById("filtro-dificuldade");
 
+    const quantidade =
+      document.getElementById("quantidade-questoes");
+
+    const botaoEmbaralhar =
+      document.getElementById("embaralhar");
+
     const botaoTentarNovamente =
       document.getElementById("tentar-novamente");
 
@@ -575,7 +654,7 @@
 
 
     /* ================================
-       ELEMENTOS DO PROGRESSO
+       PROGRESSO
     ================================= */
 
     const progressoTexto =
@@ -594,6 +673,8 @@
 
     let todasQuestoes = [];
 
+    let questoesAtuais = [];
+
     let acertos = 0;
 
     let erros = 0;
@@ -601,6 +682,39 @@
     let totalQuestoesAtuais = 0;
 
     let questoesRespondidas = 0;
+
+
+    /* ================================
+       EMBARALHAR ARRAY
+    ================================= */
+
+    function embaralharArray(array) {
+
+      const copia = [...array];
+
+      for (
+        let i = copia.length - 1;
+        i > 0;
+        i--
+      ) {
+
+        const j =
+          Math.floor(
+            Math.random() * (i + 1)
+          );
+
+        [
+          copia[i],
+          copia[j]
+        ] = [
+          copia[j],
+          copia[i]
+        ];
+
+      }
+
+      return copia;
+    }
 
 
     /* ================================
@@ -743,7 +857,7 @@
 
 
     /* ================================
-       VERIFICAR FIM DO QUIZ
+       VERIFICAR FIM
     ================================= */
 
     function verificarFimDoQuiz() {
@@ -761,20 +875,16 @@
 
 
     /* ================================
-       ATUALIZAR QUESTÕES
+       OBTER QUESTÕES DO FILTRO
     ================================= */
 
-    function atualizarQuestoes() {
-
-      container.innerHTML = "";
-
-      resultadoFinal.hidden = true;
+    function obterQuestoesFiltradas() {
 
       const dificuldadeSelecionada =
         filtro.value.toLowerCase();
 
-      const questoesFiltradas =
-        todasQuestoes.filter(questao => {
+      return todasQuestoes.filter(
+        questao => {
 
           if (
             dificuldadeSelecionada === "todas"
@@ -783,23 +893,88 @@
           }
 
           return (
-            String(questao.dificuldade || "")
-              .toLowerCase() ===
+            String(
+              questao.dificuldade || ""
+            ).toLowerCase() ===
             dificuldadeSelecionada
           );
 
-        });
+        }
+      );
+    }
+
+
+    /* ================================
+       ATUALIZAR QUESTÕES
+    ================================= */
+
+    function atualizarQuestoes(
+      embaralhar = true
+    ) {
+
+      container.innerHTML = "";
+
+      resultadoFinal.hidden = true;
+
+
+      let questoesFiltradas =
+        obterQuestoesFiltradas();
+
+
+      /* ================================
+         EMBARALHAMENTO
+      ================================= */
+
+      if (embaralhar) {
+
+        questoesFiltradas =
+          embaralharArray(
+            questoesFiltradas
+          );
+
+      }
+
+
+      /* ================================
+         QUANTIDADE
+      ================================= */
+
+      const quantidadeSelecionada =
+        quantidade.value;
+
+
+      if (
+        quantidadeSelecionada !== "todas"
+      ) {
+
+        const limite =
+          Number(
+            quantidadeSelecionada
+          );
+
+        questoesFiltradas =
+          questoesFiltradas.slice(
+            0,
+            limite
+          );
+      }
+
+
+      questoesAtuais =
+        questoesFiltradas;
 
 
       totalQuestoesAtuais =
-        questoesFiltradas.length;
+        questoesAtuais.length;
 
       questoesRespondidas = 0;
 
       atualizarProgresso();
 
 
-      if (questoesFiltradas.length === 0) {
+      if (
+        questoesAtuais.length === 0
+      ) {
 
         status.textContent =
           "Nenhuma questão encontrada.";
@@ -812,13 +987,13 @@
 
 
       status.textContent =
-        `${questoesFiltradas.length} questão(ões) encontrada(s).`;
+        `${questoesAtuais.length} questão(ões) selecionada(s).`;
 
       status.className =
         "";
 
 
-      questoesFiltradas.forEach(
+      questoesAtuais.forEach(
         (questao, index) => {
 
           criarQuestao(
@@ -898,6 +1073,7 @@
           class="explicacao"
           hidden
         >
+
           <strong>📖 Explicação:</strong>
 
           <p>
@@ -923,113 +1099,123 @@
 
 
       const botoes =
-        div.querySelectorAll(".alternativa");
+        div.querySelectorAll(
+          ".alternativa"
+        );
 
       const resultado =
-        div.querySelector(".resultado");
+        div.querySelector(
+          ".resultado"
+        );
 
       const explicacao =
-        div.querySelector(".explicacao");
+        div.querySelector(
+          ".explicacao"
+        );
 
 
       let respondida = false;
 
 
-      botoes.forEach(botao => {
+      botoes.forEach(
+        botao => {
 
-        botao.addEventListener(
-          "click",
-          () => {
+          botao.addEventListener(
+            "click",
+            () => {
 
-            if (respondida) {
-              return;
-            }
+              if (respondida) {
+                return;
+              }
 
-            respondida = true;
+              respondida = true;
 
-            questoesRespondidas++;
+              questoesRespondidas++;
 
-            atualizarProgresso();
-
-
-            const respostaSelecionada =
-              botao.dataset.letra;
-
-            const respostaCorreta =
-              String(
-                questao.resposta_correta
-              ).toUpperCase();
+              atualizarProgresso();
 
 
-            botoes.forEach(
-              botaoQuestao => {
+              const respostaSelecionada =
+                botao.dataset.letra;
 
-                botaoQuestao.disabled =
-                  true;
+              const respostaCorreta =
+                String(
+                  questao.resposta_correta
+                ).toUpperCase();
 
 
-                if (
-                  botaoQuestao.dataset.letra ===
-                  respostaCorreta
-                ) {
+              botoes.forEach(
+                botaoQuestao => {
 
-                  botaoQuestao.classList.add(
-                    "correta"
-                  );
+                  botaoQuestao.disabled =
+                    true;
+
+
+                  if (
+                    botaoQuestao.dataset.letra ===
+                    respostaCorreta
+                  ) {
+
+                    botaoQuestao.classList.add(
+                      "correta"
+                    );
+
+                  }
+
                 }
+              );
+
+
+              if (
+                respostaSelecionada ===
+                respostaCorreta
+              ) {
+
+                acertos++;
+
+                botao.classList.add(
+                  "correta"
+                );
+
+                resultado.textContent =
+                  "✅ Resposta correta!";
+
+              } else {
+
+                erros++;
+
+                botao.classList.add(
+                  "errada"
+                );
+
+                resultado.textContent =
+                  `❌ Resposta incorreta. A resposta correta é ${respostaCorreta}.`;
 
               }
-            );
 
 
-            if (
-              respostaSelecionada ===
-              respostaCorreta
-            ) {
+              atualizarDesempenho();
 
-              acertos++;
+              resultado.hidden =
+                false;
 
-              botao.classList.add(
-                "correta"
-              );
+              explicacao.hidden =
+                false;
 
-              resultado.textContent =
-                "✅ Resposta correta!";
 
-            } else {
+              verificarFimDoQuiz();
 
-              erros++;
-
-              botao.classList.add(
-                "errada"
-              );
-
-              resultado.textContent =
-                `❌ Resposta incorreta. A resposta correta é ${respostaCorreta}.`;
             }
+          );
 
-
-            atualizarDesempenho();
-
-            resultado.hidden =
-              false;
-
-            explicacao.hidden =
-              false;
-
-
-            verificarFimDoQuiz();
-
-          }
-        );
-
-      });
+        }
+      );
 
     }
 
 
     /* ================================
-       FILTRO
+       FILTRO DE DIFICULDADE
     ================================= */
 
     filtro.addEventListener(
@@ -1038,7 +1224,44 @@
 
         zerarDesempenho();
 
-        atualizarQuestoes();
+        atualizarQuestoes(true);
+
+      }
+    );
+
+
+    /* ================================
+       QUANTIDADE
+    ================================= */
+
+    quantidade.addEventListener(
+      "change",
+      () => {
+
+        zerarDesempenho();
+
+        atualizarQuestoes(true);
+
+      }
+    );
+
+
+    /* ================================
+       EMBARALHAR
+    ================================= */
+
+    botaoEmbaralhar.addEventListener(
+      "click",
+      () => {
+
+        zerarDesempenho();
+
+        atualizarQuestoes(true);
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
       }
     );
@@ -1054,7 +1277,7 @@
 
         zerarDesempenho();
 
-        atualizarQuestoes();
+        atualizarQuestoes(true);
 
         window.scrollTo({
           top: 0,
@@ -1066,7 +1289,7 @@
 
 
     /* ================================
-       REFAZER PELO RESULTADO FINAL
+       REFAZER PELO RESULTADO
     ================================= */
 
     botaoRefazerFinal.addEventListener(
@@ -1075,7 +1298,7 @@
 
         zerarDesempenho();
 
-        atualizarQuestoes();
+        atualizarQuestoes(true);
 
         window.scrollTo({
           top: 0,
@@ -1087,7 +1310,7 @@
 
 
     /* ================================
-       CARREGAR QUESTÕES DO SUPABASE
+       CARREGAR SUPABASE
     ================================= */
 
     async function carregarQuestoes() {
@@ -1131,7 +1354,7 @@
         resposta.data || [];
 
 
-      atualizarQuestoes();
+      atualizarQuestoes(true);
 
     }
 

@@ -191,7 +191,7 @@
     id="status"
     class="loading"
   >
-    Conectando ao banco de questões...
+    Testando conexão com o banco...
   </div>
 
 
@@ -247,26 +247,21 @@ async function carregarQuestoes() {
   try {
 
     status.textContent =
-      "Carregando questões de Juros Simples...";
+      "Buscando questões no Supabase...";
 
+
+    /*
+      TESTE:
+
+      Sem filtro de matéria ou assunto.
+      Se as questões aparecerem aqui,
+      sabemos que a conexão está funcionando.
+    */
 
     const resposta =
       await supabase
-
         .from("questoes")
-
         .select("*")
-
-        .eq(
-          "materia",
-          "Matemática"
-        )
-
-        .eq(
-          "assunto",
-          "Juros Simples"
-        )
-
         .order(
           "id",
           {
@@ -307,6 +302,16 @@ async function carregarQuestoes() {
         error.code
       );
 
+      console.error(
+        "DETAILS:",
+        error.details
+      );
+
+      console.error(
+        "HINT:",
+        error.hint
+      );
+
 
       status.className =
         "error";
@@ -315,7 +320,7 @@ async function carregarQuestoes() {
       status.innerHTML = `
 
         <strong>
-          Erro ao carregar questões.
+          Erro ao buscar questões.
         </strong>
 
         <p>
@@ -348,12 +353,12 @@ async function carregarQuestoes() {
       status.innerHTML = `
 
         <strong>
-          Nenhuma questão encontrada.
+          Conexão funcionando!
         </strong>
 
         <p>
-          Ainda não existem questões cadastradas
-          para Matemática → Juros Simples.
+          O Supabase respondeu, mas a tabela
+          "questoes" está vazia.
         </p>
 
       `;
@@ -370,8 +375,12 @@ async function carregarQuestoes() {
 
     status.textContent =
       data.length +
-      " questão(ões) de Juros Simples encontrada(s).";
+      " questão(ões) encontrada(s).";
 
+
+
+    container.innerHTML =
+      "";
 
 
     data.forEach(
@@ -438,7 +447,7 @@ function criarQuestao(
 
       Questão ${index + 1} —
 
-      ${questao.titulo || "Juros Simples"}
+      ${questao.titulo || "Questão"}
 
     </h2>
 
@@ -673,4 +682,3 @@ carregarQuestoes();
 
 </html>
 ```
-

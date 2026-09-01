@@ -53,6 +53,44 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
       font-weight: bold;
     }
 
+    /* PAINEL DE DESEMPENHO */
+
+    .score-box {
+      margin-top: 25px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .score-box h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .score-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .score-item {
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      background: #f6f7fb;
+    }
+
+    .score-item strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .score-item span {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
     .alternatives {
       display: grid;
       gap: 10px;
@@ -134,6 +172,15 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
       background: white;
       border-radius: 10px;
     }
+
+    @media (max-width: 600px) {
+
+      .score-stats {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
   </style>
 
 </head>
@@ -177,6 +224,35 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
     Pratique juros simples para ENEM e vestibulares.
     Escolha uma alternativa para responder.
   </p>
+
+  <!-- PAINEL DE DESEMPENHO -->
+
+  <div class="score-box">
+
+```
+<h2>📊 Seu desempenho</h2>
+
+<div class="score-stats">
+
+  <div class="score-item">
+    <strong id="acertos">0</strong>
+    <span>✅ Acertos</span>
+  </div>
+
+  <div class="score-item">
+    <strong id="erros">0</strong>
+    <span>❌ Erros</span>
+  </div>
+
+  <div class="score-item">
+    <strong id="aproveitamento">0%</strong>
+    <span>🎯 Aproveitamento</span>
+  </div>
+
+</div>
+```
+
+  </div>
 
   <div class="filter-box">
 
@@ -224,7 +300,11 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
 
 <div class="container">
 
+<div class="container">
+
   <p>© 2026 AprovaQuest</p>
+
+</div>
 
 </div>
 
@@ -243,6 +323,49 @@ const status =
 
 const filtro =
   document.getElementById("filtro-dificuldade");
+
+
+/* CONTADORES */
+
+let acertos = 0;
+let erros = 0;
+
+
+const elementoAcertos =
+  document.getElementById("acertos");
+
+const elementoErros =
+  document.getElementById("erros");
+
+const elementoAproveitamento =
+  document.getElementById("aproveitamento");
+
+
+function atualizarDesempenho() {
+
+  elementoAcertos.textContent =
+    acertos;
+
+  elementoErros.textContent =
+    erros;
+
+
+  const totalRespondidas =
+    acertos + erros;
+
+
+  const aproveitamento =
+    totalRespondidas === 0
+      ? 0
+      : Math.round(
+          (acertos / totalRespondidas) * 100
+        );
+
+
+  elementoAproveitamento.textContent =
+    `${aproveitamento}%`;
+
+}
 
 
 let todasQuestoes = [];
@@ -479,9 +602,22 @@ function criarQuestao(questao, index) {
     article.querySelector(".explanation");
 
 
+  let respondida =
+    false;
+
+
   botoes.forEach((botao) => {
 
     botao.addEventListener("click", () => {
+
+      /* EVITA CONTAR A MESMA QUESTÃO DUAS VEZES */
+
+      if (respondida) {
+        return;
+      }
+
+      respondida = true;
+
 
       const resposta =
         botao.dataset.answer;
@@ -514,6 +650,8 @@ function criarQuestao(questao, index) {
 
         botao.classList.add("correct");
 
+        acertos++;
+
         result.className =
           "result correct";
 
@@ -524,6 +662,8 @@ function criarQuestao(questao, index) {
 
         botao.classList.add("wrong");
 
+        erros++;
+
         result.className =
           "result wrong";
 
@@ -531,6 +671,9 @@ function criarQuestao(questao, index) {
           "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
 
       }
+
+
+      atualizarDesempenho();
 
 
       result.hidden = false;

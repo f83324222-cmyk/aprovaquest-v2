@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -713,7 +712,6 @@
         .forEach(botao => {
 
           botao.disabled = true;
-
           botao.style.cursor = "not-allowed";
         });
 
@@ -763,9 +761,25 @@
       const total =
         questoesAtuais.length;
 
+      /*
+       * IMPORTANTE:
+       * Cada questão possui 5 alternativas,
+       * e todas recebem a classe "respondida".
+       *
+       * Por isso não podemos contar
+       * ".alternativa.respondida".
+       *
+       * Aqui contamos somente as questões
+       * que já possuem uma alternativa respondida.
+       */
+
       const respondidas =
-        document.querySelectorAll(
-          ".alternativa.respondida"
+        Array.from(
+          document.querySelectorAll(".questao")
+        ).filter(questao =>
+          questao.querySelector(
+            ".alternativa.respondida"
+          )
         ).length;
 
       const porcentagem =
@@ -859,9 +873,18 @@
         return;
       }
 
+      /*
+       * Conta questões respondidas,
+       * e não alternativas respondidas.
+       */
+
       const respondidas =
-        document.querySelectorAll(
-          ".alternativa.respondida"
+        Array.from(
+          document.querySelectorAll(".questao")
+        ).filter(questao =>
+          questao.querySelector(
+            ".alternativa.respondida"
+          )
         ).length;
 
       if (
@@ -873,7 +896,7 @@
         pararCronometro();
 
         resultadoTitulo.textContent =
-          "🎉 Quiz concluído!";
+          "🎉 Prova finalizada!";
 
         resultadoDescricao.textContent =
           "Você respondeu todas as questões.";
@@ -1059,6 +1082,16 @@
                     questao.resposta_correta
                   ).trim().toUpperCase();
 
+                /*
+                 * Marca todas as alternativas
+                 * como respondidas para impedir
+                 * novos cliques.
+                 *
+                 * A função de progresso NÃO
+                 * conta essas alternativas.
+                 * Ela conta o bloco .questao.
+                 */
+
                 botoes.forEach(
                   outroBotao => {
 
@@ -1115,6 +1148,7 @@
                   "block";
 
                 atualizarDesempenho();
+
                 atualizarProgresso();
 
                 verificarFim();
@@ -1236,4 +1270,3 @@
 
 </body>
 </html>
-```

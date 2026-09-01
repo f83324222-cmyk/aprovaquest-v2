@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -16,10 +15,6 @@
   <link rel="stylesheet" href="../../../css/style.css">
 
   <style>
-
-    /* =========================
-       DESEMPENHO
-    ========================= */
 
     .score-box,
     .filter-box,
@@ -99,11 +94,6 @@
       background: #0b5ed7;
     }
 
-
-    /* =========================
-       FILTROS
-    ========================= */
-
     .filter-box h3 {
       margin-top: 0;
     }
@@ -129,11 +119,6 @@
       background: white;
       font-size: 15px;
     }
-
-
-    /* =========================
-       CRONÔMETRO
-    ========================= */
 
     .timer-box {
       text-align: center;
@@ -171,11 +156,6 @@
 
     }
 
-
-    /* =========================
-       MENSAGEM PARA INICIAR
-    ========================= */
-
     .start-message {
       margin-top: 12px;
       padding: 10px 15px;
@@ -186,11 +166,6 @@
       font-weight: bold;
       text-align: center;
     }
-
-
-    /* =========================
-       PROGRESSO
-    ========================= */
 
     .progress-box {
       position: sticky;
@@ -221,11 +196,6 @@
       background: #198754;
       transition: width 0.3s ease;
     }
-
-
-    /* =========================
-       QUESTÕES
-    ========================= */
 
     .question {
       margin-top: 25px;
@@ -280,11 +250,6 @@
       border-color: #dc3545;
     }
 
-
-    /* =========================
-       RESULTADO
-    ========================= */
-
     .result {
       margin-top: 18px;
       padding: 15px;
@@ -326,11 +291,6 @@
       margin-bottom: 20px;
     }
 
-
-    /* =========================
-       STATUS
-    ========================= */
-
     .loading {
       margin-top: 25px;
       padding: 20px;
@@ -355,11 +315,6 @@
       border-radius: 10px;
     }
 
-
-    /* =========================
-       MOBILE
-    ========================= */
-
     @media (max-width: 700px) {
 
       .score-stats,
@@ -382,9 +337,7 @@
 
 </head>
 
-
 <body>
-
 
 <header class="header">
 
@@ -403,22 +356,17 @@
 
 </header>
 
-
 <main>
 
 <section class="section">
 
 <div class="container">
 
-
-  <!-- BREADCRUMB -->
-
   <p>
     <a href="../../../">Início</a> →
     <a href="../../">Questões</a> →
     Matemática → Porcentagem
   </p>
-
 
   <h1>Exercícios de Porcentagem</h1>
 
@@ -427,10 +375,7 @@
     Escolha uma alternativa para responder.
   </p>
 
-
-  <!-- =========================
-       DESEMPENHO
-  ========================= -->
+  <!-- DESEMPENHO -->
 
   <section class="score-box">
 
@@ -455,7 +400,6 @@
 
     </div>
 
-
     <div class="retry-box">
 
       <button
@@ -471,18 +415,13 @@
 
   </section>
 
-
-  <!-- =========================
-       CONFIGURAÇÃO
-  ========================= -->
+  <!-- CONFIGURAÇÃO -->
 
   <section class="filter-box">
 
     <h3>⚙️ Configurar prova</h3>
 
-
     <div class="filter-controls">
-
 
       <div class="filter-group">
 
@@ -492,26 +431,14 @@
 
         <select id="filtro-dificuldade">
 
-          <option value="Todas">
-            Todas
-          </option>
-
-          <option value="Fácil">
-            Fácil
-          </option>
-
-          <option value="Médio">
-            Médio
-          </option>
-
-          <option value="Difícil">
-            Difícil
-          </option>
+          <option value="Todas">Todas</option>
+          <option value="Fácil">Fácil</option>
+          <option value="Médio">Médio</option>
+          <option value="Difícil">Difícil</option>
 
         </select>
 
       </div>
-
 
       <div class="filter-group">
 
@@ -521,26 +448,14 @@
 
         <select id="quantidade-questoes">
 
-          <option value="5">
-            5 questões
-          </option>
-
-          <option value="10">
-            10 questões
-          </option>
-
-          <option value="20">
-            20 questões
-          </option>
-
-          <option value="Todas">
-            Todas
-          </option>
+          <option value="5">5 questões</option>
+          <option value="10">10 questões</option>
+          <option value="20">20 questões</option>
+          <option value="Todas">Todas</option>
 
         </select>
 
       </div>
-
 
       <div class="filter-group">
 
@@ -550,29 +465,16 @@
 
         <select id="tempo-prova">
 
-          <option value="5">
-            5 minutos
-          </option>
-
-          <option value="10">
-            10 minutos
-          </option>
-
-          <option value="20">
-            20 minutos
-          </option>
-
-          <option value="30" selected>
-            30 minutos
-          </option>
+          <option value="5">5 minutos</option>
+          <option value="10">10 minutos</option>
+          <option value="20">20 minutos</option>
+          <option value="30" selected>30 minutos</option>
 
         </select>
 
       </div>
 
-
     </div>
-
 
     <button
       id="embaralhar"
@@ -585,10 +487,7 @@
 
   </section>
 
-
-  <!-- =========================
-       CRONÔMETRO
-  ========================= -->
+  <!-- CRONÔMETRO -->
 
   <section
     id="cronometro-box"
@@ -606,7 +505,6 @@
 
     </div>
 
-
     <button
       id="iniciar-prova"
       class="start-button"
@@ -615,7 +513,6 @@
       ▶️ Iniciar prova
 
     </button>
-
 
     <div
       id="mensagem-iniciar"
@@ -627,10 +524,7 @@
 
   </section>
 
-
-  <!-- =========================
-       PROGRESSO
-  ========================= -->
+  <!-- PROGRESSO -->
 
   <section class="progress-box">
 
@@ -646,7 +540,6 @@
 
     </div>
 
-
     <div class="progress-bar">
 
       <div
@@ -658,7 +551,6 @@
 
   </section>
 
-
   <!-- STATUS -->
 
   <div
@@ -669,15 +561,11 @@
 
   </div>
 
-
   <!-- QUESTÕES -->
 
   <section id="questoes-container"></section>
 
-
-  <!-- =========================
-       RESULTADO FINAL
-  ========================= -->
+  <!-- RESULTADO FINAL -->
 
   <section
     id="resultado-final"
@@ -704,7 +592,6 @@
       class="resultado-detalhes">
     </div>
 
-
     <button
       id="refazer-final"
       class="retry-button"
@@ -716,13 +603,11 @@
 
   </section>
 
-
 </div>
 
 </section>
 
 </main>
-
 
 <footer class="footer">
 
@@ -734,9 +619,7 @@
 
 </footer>
 
-
 <script type="module">
-
 
 import { supabase }
   from "/aprovaquest-v2/js/supabase.js";
@@ -946,7 +829,6 @@ function atualizarCronometroVisual() {
     "danger"
   );
 
-
   if (
     segundosRestantes <= 60
   ) {
@@ -995,26 +877,20 @@ function iniciarCronometro() {
 
   }
 
-
   provaIniciada = true;
-
 
   botaoIniciar.style.display =
     "none";
 
-
   mensagemIniciar.style.display =
     "none";
-
 
   segundosRestantes =
     Number(
       tempoProva.value
     ) * 60;
 
-
   atualizarCronometroVisual();
-
 
   intervaloCronometro =
     setInterval(() => {
@@ -1022,7 +898,6 @@ function iniciarCronometro() {
       segundosRestantes--;
 
       atualizarCronometroVisual();
-
 
       if (
         segundosRestantes <= 0
@@ -1047,10 +922,8 @@ function encerrarPorTempo() {
 
   provaEncerrada = true;
 
-
   cronometro.textContent =
     "00:00";
-
 
   document
     .querySelectorAll(
@@ -1065,14 +938,11 @@ function encerrarPorTempo() {
 
     });
 
-
   resultadoTitulo.textContent =
     "⏰ Tempo esgotado!";
 
-
   resultadoDescricao.textContent =
     "O tempo da prova acabou. Confira seu resultado abaixo.";
-
 
   mostrarResultadoFinal();
 
@@ -1091,10 +961,8 @@ function atualizarDesempenho() {
   errosElemento.textContent =
     erros;
 
-
   const totalRespondidas =
     acertos + erros;
-
 
   const aproveitamento =
     totalRespondidas > 0
@@ -1105,7 +973,6 @@ function atualizarDesempenho() {
           ) * 100
         )
       : 0;
-
 
   aproveitamentoElemento.textContent =
     aproveitamento + "%";
@@ -1122,12 +989,24 @@ function atualizarProgresso() {
   const total =
     questoesAtuais.length;
 
+  /*
+   * Cada questão possui 5 alternativas.
+   * Todas recebem "respondida" quando
+   * uma resposta é escolhida.
+   *
+   * Portanto, contamos os artigos/questões
+   * que possuem pelo menos uma alternativa
+   * respondida.
+   */
 
   const respondidas =
-    document.querySelectorAll(
-      ".alternative.respondida"
+    Array.from(
+      document.querySelectorAll(".question")
+    ).filter(questao =>
+      questao.querySelector(
+        ".alternative.respondida"
+      )
     ).length;
-
 
   const porcentagem =
     total > 0
@@ -1139,14 +1018,11 @@ function atualizarProgresso() {
         )
       : 0;
 
-
   progressoTexto.textContent =
     `Questão ${respondidas} de ${total}`;
 
-
   progressoPorcentagem.textContent =
     porcentagem + "%";
-
 
   progressoFill.style.width =
     porcentagem + "%";
@@ -1162,43 +1038,34 @@ function resetarProva() {
 
   pararCronometro();
 
-
   provaIniciada = false;
 
   provaEncerrada = false;
 
-
   acertos = 0;
 
   erros = 0;
-
 
   segundosRestantes =
     Number(
       tempoProva.value
     ) * 60;
 
-
   atualizarCronometroVisual();
 
   atualizarDesempenho();
 
-
   botaoIniciar.style.display =
     "block";
-
 
   mensagemIniciar.style.display =
     "block";
 
-
   resultadoFinal.style.display =
     "none";
 
-
   resultadoTitulo.textContent =
     "🎉 Quiz concluído!";
-
 
   resultadoDescricao.textContent =
     "Você respondeu todas as questões.";
@@ -1214,10 +1081,8 @@ function mostrarResultadoFinal() {
 
   pararCronometro();
 
-
   const total =
     questoesAtuais.length;
-
 
   const porcentagem =
     total > 0
@@ -1229,10 +1094,8 @@ function mostrarResultadoFinal() {
         )
       : 0;
 
-
   resultadoPontuacao.textContent =
     porcentagem + "%";
-
 
   resultadoDetalhes.innerHTML = `
 
@@ -1253,7 +1116,6 @@ function mostrarResultadoFinal() {
 
   `;
 
-
   resultadoFinal.style.display =
     "block";
 
@@ -1272,12 +1134,19 @@ function verificarFim() {
 
   }
 
+  /*
+   * Conta questões respondidas,
+   * e não as alternativas.
+   */
 
   const respondidas =
-    document.querySelectorAll(
-      ".alternative.respondida"
+    Array.from(
+      document.querySelectorAll(".question")
+    ).filter(questao =>
+      questao.querySelector(
+        ".alternative.respondida"
+      )
     ).length;
-
 
   if (
     respondidas >=
@@ -1288,14 +1157,11 @@ function verificarFim() {
 
     pararCronometro();
 
-
     resultadoTitulo.textContent =
       "🎉 Quiz concluído!";
 
-
     resultadoDescricao.textContent =
       "Você respondeu todas as questões.";
-
 
     mostrarResultadoFinal();
 
@@ -1313,10 +1179,8 @@ function obterQuestoesFiltradas() {
   const dificuldade =
     filtroDificuldade.value;
 
-
   let filtradas =
     [...todasQuestoes];
-
 
   if (
     dificuldade !== "Todas"
@@ -1334,16 +1198,13 @@ function obterQuestoesFiltradas() {
 
   }
 
-
   filtradas =
     embaralharArray(
       filtradas
     );
 
-
   const quantidade =
     quantidadeQuestoes.value;
-
 
   if (
     quantidade !== "Todas"
@@ -1356,7 +1217,6 @@ function obterQuestoesFiltradas() {
       );
 
   }
-
 
   return filtradas;
 
@@ -1371,16 +1231,12 @@ function atualizarQuestoes() {
 
   resetarProva();
 
-
   questoesAtuais =
     obterQuestoesFiltradas();
 
-
   container.innerHTML = "";
 
-
   atualizarProgresso();
-
 
   if (
     questoesAtuais.length === 0
@@ -1397,19 +1253,15 @@ function atualizarQuestoes() {
 
     `;
 
-
     botaoIniciar.style.display =
       "none";
-
 
     mensagemIniciar.style.display =
       "none";
 
-
     return;
 
   }
-
 
   questoesAtuais.forEach(
     (questao, index) => {
@@ -1422,15 +1274,12 @@ function atualizarQuestoes() {
     }
   );
 
-
   status.className =
     "loading";
-
 
   status.textContent =
     questoesAtuais.length +
     " questão(ões) encontrada(s).";
-
 
   atualizarProgresso();
 
@@ -1451,10 +1300,8 @@ function criarQuestao(
       "article"
     );
 
-
   article.className =
     "card question";
-
 
   article.innerHTML = `
 
@@ -1465,7 +1312,6 @@ function criarQuestao(
 
     </h2>
 
-
     <div class="difficulty">
 
       Dificuldade:
@@ -1473,16 +1319,13 @@ function criarQuestao(
 
     </div>
 
-
     <p>
 
       ${questao.enunciado || ""}
 
     </p>
 
-
     <div class="alternatives">
-
 
       <button
         class="alternative"
@@ -1492,7 +1335,6 @@ function criarQuestao(
 
       </button>
 
-
       <button
         class="alternative"
         data-answer="B">
@@ -1500,7 +1342,6 @@ function criarQuestao(
         B) ${questao.alternativa_b || ""}
 
       </button>
-
 
       <button
         class="alternative"
@@ -1510,7 +1351,6 @@ function criarQuestao(
 
       </button>
 
-
       <button
         class="alternative"
         data-answer="D">
@@ -1518,7 +1358,6 @@ function criarQuestao(
         D) ${questao.alternativa_d || ""}
 
       </button>
-
 
       <button
         class="alternative"
@@ -1528,15 +1367,12 @@ function criarQuestao(
 
       </button>
 
-
     </div>
-
 
     <div
       class="result"
       hidden>
     </div>
-
 
     <div
       class="explanation"
@@ -1555,7 +1391,6 @@ function criarQuestao(
 
       </p>
 
-
       ${
         questao.dica
           ? `
@@ -1571,24 +1406,20 @@ function criarQuestao(
 
   `;
 
-
   const botoes =
     article.querySelectorAll(
       ".alternative"
     );
-
 
   const result =
     article.querySelector(
       ".result"
     );
 
-
   const explanation =
     article.querySelector(
       ".explanation"
     );
-
 
   botoes.forEach(
     (botao) => {
@@ -1596,7 +1427,6 @@ function criarQuestao(
       botao.addEventListener(
         "click",
         () => {
-
 
           if (
             !provaIniciada ||
@@ -1610,10 +1440,8 @@ function criarQuestao(
 
           }
 
-
           const resposta =
             botao.dataset.answer;
-
 
           const correta =
             String(
@@ -1622,6 +1450,13 @@ function criarQuestao(
             .trim()
             .toUpperCase();
 
+          /*
+           * Todas as alternativas ficam
+           * desabilitadas depois da resposta.
+           *
+           * A função de progresso conta
+           * somente a questão.
+           */
 
           botoes.forEach(
             (b) => {
@@ -1631,7 +1466,6 @@ function criarQuestao(
               b.classList.add(
                 "respondida"
               );
-
 
               if (
                 b.dataset.answer ===
@@ -1647,7 +1481,6 @@ function criarQuestao(
             }
           );
 
-
           if (
             resposta ===
             correta
@@ -1655,47 +1488,37 @@ function criarQuestao(
 
             acertos++;
 
-
             botao.classList.add(
               "correct"
             );
 
-
             result.className =
               "result correct";
 
-
             result.innerHTML =
               "<strong>✅ Você acertou!</strong>";
-
 
           } else {
 
             erros++;
 
-
             botao.classList.add(
               "wrong"
             );
 
-
             result.className =
               "result wrong";
-
 
             result.innerHTML =
               "<strong>❌ Você errou!</strong> A alternativa correta está marcada em verde.";
 
           }
 
-
           result.hidden =
             false;
 
-
           explanation.hidden =
             false;
-
 
           atualizarDesempenho();
 
@@ -1708,7 +1531,6 @@ function criarQuestao(
 
     }
   );
-
 
   container.appendChild(
     article
@@ -1726,19 +1548,16 @@ filtroDificuldade.addEventListener(
   atualizarQuestoes
 );
 
-
 quantidadeQuestoes.addEventListener(
   "change",
   atualizarQuestoes
 );
-
 
 tempoProva.addEventListener(
   "change",
   () => {
 
     resetarProva();
-
 
     if (
       questoesAtuais.length > 0
@@ -1756,24 +1575,20 @@ tempoProva.addEventListener(
   }
 );
 
-
 botaoEmbaralhar.addEventListener(
   "click",
   atualizarQuestoes
 );
-
 
 botaoIniciar.addEventListener(
   "click",
   iniciarCronometro
 );
 
-
 botaoTentarNovamente.addEventListener(
   "click",
   atualizarQuestoes
 );
-
 
 botaoRefazerFinal.addEventListener(
   "click",
@@ -1791,7 +1606,6 @@ async function carregarQuestoes() {
 
     status.textContent =
       "Conectando ao banco de questões...";
-
 
     const resposta =
       await supabase
@@ -1812,13 +1626,11 @@ async function carregarQuestoes() {
           }
         );
 
-
     const data =
       resposta.data;
 
     const error =
       resposta.error;
-
 
     console.log(
       "SUPABASE DATA:",
@@ -1829,7 +1641,6 @@ async function carregarQuestoes() {
       "SUPABASE ERROR:",
       error
     );
-
 
     if (error) {
 
@@ -1853,10 +1664,8 @@ async function carregarQuestoes() {
         error.hint
       );
 
-
       status.className =
         "error";
-
 
       status.innerHTML = `
 
@@ -1871,14 +1680,12 @@ async function carregarQuestoes() {
 
         </p>
 
-
         <p>
 
           <strong>Mensagem:</strong>
           ${error.message || "não informado"}
 
         </p>
-
 
         ${
           error.details
@@ -1890,7 +1697,6 @@ async function carregarQuestoes() {
             `
             : ""
         }
-
 
         ${
           error.hint
@@ -1905,11 +1711,9 @@ async function carregarQuestoes() {
 
       `;
 
-
       return;
 
     }
-
 
     if (
       !data ||
@@ -1918,7 +1722,6 @@ async function carregarQuestoes() {
 
       status.className =
         "loading";
-
 
       status.innerHTML = `
 
@@ -1933,18 +1736,14 @@ async function carregarQuestoes() {
 
       `;
 
-
       return;
 
     }
 
-
     todasQuestoes =
       data;
 
-
     atualizarQuestoes();
-
 
   } catch (erro) {
 
@@ -1953,10 +1752,8 @@ async function carregarQuestoes() {
       erro
     );
 
-
     status.className =
       "error";
-
 
     status.innerHTML = `
 
@@ -1974,7 +1771,6 @@ async function carregarQuestoes() {
 
 }
 
-
 carregarQuestoes();
 
 </script>
@@ -1982,4 +1778,3 @@ carregarQuestoes();
 </body>
 
 </html>
-```

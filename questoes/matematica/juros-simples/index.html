@@ -21,6 +21,16 @@ content="Resolva exercícios de juros simples com gabarito e explicação. Prati
       margin-top: 25px;
     }
 
+    .difficulty {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: #f0f0f0;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
     .alternatives {
       display: grid;
       gap: 10px;
@@ -286,6 +296,10 @@ function criarQuestao(questao, index) {
       ${questao.titulo || "Questão"}
     </h2>
 
+    <div class="difficulty">
+      Dificuldade: ${questao.dificuldade || "Não informada"}
+    </div>
+
     <p>
       ${questao.enunciado || ""}
     </p>
@@ -430,4 +444,3 @@ carregarQuestoes();
 </body>
 
 </html>
-

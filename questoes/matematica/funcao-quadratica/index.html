@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Questões de Função Quadrática com Gabarito | AprovaQuest</title>
+
+<meta
+name="description"
+content="Resolva questões de Função Quadrática para ENEM, vestibulares e concursos. Pratique com gabarito, explicações e dicas."
+
+>
+
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+  <div class="container header-content">
+
+```
+<a href="../../../" class="logo">
+  Aprova<span>Quest</span>
+</a>
+
+<nav>
+  <a href="../../../">Início</a>
+  <a href="../../">Questões</a>
+  <a href="../">Matemática</a>
+</nav>
+```
+
+  </div>
+
+</header>
+
+<main>
+
+<section class="section">
+
+<div class="container">
+
+  <p>
+    <a href="../../../">Início</a> →
+    <a href="../../">Questões</a> →
+    <a href="../">Matemática</a> →
+    Função Quadrática
+  </p>
+
+  <h1>Questões de Função Quadrática</h1>
+
+  <p>
+    Pratique Função Quadrática com questões de diferentes níveis
+    de dificuldade.
+  </p>
+
+  <!-- CONTROLES -->
+
+  <div class="controls">
+
+```
+<label for="filtro-dificuldade">
+  Dificuldade:
+</label>
+
+<select id="filtro-dificuldade">
+
+  <option value="Todas">
+    Todas
+  </option>
+
+  <option value="Fácil">
+    Fácil
+  </option>
+
+  <option value="Médio">
+    Médio
+  </option>
+
+  <option value="Difícil">
+    Difícil
+  </option>
+
+</select>
+
+
+<label for="quantidade">
+  Quantidade:
+</label>
+
+<select id="quantidade">
+
+  <option value="5">
+    5 questões
+  </option>
+
+  <option value="10">
+    10 questões
+  </option>
+
+  <option value="20">
+    20 questões
+  </option>
+
+  <option value="todas">
+    Todas
+  </option>
+
+</select>
+
+
+<label for="tempo">
+  Tempo:
+</label>
+
+<select id="tempo">
+
+  <option value="5">
+    5 minutos
+  </option>
+
+  <option value="10">
+    10 minutos
+  </option>
+
+  <option value="20">
+    20 minutos
+  </option>
+
+  <option value="30">
+    30 minutos
+  </option>
+
+</select>
+
+
+<button
+  id="embaralhar"
+  type="button">
+
+  🔀 Embaralhar
+
+</button>
+```
+
+  </div>
+
+  <!-- PLACAR -->
+
+  <div
+    id="placar"
+    class="score-box">
+
+```
+<strong>
+  Pontuação
+</strong>
+
+<div>
+  Acertos:
+  <span id="acertos">0</span>
+</div>
+
+<div>
+  Erros:
+  <span id="erros">0</span>
+</div>
+
+<div>
+  Aproveitamento:
+  <span id="aproveitamento">0%</span>
+</div>
+```
+
+  </div>
+
+  <!-- CRONÔMETRO -->
+
+  <div
+    id="cronometro"
+    class="timer">
+
+```
+⏱️
+<span id="tempo-restante">
+  00:00
+</span>
+```
+
+  </div>
+
+  <!-- INICIAR -->
+
+<button
+ id="iniciar-prova"
+ class="start-button"
+ type="button">
+
+```
+▶️ Iniciar prova
+```
+
+  </button>
+
+  <!-- MENSAGEM -->
+
+  <div
+    id="mensagem-iniciar"
+    class="start-message">
+
+```
+🔒 Inicie a prova para marcar as questões.
+```
+
+  </div>
+
+  <!-- PROGRESSO -->
+
+  <div
+    id="progresso-container"
+    class="progress-container">
+
+```
+<div
+  id="progresso"
+  class="progress-bar">
+</div>
+```
+
+  </div>
+
+  <!-- STATUS -->
+
+  <div
+    id="status"
+    class="status">
+
+```
+Carregando questões...
+```
+
+  </div>
+
+  <!-- QUESTÕES -->
+
+  <div
+    id="questoes-container">
+  </div>
+
+  <!-- RESULTADO -->
+
+  <div
+    id="resultado-final"
+    class="final-result"
+    style="display:none;">
+
+```
+<h2>
+  🏆 Resultado da prova
+</h2>
+
+<p>
+  Acertos:
+  <strong id="resultado-acertos">
+    0
+  </strong>
+</p>
+
+<p>
+  Erros:
+  <strong id="resultado-erros">
+    0
+  </strong>
+</p>
+
+<p>
+  Aproveitamento:
+  <strong id="resultado-percentual">
+    0%
+  </strong>
+</p>
+
+<button
+  id="refazer-prova"
+  type="button">
+
+  🔄 Refazer prova
+
+</button>
+```
+
+  </div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+
+<div class="container">
+
+  <p>
+    © 2026 AprovaQuest
+  </p>
+
+</div>
+
+</footer>
+
+<style>
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  align-items: center;
+}
+
+.controls select,
+.controls button {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.score-box {
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f5f5f5;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.timer {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  margin: 15px 0;
+  padding: 12px;
+
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.start-button {
+  display: block;
+  width: 100%;
+
+  margin: 15px 0;
+  padding: 14px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 17px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.start-message {
+  margin-top: 12px;
+  padding: 10px 15px;
+
+  background: #fff3cd;
+  border: 1px solid #ffecb5;
+
+  border-radius: 8px;
+
+  color: #664d03;
+
+  font-weight: bold;
+  text-align: center;
+}
+
+.progress-container {
+  width: 100%;
+  height: 10px;
+
+  margin: 15px 0;
+
+  background: #e5e5e5;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+
+  transition: width 0.3s ease;
+}
+
+.question {
+  margin: 25px 0;
+  padding: 20px;
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+}
+
+.question h3 {
+  margin-top: 0;
+}
+
+.alternatives {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+.alternative {
+  width: 100%;
+
+  padding: 12px 15px;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  background: white;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.alternative:hover {
+  transform: translateY(-1px);
+}
+
+.result {
+  margin-top: 15px;
+  padding: 12px;
+
+  border-radius: 8px;
+
+  font-weight: bold;
+}
+
+.explanation {
+  margin-top: 12px;
+  padding: 12px;
+
+  background: #f5f5f5;
+
+  border-radius: 8px;
+}
+
+.tip {
+  margin-top: 10px;
+  padding: 10px;
+
+  background: #fff3cd;
+
+  border-radius: 8px;
+}
+
+.final-result {
+  margin-top: 30px;
+  padding: 25px;
+
+  border: 2px solid #ddd;
+  border-radius: 12px;
+
+  text-align: center;
+}
+
+.final-result button {
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+
+</style>
+
+<script type="module">
+
+import { supabase } from "../../../js/supabase.js";
+
+
+/* ELEMENTOS */
+
+const container =
+  document.getElementById("questoes-container");
+
+const status =
+  document.getElementById("status");
+
+const filtroDificuldade =
+  document.getElementById("filtro-dificuldade");
+
+const quantidade =
+  document.getElementById("quantidade");
+
+const tempo =
+  document.getElementById("tempo");
+
+const embaralhar =
+  document.getElementById("embaralhar");
+
+const iniciarProva =
+  document.getElementById("iniciar-prova");
+
+const mensagemIniciar =
+  document.getElementById("mensagem-iniciar");
+
+const tempoRestante =
+  document.getElementById("tempo-restante");
+
+const acertosElemento =
+  document.getElementById("acertos");
+
+const errosElemento =
+  document.getElementById("erros");
+
+const aproveitamentoElemento =
+  document.getElementById("aproveitamento");
+
+const progresso =
+  document.getElementById("progresso");
+
+const resultadoFinal =
+  document.getElementById("resultado-final");
+
+const resultadoAcertos =
+  document.getElementById("resultado-acertos");
+
+const resultadoErros =
+  document.getElementById("resultado-erros");
+
+const resultadoPercentual =
+  document.getElementById("resultado-percentual");
+
+const refazerProva =
+  document.getElementById("refazer-prova");
+
+
+/* VARIÁVEIS */
+
+let todasQuestoes = [];
+let questoesAtuais = [];
+
+let acertos = 0;
+let erros = 0;
+
+let intervaloCronometro = null;
+let segundosRestantes = 0;
+
+let provaIniciada = false;
+let provaEncerrada = false;
+
+
+/* CARREGAR QUESTÕES */
+
+async function carregarQuestoes() {
+
+  status.textContent =
+    "Carregando questões...";
+
+
+  const resposta =
+    await supabase
+      .from("questoes")
+      .select("*")
+      .eq("materia", "Matemática")
+      .eq("assunto", "Função Quadrática")
+      .order("id", { ascending: true });
+
+
+  if (resposta.error) {
+
+    console.error(resposta.error);
+
+    status.textContent =
+      "❌ Erro ao carregar as questões.";
+
+    return;
+
+  }
+
+
+  todasQuestoes =
+    resposta.data || [];
+
+
+  if (todasQuestoes.length === 0) {
+
+    status.textContent =
+      "⚠️ Nenhuma questão de Função Quadrática encontrada no Supabase.";
+
+    iniciarProva.style.display =
+      "none";
+
+    mensagemIniciar.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  status.textContent =
+    `${todasQuestoes.length} questão(ões) encontrada(s).`;
+
+
+  montarProva();
+
+}
+
+
+/* EMBARALHAR */
+
+function embaralharArray(array) {
+
+  const copia =
+    [...array];
+
+
+  for (
+    let i = copia.length - 1;
+    i > 0;
+    i--
+  ) {
+
+    const j =
+      Math.floor(
+        Math.random() * (i + 1)
+      );
+
+
+    [
+      copia[i],
+      copia[j]
+    ] =
+    [
+      copia[j],
+      copia[i]
+    ];
+
+  }
+
+
+  return copia;
+
+}
+
+
+/* MONTAR PROVA */
+
+function montarProva() {
+
+  let filtradas =
+    [...todasQuestoes];
+
+
+  const dificuldade =
+    filtroDificuldade.value;
+
+
+  if (dificuldade !== "Todas") {
+
+    filtradas =
+      filtradas.filter(
+        questao =>
+          questao.dificuldade === dificuldade
+      );
+
+  }
+
+
+  if (
+    embaralhar.dataset.ativo === "true"
+  ) {
+
+    filtradas =
+      embaralharArray(filtradas);
+
+  }
+
+
+  const quantidadeSelecionada =
+    quantidade.value;
+
+
+  if (
+    quantidadeSelecionada !== "todas"
+  ) {
+
+    filtradas =
+      filtradas.slice(
+        0,
+        Number(quantidadeSelecionada)
+      );
+
+  }
+
+
+  questoesAtuais =
+    filtradas;
+
+
+  renderizarQuestoes();
+
+}
+
+
+/* RENDERIZAR */
+
+function renderizarQuestoes() {
+
+  container.innerHTML = "";
+
+  acertos = 0;
+  erros = 0;
+
+  atualizarPlacar();
+  atualizarProgresso();
+
+
+  questoesAtuais.forEach(
+    (questao, indice) => {
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "question";
+
+
+      div.innerHTML = `
+
+        <h3>
+          ${indice + 1}. ${questao.titulo || "Questão"}
+        </h3>
+
+        <p>
+          ${questao.enunciado || ""}
+        </p>
+
+        <div class="alternatives">
+
+          <button
+            class="alternative"
+            data-resposta="A">
+            A) ${questao.alternativa_a || ""}
+          </button>
+
+          <button
+            class="alternative"
+            data-resposta="B">
+            B) ${questao.alternativa_b || ""}
+          </button>
+
+          <button
+            class="alternative"
+            data-resposta="C">
+            C) ${questao.alternativa_c || ""}
+          </button>
+
+          <button
+            class="alternative"
+            data-resposta="D">
+            D) ${questao.alternativa_d || ""}
+          </button>
+
+          <button
+            class="alternative"
+            data-resposta="E">
+            E) ${questao.alternativa_e || ""}
+          </button>
+
+        </div>
+
+
+        <div
+          class="result"
+          style="display:none;">
+        </div>
+
+
+        <div
+          class="explanation"
+          style="display:none;">
+
+          <strong>
+            📖 Explicação:
+          </strong>
+
+          <p>
+            ${questao.explicacao || ""}
+          </p>
+
+
+          ${
+            questao.dica
+              ? `
+                <div class="tip">
+                  💡 <strong>Dica:</strong>
+                  ${questao.dica}
+                </div>
+              `
+              : ""
+          }
+
+        </div>
+
+      `;
+
+
+      const botoes =
+        div.querySelectorAll(
+          ".alternative"
+        );
+
+
+      const resultado =
+        div.querySelector(
+          ".result"
+        );
+
+
+      const explicacao =
+        div.querySelector(
+          ".explanation"
+        );
+
+
+      botoes.forEach(
+        botao => {
+
+          botao.addEventListener(
+            "click",
+            () => {
+
+              if (
+                !provaIniciada ||
+                provaEncerrada ||
+                botao.classList.contains(
+                  "respondida"
+                )
+              ) {
+
+                return;
+
+              }
+
+
+              botoes.forEach(
+                b =>
+                  b.classList.add(
+                    "respondida"
+                  )
+              );
+
+
+              const respostaUsuario =
+                botao.dataset.resposta;
+
+
+              const correta =
+                String(
+                  questao.resposta_correta || ""
+                )
+                  .trim()
+                  .toUpperCase();
+
+
+              if (
+                respostaUsuario ===
+                correta
+              ) {
+
+                acertos++;
+
+                botao.style.background =
+                  "#d4edda";
+
+                botao.style.borderColor =
+                  "#28a745";
+
+                resultado.textContent =
+                  "✅ Resposta correta!";
+
+                resultado.style.background =
+                  "#d4edda";
+
+                resultado.style.color =
+                  "#155724";
+
+              } else {
+
+                erros++;
+
+                botao.style.background =
+                  "#f8d7da";
+
+                botao.style.borderColor =
+                  "#dc3545";
+
+                resultado.textContent =
+                  `❌ Resposta incorreta. A resposta correta é ${correta}.`;
+
+                resultado.style.background =
+                  "#f8d7da";
+
+                resultado.style.color =
+                  "#721c24";
+
+
+                botoes.forEach(
+                  b => {
+
+                    if (
+                      b.dataset.resposta ===
+                      correta
+                    ) {
+
+                      b.style.background =
+                        "#d4edda";
+
+                      b.style.borderColor =
+                        "#28a745";
+
+                    }
+
+                  }
+                );
+
+              }
+
+
+              resultado.style.display =
+                "block";
+
+              explicacao.style.display =
+                "block";
+
+
+              atualizarPlacar();
+              atualizarProgresso();
+
+
+              const totalRespondidas =
+                document.querySelectorAll(
+                  ".alternative.respondida"
+                ).length / 5;
+
+
+              if (
+                totalRespondidas ===
+                questoesAtuais.length
+              ) {
+
+                encerrarProva();
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+
+      container.appendChild(div);
+
+    }
+  );
+
+
+  if (
+    questoesAtuais.length === 0
+  ) {
+
+    status.textContent =
+      "⚠️ Nenhuma questão encontrada com esses filtros.";
+
+  } else {
+
+    status.textContent =
+      `${questoesAtuais.length} questão(ões) selecionada(s).`;
+
+  }
+
+}
+
+
+/* PLACAR */
+
+function atualizarPlacar() {
+
+  acertosElemento.textContent =
+    acertos;
+
+  errosElemento.textContent =
+    erros;
+
+
+  const totalRespondidas =
+    acertos + erros;
+
+
+  const percentual =
+    totalRespondidas > 0
+      ? Math.round(
+          (acertos / totalRespondidas) * 100
+        )
+      : 0;
+
+
+  aproveitamentoElemento.textContent =
+    `${percentual}%`;
+
+}
+
+
+/* PROGRESSO */
+
+function atualizarProgresso() {
+
+  const total =
+    questoesAtuais.length;
+
+
+  if (!total) {
+
+    progresso.style.width =
+      "0%";
+
+    return;
+
+  }
+
+
+  const respondidas =
+    document.querySelectorAll(
+      ".alternative.respondida"
+    ).length / 5;
+
+
+  const percentual =
+    (respondidas / total) * 100;
+
+
+  progresso.style.width =
+    `${percentual}%`;
+
+}
+
+
+/* CRONÔMETRO */
+
+function iniciarCronometro() {
+
+  if (
+    provaIniciada ||
+    provaEncerrada ||
+    questoesAtuais.length === 0
+  ) {
+
+    return;
+
+  }
+
+
+  provaIniciada =
+    true;
+
+
+  iniciarProva.style.display =
+    "none";
+
+  mensagemIniciar.style.display =
+    "none";
+
+
+  segundosRestantes =
+    Number(tempo.value) * 60;
+
+
+  atualizarCronometro();
+
+
+  intervaloCronometro =
+    setInterval(
+      () => {
+
+        segundosRestantes--;
+
+        atualizarCronometro();
+
+
+        if (
+          segundosRestantes <= 0
+        ) {
+
+          encerrarProva();
+
+        }
+
+      },
+      1000
+    );
+
+}
+
+
+/* CRONÔMETRO */
+
+function atualizarCronometro() {
+
+  const minutos =
+    Math.floor(
+      segundosRestantes / 60
+    );
+
+  const segundos =
+    segundosRestantes % 60;
+
+
+  tempoRestante.textContent =
+    `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+
+
+  if (
+    segundosRestantes <= 60
+  ) {
+
+    tempoRestante.style.color =
+      "#dc3545";
+
+  } else if (
+    segundosRestantes <= 300
+  ) {
+
+    tempoRestante.style.color =
+      "#d39e00";
+
+  } else {
+
+    tempoRestante.style.color =
+      "";
+
+  }
+
+}
+
+
+/* ENCERRAR */
+
+function encerrarProva() {
+
+  if (
+    provaEncerrada
+  ) {
+
+    return;
+
+  }
+
+
+  provaEncerrada =
+    true;
+
+
+  clearInterval(
+    intervaloCronometro
+  );
+
+
+  intervaloCronometro =
+    null;
+
+
+  document
+    .querySelectorAll(".alternative")
+    .forEach(botao => {
+      botao.disabled = true;
+    });
+
+
+  mostrarResultadoFinal();
+
+}
+
+
+/* RESULTADO */
+
+function mostrarResultadoFinal() {
+
+  const total =
+    questoesAtuais.length;
+
+
+  const percentual =
+    total > 0
+      ? Math.round(
+          (acertos / total) * 100
+        )
+      : 0;
+
+
+  resultadoAcertos.textContent =
+    acertos;
+
+  resultadoErros.textContent =
+    erros;
+
+  resultadoPercentual.textContent =
+    `${percentual}%`;
+
+
+  resultadoFinal.style.display =
+    "block";
+
+
+  resultadoFinal.scrollIntoView({
+    behavior: "smooth"
+  });
+
+}
+
+
+/* RESETAR */
+
+function resetarProva() {
+
+  clearInterval(
+    intervaloCronometro
+  );
+
+
+  intervaloCronometro =
+    null;
+
+
+  provaIniciada =
+    false;
+
+  provaEncerrada =
+    false;
+
+
+  acertos =
+    0;
+
+  erros =
+    0;
+
+
+  tempoRestante.textContent =
+    "00:00";
+
+  tempoRestante.style.color =
+    "";
+
+
+  resultadoFinal.style.display =
+    "none";
+
+
+  iniciarProva.style.display =
+    "block";
+
+
+  mensagemIniciar.style.display =
+    "block";
+
+}
+
+
+/* EVENTOS */
+
+iniciarProva.addEventListener(
+  "click",
+  iniciarCronometro
+);
+
+
+filtroDificuldade.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+
+      montarProva();
+
+    }
+
+  }
+);
+
+
+quantidade.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+
+      montarProva();
+
+    }
+
+  }
+);
+
+
+tempo.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+
+      montarProva();
+
+    }
+
+  }
+);
+
+
+embaralhar.addEventListener(
+  "click",
+  () => {
+
+    if (provaIniciada) {
+
+      return;
+
+    }
+
+
+    embaralhar.dataset.ativo =
+      "true";
+
+
+    montarProva();
+
+  }
+);
+
+
+refazerProva.addEventListener(
+  "click",
+  () => {
+
+    resetarProva();
+
+    montarProva();
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+);
+
+
+/* INICIAR CARREGAMENTO */
+
+carregarQuestoes();
+
+</script>
+
+</body>
+
+</html>

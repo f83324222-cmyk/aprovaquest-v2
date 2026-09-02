@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Questões de Leis de Newton | AprovaQuest</title>
+
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <a href="../../../" class="logo">
+      Aprova<span>Quest</span>
+    </a>
+
+    <nav>
+      <a href="../../../">Início</a>
+      <a href="../../">Questões</a>
+      <a href="../">Física</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="breadcrumb">
+    <a href="../../../">Início</a>
+    <span>›</span>
+    <a href="../../">Questões</a>
+    <span>›</span>
+    <a href="../">Física</a>
+    <span>›</span>
+    Leis de Newton
+  </div>
+
+  <section class="topic-header">
+    <h1>⚙️ Questões de Leis de Newton</h1>
+
+    <p>
+      Pratique as Leis de Newton com questões de Física
+      organizadas por nível de dificuldade.
+    </p>
+  </section>
+
+  <!-- CONTROLES -->
+  <section class="controls">
+
+    <div class="control-group">
+      <label for="difficulty">Dificuldade</label>
+
+      <select id="difficulty">
+        <option value="Todas">Todas</option>
+        <option value="Fácil">Fácil</option>
+        <option value="Médio">Médio</option>
+        <option value="Difícil">Difícil</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="quantity">Quantidade</label>
+
+      <select id="quantity">
+        <option value="5">5 questões</option>
+        <option value="10">10 questões</option>
+        <option value="20">20 questões</option>
+        <option value="all">Todas</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="time">Tempo</label>
+
+      <select id="time">
+        <option value="5">5 minutos</option>
+        <option value="10">10 minutos</option>
+        <option value="20">20 minutos</option>
+        <option value="30">30 minutos</option>
+      </select>
+    </div>
+
+    <button id="shuffleBtn" class="shuffle-btn">
+      🔀 Embaralhar
+    </button>
+
+  </section>
+
+
+  <!-- PLACAR -->
+  <section class="score-box">
+
+    <div>
+      <span>Acertos</span>
+      <strong id="correctCount">0</strong>
+    </div>
+
+    <div>
+      <span>Erros</span>
+      <strong id="wrongCount">0</strong>
+    </div>
+
+    <div>
+      <span>Aproveitamento</span>
+      <strong id="percentage">0%</strong>
+    </div>
+
+  </section>
+
+
+  <!-- TIMER -->
+  <div class="timer-box">
+    ⏱️ Tempo restante:
+    <strong id="timer">00:00</strong>
+  </div>
+
+
+  <!-- INICIAR -->
+  <div class="start-area">
+
+    <button id="startBtn" class="start-btn">
+      ▶️ Iniciar prova
+    </button>
+
+    <p id="startMessage">
+      🔒 Inicie a prova para marcar as questões.
+    </p>
+
+  </div>
+
+
+  <!-- PROGRESSO -->
+  <div class="progress-container">
+
+    <div class="progress-info">
+      <span id="progressText">0 de 0 respondidas</span>
+      <span id="statusText">Aguardando início</span>
+    </div>
+
+    <div class="progress-bar">
+      <div id="progressFill"></div>
+    </div>
+
+  </div>
+
+
+  <!-- QUESTÕES -->
+  <section id="questionsContainer">
+
+    <div class="loading">
+      Carregando questões...
+    </div>
+
+  </section>
+
+
+  <!-- RESULTADO -->
+  <section id="result" class="result-box" style="display: none;">
+
+    <h2>🏆 Resultado da prova</h2>
+
+    <div class="result-grid">
+
+      <div>
+        <span>✅ Acertos</span>
+        <strong id="finalCorrect">0</strong>
+      </div>
+
+      <div>
+        <span>❌ Erros</span>
+        <strong id="finalWrong">0</strong>
+      </div>
+
+      <div>
+        <span>📊 Taxa de acerto</span>
+        <strong id="finalPercentage">0%</strong>
+      </div>
+
+      <div>
+        <span>📉 Taxa de erro</span>
+        <strong id="finalWrongPercentage">0%</strong>
+      </div>
+
+    </div>
+
+    <button id="resetBtn" class="start-btn">
+      🔄 Refazer prova
+    </button>
+
+  </section>
+
+</main>
+
+
+<footer>
+  <div class="container">
+    <p>© 2026 AprovaQuest — Pratique. Aprenda. Aprove.</p>
+  </div>
+</footer>
+
+
+<script type="module">
+
+import { supabase } from "../../../js/supabase.js";
+
+
+/* ================================
+   ELEMENTOS
+================================ */
+
+const difficultySelect = document.getElementById("difficulty");
+const quantitySelect = document.getElementById("quantity");
+const timeSelect = document.getElementById("time");
+
+const shuffleBtn = document.getElementById("shuffleBtn");
+const startBtn = document.getElementById("startBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+const questionsContainer =
+  document.getElementById("questionsContainer");
+
+const correctCount =
+  document.getElementById("correctCount");
+
+const wrongCount =
+  document.getElementById("wrongCount");
+
+const percentage =
+  document.getElementById("percentage");
+
+const timerElement =
+  document.getElementById("timer");
+
+const progressText =
+  document.getElementById("progressText");
+
+const statusText =
+  document.getElementById("statusText");
+
+const progressFill =
+  document.getElementById("progressFill");
+
+const startMessage =
+  document.getElementById("startMessage");
+
+const result =
+  document.getElementById("result");
+
+const finalCorrect =
+  document.getElementById("finalCorrect");
+
+const finalWrong =
+  document.getElementById("finalWrong");
+
+const finalPercentage =
+  document.getElementById("finalPercentage");
+
+const finalWrongPercentage =
+  document.getElementById("finalWrongPercentage");
+
+
+/* ================================
+   VARIÁVEIS
+================================ */
+
+let allQuestions = [];
+let selectedQuestions = [];
+
+let started = false;
+let finished = false;
+
+let correct = 0;
+let wrong = 0;
+
+let timerInterval = null;
+let remainingSeconds = 0;
+
+
+/* ================================
+   CARREGAR QUESTÕES
+================================ */
+
+async function loadQuestions() {
+
+  questionsContainer.innerHTML = `
+    <div class="loading">
+      Carregando questões...
+    </div>
+  `;
+
+  const { data, error } = await supabase
+    .from("questoes")
+    .select("*")
+    .eq("materia", "Física")
+    .eq("assunto", "Leis de Newton")
+    .order("id", { ascending: true });
+
+
+  if (error) {
+
+    console.error(error);
+
+    questionsContainer.innerHTML = `
+      <div class="error">
+        ❌ Erro ao carregar as questões.
+        <br><br>
+        ${error.message}
+      </div>
+    `;
+
+    return;
+  }
+
+
+  allQuestions = data || [];
+
+  prepareQuestions();
+
+}
+
+
+/* ================================
+   PREPARAR QUESTÕES
+================================ */
+
+function prepareQuestions() {
+
+  let filtered = [...allQuestions];
+
+  const difficulty =
+    difficultySelect.value;
+
+
+  if (difficulty !== "Todas") {
+
+    filtered = filtered.filter(
+      question =>
+        question.dificuldade === difficulty
+    );
+
+  }
+
+
+  /* EMBARALHAR */
+
+  filtered.sort(() => Math.random() - 0.5);
+
+
+  /* QUANTIDADE */
+
+  const quantity =
+    quantitySelect.value;
+
+
+  if (quantity !== "all") {
+
+    filtered =
+      filtered.slice(0, Number(quantity));
+
+  }
+
+
+  selectedQuestions = filtered;
+
+  renderQuestions();
+
+}
+
+
+/* ================================
+   RENDERIZAR QUESTÕES
+================================ */
+
+function renderQuestions() {
+
+  questionsContainer.innerHTML = "";
+
+
+  if (selectedQuestions.length === 0) {
+
+    questionsContainer.innerHTML = `
+      <div class="error">
+        Nenhuma questão encontrada.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  selectedQuestions.forEach(
+    (question, index) => {
+
+      const questionElement =
+        document.createElement("article");
+
+      questionElement.className =
+        "question";
+
+
+      questionElement.innerHTML = `
+
+        <div class="question-header">
+
+          <span class="question-number">
+            Questão ${index + 1}
+          </span>
+
+          <span class="difficulty ${getDifficultyClass(question.dificuldade)}">
+            ${question.dificuldade}
+          </span>
+
+        </div>
+
+
+        <h3>
+          ${question.titulo || ""}
+        </h3>
+
+
+        <p class="statement">
+          ${question.enunciado}
+        </p>
+
+
+        <div class="alternatives">
+
+          ${createAlternative(
+            "A",
+            question.alternativa_a
+          )}
+
+          ${createAlternative(
+            "B",
+            question.alternativa_b
+          )}
+
+          ${createAlternative(
+            "C",
+            question.alternativa_c
+          )}
+
+          ${createAlternative(
+            "D",
+            question.alternativa_d
+          )}
+
+          ${createAlternative(
+            "E",
+            question.alternativa_e
+          )}
+
+        </div>
+
+
+        <div class="answer-feedback"></div>
+
+      `;
+
+
+      const buttons =
+        questionElement.querySelectorAll(
+          ".alternative"
+        );
+
+
+      buttons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            answerQuestion(
+              questionElement,
+              question,
+              button
+            );
+
+          }
+        );
+
+      });
+
+
+      questionsContainer.appendChild(
+        questionElement
+      );
+
+    }
+  );
+
+
+  updateProgress();
+
+}
+
+
+/* ================================
+   ALTERNATIVA
+================================ */
+
+function createAlternative(letter, text) {
+
+  return `
+    <button
+      class="alternative"
+      data-answer="${letter}"
+      disabled
+    >
+
+      <span class="letter">
+        ${letter}
+      </span>
+
+      <span>
+        ${text}
+      </span>
+
+    </button>
+  `;
+
+}
+
+
+/* ================================
+   RESPONDER
+================================ */
+
+function answerQuestion(
+  questionElement,
+  question,
+  button
+) {
+
+  if (!started || finished) return;
+
+  if (
+    questionElement.classList.contains(
+      "respondida"
+    )
+  ) return;
+
+
+  const selected =
+    button.dataset.answer;
+
+  const correctAnswer =
+    question.resposta_correta;
+
+
+  questionElement.classList.add(
+    "respondida"
+  );
+
+
+  const buttons =
+    questionElement.querySelectorAll(
+      ".alternative"
+    );
+
+
+  buttons.forEach(btn => {
+
+    btn.disabled = true;
+
+  });
+
+
+  /* RESPOSTA CERTA */
+
+  const correctButton =
+    questionElement.querySelector(
+      `[data-answer="${correctAnswer}"]`
+    );
+
+
+  if (selected === correctAnswer) {
+
+    correct++;
+
+    button.classList.add("correta");
+
+  } else {
+
+    wrong++;
+
+    button.classList.add("errada");
+
+    if (correctButton) {
+      correctButton.classList.add(
+        "correta"
+      );
+    }
+
+  }
+
+
+  /* FEEDBACK */
+
+  const feedback =
+    questionElement.querySelector(
+      ".answer-feedback"
+    );
+
+
+  feedback.innerHTML = `
+
+    <div class="explanation">
+
+      <strong>
+        ${selected === correctAnswer
+          ? "✅ Resposta correta!"
+          : "❌ Resposta incorreta!"}
+      </strong>
+
+      <p>
+        <strong>Explicação:</strong>
+        ${question.explicacao || ""}
+      </p>
+
+      ${
+        question.dica
+          ? `
+            <p>
+              💡 <strong>Dica:</strong>
+              ${question.dica}
+            </p>
+          `
+          : ""
+      }
+
+    </div>
+
+  `;
+
+
+  updateScore();
+  updateProgress();
+
+
+  /* VERIFICAR FIM */
+
+  const answered =
+    Array.from(
+      document.querySelectorAll(".question")
+    ).filter(questionElement =>
+      questionElement.querySelector(
+        ".alternative.respondida"
+      )
+    ).length;
+
+
+  if (
+    answered === selectedQuestions.length
+  ) {
+
+    finishTest();
+
+  }
+
+}
+
+
+/* ================================
+   SCORE
+================================ */
+
+function updateScore() {
+
+  correctCount.textContent =
+    correct;
+
+  wrongCount.textContent =
+    wrong;
+
+
+  const total =
+    correct + wrong;
+
+
+  const percent =
+    total === 0
+      ? 0
+      : Math.round(
+          (correct / total) * 100
+        );
+
+
+  percentage.textContent =
+    `${percent}%`;
+
+}
+
+
+/* ================================
+   PROGRESSO
+================================ */
+
+function updateProgress() {
+
+  const answered =
+    Array.from(
+      document.querySelectorAll(".question")
+    ).filter(questionElement =>
+      questionElement.querySelector(
+        ".alternative.respondida"
+      )
+    ).length;
+
+
+  const total =
+    selectedQuestions.length;
+
+
+  progressText.textContent =
+    `${answered} de ${total} respondidas`;
+
+
+  const percent =
+    total === 0
+      ? 0
+      : (answered / total) * 100;
+
+
+  progressFill.style.width =
+    `${percent}%`;
+
+
+  if (!started) {
+
+    statusText.textContent =
+      "Aguardando início";
+
+  } else if (finished) {
+
+    statusText.textContent =
+      "Prova finalizada";
+
+  } else {
+
+    statusText.textContent =
+      "Prova em andamento";
+
+  }
+
+}
+
+
+/* ================================
+   INICIAR PROVA
+================================ */
+
+startBtn.addEventListener(
+  "click",
+  startTest
+);
+
+
+function startTest() {
+
+  if (
+    selectedQuestions.length === 0
+  ) return;
+
+
+  started = true;
+  finished = false;
+
+  correct = 0;
+  wrong = 0;
+
+
+  result.style.display =
+    "none";
+
+
+  startBtn.disabled = true;
+
+  difficultySelect.disabled = true;
+  quantitySelect.disabled = true;
+  timeSelect.disabled = true;
+  shuffleBtn.disabled = true;
+
+
+  startMessage.textContent =
+    "🟢 Prova iniciada!";
+
+
+  document
+    .querySelectorAll(".alternative")
+    .forEach(button => {
+
+      button.disabled = false;
+
+    });
+
+
+  updateScore();
+  updateProgress();
+
+  startTimer();
+
+}
+
+
+/* ================================
+   TIMER
+================================ */
+
+function startTimer() {
+
+  clearInterval(timerInterval);
+
+
+  remainingSeconds =
+    Number(timeSelect.value) * 60;
+
+
+  updateTimer();
+
+
+  timerInterval =
+    setInterval(() => {
+
+      remainingSeconds--;
+
+      updateTimer();
+
+
+      if (remainingSeconds <= 0) {
+
+        clearInterval(timerInterval);
+
+        finishTest();
+
+      }
+
+    }, 1000);
+
+}
+
+
+/* ================================
+   ATUALIZAR TIMER
+================================ */
+
+function updateTimer() {
+
+  const minutes =
+    Math.floor(
+      remainingSeconds / 60
+    );
+
+  const seconds =
+    remainingSeconds % 60;
+
+
+  timerElement.textContent =
+    `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+}
+
+
+/* ================================
+   FINALIZAR
+================================ */
+
+function finishTest() {
+
+  if (finished) return;
+
+
+  finished = true;
+  started = false;
+
+
+  clearInterval(timerInterval);
+
+
+  document
+    .querySelectorAll(".alternative")
+    .forEach(button => {
+
+      button.disabled = true;
+
+    });
+
+
+  const total =
+    selectedQuestions.length;
+
+
+  const answered =
+    correct + wrong;
+
+
+  const unanswered =
+    total - answered;
+
+
+  wrong += unanswered;
+
+
+  updateScore();
+
+
+  const finalPercent =
+    total === 0
+      ? 0
+      : Math.round(
+          (correct / total) * 100
+        );
+
+
+  const finalWrongPercent =
+    total === 0
+      ? 0
+      : Math.round(
+          (wrong / total) * 100
+        );
+
+
+  finalCorrect.textContent =
+    correct;
+
+  finalWrong.textContent =
+    wrong;
+
+  finalPercentage.textContent =
+    `${finalPercent}%`;
+
+  finalWrongPercentage.textContent =
+    `${finalWrongPercent}%`;
+
+
+  result.style.display =
+    "block";
+
+
+  startBtn.disabled = true;
+
+
+  startMessage.textContent =
+    "🏁 Prova finalizada!";
+
+
+  updateProgress();
+
+
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+
+/* ================================
+   EMBARALHAR
+================================ */
+
+shuffleBtn.addEventListener(
+  "click",
+  () => {
+
+    if (started) return;
+
+    prepareQuestions();
+
+  }
+);
+
+
+/* ================================
+   FILTROS
+================================ */
+
+difficultySelect.addEventListener(
+  "change",
+  () => {
+
+    if (!started) {
+      prepareQuestions();
+    }
+
+  }
+);
+
+
+quantitySelect.addEventListener(
+  "change",
+  () => {
+
+    if (!started) {
+      prepareQuestions();
+    }
+
+  }
+);
+
+
+/* ================================
+   RESET
+================================ */
+
+resetBtn.addEventListener(
+  "click",
+  () => {
+
+    clearInterval(timerInterval);
+
+
+    started = false;
+    finished = false;
+
+    correct = 0;
+    wrong = 0;
+
+
+    difficultySelect.disabled = false;
+    quantitySelect.disabled = false;
+    timeSelect.disabled = false;
+    shuffleBtn.disabled = false;
+
+
+    startBtn.disabled = false;
+
+
+    timerElement.textContent =
+      "00:00";
+
+
+    startMessage.textContent =
+      "🔒 Inicie a prova para marcar as questões.";
+
+
+    result.style.display =
+      "none";
+
+
+    updateScore();
+
+    prepareQuestions();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+);
+
+
+/* ================================
+   CLASSE DA DIFICULDADE
+================================ */
+
+function getDifficultyClass(
+  difficulty
+) {
+
+  if (difficulty === "Fácil")
+    return "easy";
+
+  if (difficulty === "Médio")
+    return "medium";
+
+  if (difficulty === "Difícil")
+    return "hard";
+
+  return "";
+
+}
+
+
+/* ================================
+   INICIALIZAÇÃO
+================================ */
+
+loadQuestions();
+
+</script>
+
+</body>
+</html>

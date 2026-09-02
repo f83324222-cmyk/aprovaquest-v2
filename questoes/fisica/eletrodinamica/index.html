@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eletrodinâmica - AprovaQuest</title>
+
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <style>
+    .controles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .controle {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .controle label {
+      font-weight: 600;
+    }
+
+    .controle select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .acoes {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 11px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .btn-principal {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secundario {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-refazer {
+      background: #16a34a;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .pontuacao {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .pontuacao-item {
+      padding: 12px 18px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .timer {
+      font-weight: 700;
+      margin: 15px 0;
+      font-size: 18px;
+    }
+
+    .progresso-container {
+      width: 100%;
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+
+    .progresso {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      transition: width 0.3s ease;
+    }
+
+    .status {
+      margin: 10px 0 20px;
+      font-weight: 600;
+    }
+
+    .question {
+      margin: 25px 0;
+      padding: 20px;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .question h3 {
+      margin-top: 0;
+    }
+
+    .enunciado {
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+
+    .alternatives {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .alternative {
+      width: 100%;
+      text-align: left;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .alternative:not(:disabled):hover {
+      background: #f3f4f6;
+    }
+
+    .alternative.respondida {
+      cursor: default;
+    }
+
+    .alternative.correta {
+      background: #dcfce7;
+      border-color: #16a34a;
+    }
+
+    .alternative.errada {
+      background: #fee2e2;
+      border-color: #dc2626;
+    }
+
+    .explicacao,
+    .dica {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f8fafc;
+      line-height: 1.5;
+    }
+
+    .dica {
+      background: #fff7ed;
+    }
+
+    .mensagem-inicial {
+      padding: 25px;
+      text-align: center;
+      background: #f3f4f6;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .final-result {
+      margin: 30px 0;
+      padding: 25px;
+      border-radius: 12px;
+      background: #f3f4f6;
+      text-align: center;
+    }
+
+    .resultado-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .resultado-item {
+      padding: 18px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .resultado-item strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .resultado-item span {
+      font-size: 24px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+
+<header id="pj0ye7">
+  <div class="container">
+    <div class="logo">
+      Aprova<span>Quest</span>
+    </div>
+
+    <nav>
+      <a href="../../../">Início</a>
+      <a href="../../">Questões</a>
+      <a href="../">Física</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="breadcrumb" id="84xowk">
+    <a href="../../../">Início</a> /
+    <a href="../../">Questões</a> /
+    <a href="../">Física</a> /
+    Eletrodinâmica
+  </div>
+
+  <h1>Questões de Eletrodinâmica</h1>
+
+  <p>
+    Teste seus conhecimentos sobre corrente elétrica, tensão,
+    resistência, Lei de Ohm, potência, energia elétrica e circuitos.
+  </p>
+
+  <div class="controles">
+
+    <div class="controle">
+      <label for="dificuldade">Dificuldade</label>
+
+      <select id="dificuldade">
+        <option value="todas">Todas</option>
+        <option value="Fácil">Fácil</option>
+        <option value="Médio">Médio</option>
+        <option value="Difícil">Difícil</option>
+      </select>
+    </div>
+
+    <div class="controle">
+      <label for="quantidade">Quantidade</label>
+
+      <select id="quantidade">
+        <option value="5">5 questões</option>
+        <option value="10">10 questões</option>
+        <option value="15">15 questões</option>
+        <option value="20" selected>20 questões</option>
+        <option value="todas">Todas</option>
+      </select>
+    </div>
+
+    <div class="controle">
+      <label for="tempo">Tempo</label>
+
+      <select id="tempo">
+        <option value="0">Sem limite</option>
+        <option value="5">5 minutos</option>
+        <option value="10">10 minutos</option>
+        <option value="15">15 minutos</option>
+        <option value="20">20 minutos</option>
+        <option value="30">30 minutos</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="acoes">
+
+    <button id="embaralhar" class="btn btn-secundario">
+      🔀 Embaralhamento: OFF
+    </button>
+
+    <button id="iniciar" class="btn btn-principal">
+      ▶️ Iniciar prova
+    </button>
+
+  </div>
+
+  <div class="pontuacao">
+
+    <div class="pontuacao-item">
+      Acertos: <span id="acertos">0</span>
+    </div>
+
+    <div class="pontuacao-item">
+      Erros: <span id="erros">0</span>
+    </div>
+
+    <div class="pontuacao-item">
+      Aproveitamento: <span id="aproveitamento">0%</span>
+    </div>
+
+  </div>
+
+  <div id="mensagem-inicial" class="mensagem-inicial">
+    Configure a prova e clique em "Iniciar prova" para começar.
+  </div>
+
+  <div id="timer" class="timer">
+    ⏱️ Tempo: --
+  </div>
+
+  <div class="progresso-container">
+    <div id="progresso" class="progresso"></div>
+  </div>
+
+  <div id="status" class="status">
+    Carregando questões...
+  </div>
+
+  <section id="questoes-container"></section>
+
+  <div id="resultado-final" class="final-result" style="display: none;">
+
+    <h2>🎯 Resultado final</h2>
+
+    <div class="resultado-grid">
+
+      <div class="resultado-item">
+        <strong>Acertos</strong>
+        <span id="resultado-acertos">0</span>
+      </div>
+
+      <div class="resultado-item">
+        <strong>Erros</strong>
+        <span id="resultado-erros">0</span>
+      </div>
+
+      <div class="resultado-item">
+        <strong>Taxa de acerto</strong>
+        <span id="resultado-acerto-percentual">0%</span>
+      </div>
+
+      <div class="resultado-item">
+        <strong>Taxa de erro</strong>
+        <span id="resultado-erro-percentual">0%</span>
+      </div>
+
+    </div>
+
+    <button id="refazer-prova" class="btn btn-refazer">
+      🔄 Refazer prova
+    </button>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 AprovaQuest - Estude e pratique.</p>
+  </div>
+</footer>
+
+<script type="module">
+
+import { supabase } from "../../../js/supabase.js";
+
+const dificuldadeSelect =
+  document.getElementById("dificuldade");
+
+const quantidadeSelect =
+  document.getElementById("quantidade");
+
+const tempoSelect =
+  document.getElementById("tempo");
+
+const embaralharBtn =
+  document.getElementById("embaralhar");
+
+const iniciarBtn =
+  document.getElementById("iniciar");
+
+const refazerBtn =
+  document.getElementById("refazer-prova");
+
+const questoesContainer =
+  document.getElementById("questoes-container");
+
+const resultadoFinal =
+  document.getElementById("resultado-final");
+
+const mensagemInicial =
+  document.getElementById("mensagem-inicial");
+
+const timerElement =
+  document.getElementById("timer");
+
+const progressoElement =
+  document.getElementById("progresso");
+
+const statusElement =
+  document.getElementById("status");
+
+const acertosElement =
+  document.getElementById("acertos");
+
+const errosElement =
+  document.getElementById("erros");
+
+const aproveitamentoElement =
+  document.getElementById("aproveitamento");
+
+const resultadoAcertos =
+  document.getElementById("resultado-acertos");
+
+const resultadoErros =
+  document.getElementById("resultado-erros");
+
+const resultadoAcertoPercentual =
+  document.getElementById("resultado-acerto-percentual");
+
+const resultadoErroPercentual =
+  document.getElementById("resultado-erro-percentual");
+
+
+let todasQuestoes = [];
+let questoesAtuais = [];
+
+let acertos = 0;
+let erros = 0;
+
+let provaIniciada = false;
+let provaEncerrada = false;
+
+let intervaloTimer = null;
+let segundosRestantes = 0;
+
+let embaralharAtivo = false;
+
+
+async function carregarQuestoes() {
+
+  statusElement.textContent =
+    "Carregando questões...";
+
+  const { data, error } = await supabase
+    .from("questoes")
+    .select("*")
+    .eq("materia", "Física")
+    .eq("assunto", "Eletrodinâmica")
+    .order("id", { ascending: true });
+
+
+  if (error) {
+
+    console.error(error);
+
+    statusElement.textContent =
+      "❌ Erro ao carregar as questões.";
+
+    questoesContainer.innerHTML = `
+      <div class="mensagem-inicial">
+        Não foi possível carregar as questões.
+        Verifique a conexão com o Supabase.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  todasQuestoes = data || [];
+
+  montarProva();
+}
+
+
+function montarProva() {
+
+  let questoesFiltradas =
+    [...todasQuestoes];
+
+  const dificuldade =
+    dificuldadeSelect.value;
+
+
+  if (dificuldade !== "todas") {
+
+    questoesFiltradas =
+      questoesFiltradas.filter(
+        questao =>
+          questao.dificuldade === dificuldade
+      );
+  }
+
+
+  if (embaralharAtivo) {
+
+    for (
+      let i = questoesFiltradas.length - 1;
+      i > 0;
+      i--
+    ) {
+
+      const j =
+        Math.floor(
+          Math.random() * (i + 1)
+        );
+
+      [
+        questoesFiltradas[i],
+        questoesFiltradas[j]
+      ] =
+      [
+        questoesFiltradas[j],
+        questoesFiltradas[i]
+      ];
+    }
+  }
+
+
+  const quantidade =
+    quantidadeSelect.value;
+
+
+  if (quantidade !== "todas") {
+
+    questoesFiltradas =
+      questoesFiltradas.slice(
+        0,
+        Number(quantidade)
+      );
+  }
+
+
+  questoesAtuais =
+    questoesFiltradas;
+
+  acertos = 0;
+  erros = 0;
+
+  provaIniciada = false;
+  provaEncerrada = false;
+
+  clearInterval(intervaloTimer);
+
+  atualizarPontuacao();
+  atualizarProgresso();
+
+  resultadoFinal.style.display =
+    "none";
+
+  mensagemInicial.style.display =
+    "block";
+
+  iniciarBtn.disabled = false;
+
+  iniciarBtn.style.display =
+    "inline-block";
+
+  atualizarTimerInicial();
+
+  renderizarQuestoes();
+
+  statusElement.textContent =
+    `${questoesAtuais.length} questão(ões) disponíveis.`;
+}
+
+
+function renderizarQuestoes() {
+
+  questoesContainer.innerHTML = "";
+
+
+  questoesAtuais.forEach(
+    (questao, indice) => {
+
+      const article =
+        document.createElement("article");
+
+      article.className =
+        "question";
+
+
+      article.innerHTML = `
+
+        <h3>
+          Questão ${indice + 1}
+          <small>
+            (${questao.dificuldade})
+          </small>
+        </h3>
+
+        <div class="enunciado">
+          ${questao.enunciado}
+        </div>
+
+        <div class="alternatives">
+
+          ${criarAlternativa("A", questao.alternativa_a)}
+
+          ${criarAlternativa("B", questao.alternativa_b)}
+
+          ${criarAlternativa("C", questao.alternativa_c)}
+
+          ${criarAlternativa("D", questao.alternativa_d)}
+
+          ${criarAlternativa("E", questao.alternativa_e)}
+
+        </div>
+
+        <div
+          class="explicacao"
+          style="display:none;"
+        >
+
+          <strong>📚 Explicação:</strong>
+
+          <div class="texto-explicacao">
+            ${questao.explicacao || ""}
+          </div>
+
+        </div>
+
+        <div
+          class="dica"
+          style="display:none;"
+        >
+
+          <strong>💡 Dica:</strong>
+
+          <div class="texto-dica">
+            ${questao.dica || ""}
+          </div>
+
+        </div>
+      `;
+
+
+      const botoes =
+        article.querySelectorAll(
+          ".alternative"
+        );
+
+
+      botoes.forEach(
+        botao => {
+
+          botao.addEventListener(
+            "click",
+            () =>
+              responderQuestao(
+                article,
+                questao,
+                botao
+              )
+          );
+
+        }
+      );
+
+
+      questoesContainer.appendChild(
+        article
+      );
+
+    }
+  );
+
+
+  atualizarBotoes();
+}
+
+
+function criarAlternativa(
+  letra,
+  texto
+) {
+
+  return `
+
+    <button
+      type="button"
+      class="alternative"
+      data-letra="${letra}"
+      disabled
+    >
+
+      <strong>${letra})</strong>
+      ${texto || ""}
+
+    </button>
+
+  `;
+}
+
+
+function responderQuestao(
+  article,
+  questao,
+  botaoSelecionado
+) {
+
+  if (
+    !provaIniciada ||
+    provaEncerrada ||
+    botaoSelecionado.disabled
+  ) {
+
+    return;
+  }
+
+
+  const respostaSelecionada =
+    botaoSelecionado.dataset.letra;
+
+
+  const respostaCorreta =
+    String(
+      questao.resposta_correta
+    )
+    .trim()
+    .toUpperCase();
+
+
+  const botoes =
+    article.querySelectorAll(
+      ".alternative"
+    );
+
+
+  botoes.forEach(
+    botao => {
+
+      botao.disabled = true;
+
+      botao.classList.add(
+        "respondida"
+      );
+
+    }
+  );
+
+
+  if (
+    respostaSelecionada ===
+    respostaCorreta
+  ) {
+
+    botaoSelecionado.classList.add(
+      "correta"
+    );
+
+    acertos++;
+
+  } else {
+
+    botaoSelecionado.classList.add(
+      "errada"
+    );
+
+
+    const botaoCorreto =
+      article.querySelector(
+        `[data-letra="${respostaCorreta}"]`
+      );
+
+
+    if (botaoCorreto) {
+
+      botaoCorreto.classList.add(
+        "correta"
+      );
+    }
+
+    erros++;
+  }
+
+
+  const explicacao =
+    article.querySelector(
+      ".explicacao"
+    );
+
+  const dica =
+    article.querySelector(
+      ".dica"
+    );
+
+
+  if (explicacao) {
+
+    explicacao.style.display =
+      "block";
+  }
+
+
+  if (
+    dica &&
+    questao.dica
+  ) {
+
+    dica.style.display =
+      "block";
+  }
+
+
+  atualizarPontuacao();
+
+  atualizarProgresso();
+
+
+  const respondidas =
+    contarRespondidas();
+
+
+  if (
+    respondidas >=
+    questoesAtuais.length
+  ) {
+
+    encerrarProva();
+  }
+}
+
+
+function contarRespondidas() {
+
+  return Array.from(
+    document.querySelectorAll(
+      ".question"
+    )
+  )
+  .filter(
+    questao =>
+      questao.querySelector(
+        ".alternative.respondida"
+      )
+  )
+  .length;
+}
+
+
+function atualizarPontuacao() {
+
+  acertosElement.textContent =
+    acertos;
+
+  errosElement.textContent =
+    erros;
+
+
+  const respondidas =
+    acertos + erros;
+
+
+  const aproveitamento =
+    respondidas > 0
+      ? Math.round(
+          (acertos / respondidas) * 100
+        )
+      : 0;
+
+
+  aproveitamentoElement.textContent =
+    `${aproveitamento}%`;
+}
+
+
+function atualizarProgresso() {
+
+  const total =
+    questoesAtuais.length;
+
+  const respondidas =
+    contarRespondidas();
+
+
+  const porcentagem =
+    total > 0
+      ? Math.round(
+          (respondidas / total) * 100
+        )
+      : 0;
+
+
+  progressoElement.style.width =
+    `${porcentagem}%`;
+}
+
+
+function atualizarBotoes() {
+
+  const botoes =
+    document.querySelectorAll(
+      ".alternative"
+    );
+
+
+  botoes.forEach(
+    botao => {
+
+      botao.disabled =
+        !provaIniciada ||
+        provaEncerrada;
+
+    }
+  );
+}
+
+
+function iniciarProva() {
+
+  if (
+    questoesAtuais.length === 0
+  ) {
+
+    alert(
+      "Nenhuma questão encontrada para essa configuração."
+    );
+
+    return;
+  }
+
+
+  provaIniciada = true;
+
+  provaEncerrada = false;
+
+
+  mensagemInicial.style.display =
+    "none";
+
+  iniciarBtn.style.display =
+    "none";
+
+
+  atualizarBotoes();
+
+
+  const minutos =
+    Number(tempoSelect.value);
+
+
+  if (minutos > 0) {
+
+    segundosRestantes =
+      minutos * 60;
+
+    iniciarTimer();
+
+  } else {
+
+    timerElement.textContent =
+      "⏱️ Tempo: sem limite";
+  }
+
+
+  statusElement.textContent =
+    "Prova em andamento...";
+}
+
+
+function iniciarTimer() {
+
+  clearInterval(intervaloTimer);
+
+  atualizarTimer();
+
+
+  intervaloTimer =
+    setInterval(
+      atualizarTimer,
+      1000
+    );
+}
+
+
+function atualizarTimer() {
+
+  if (
+    segundosRestantes <= 0
+  ) {
+
+    clearInterval(intervaloTimer);
+
+    timerElement.textContent =
+      "⏱️ Tempo esgotado!";
+
+    encerrarProva();
+
+    return;
+  }
+
+
+  const minutos =
+    Math.floor(
+      segundosRestantes / 60
+    );
+
+
+  const segundos =
+    segundosRestantes % 60;
+
+
+  timerElement.textContent =
+    `⏱️ Tempo: ${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+
+
+  segundosRestantes--;
+}
+
+
+function atualizarTimerInicial() {
+
+  clearInterval(intervaloTimer);
+
+
+  const minutos =
+    Number(tempoSelect.value);
+
+
+  if (minutos > 0) {
+
+    timerElement.textContent =
+      `⏱️ Tempo: ${String(minutos).padStart(2, "0")}:00`;
+
+  } else {
+
+    timerElement.textContent =
+      "⏱️ Tempo: sem limite";
+  }
+}
+
+
+function encerrarProva() {
+
+  if (provaEncerrada) {
+    return;
+  }
+
+
+  provaEncerrada = true;
+
+  provaIniciada = false;
+
+
+  clearInterval(intervaloTimer);
+
+
+  atualizarBotoes();
+
+
+  mensagemInicial.style.display =
+    "none";
+
+  iniciarBtn.style.display =
+    "none";
+
+
+  statusElement.textContent =
+    "🏁 Prova encerrada!";
+
+
+  mostrarResultadoFinal();
+}
+
+
+function mostrarResultadoFinal() {
+
+  const respondidas =
+    acertos + erros;
+
+
+  const acertoPercentual =
+    respondidas > 0
+      ? Math.round(
+          (acertos / respondidas) * 100
+        )
+      : 0;
+
+
+  const erroPercentual =
+    respondidas > 0
+      ? Math.round(
+          (erros / respondidas) * 100
+        )
+      : 0;
+
+
+  resultadoAcertos.textContent =
+    acertos;
+
+  resultadoErros.textContent =
+    erros;
+
+  resultadoAcertoPercentual.textContent =
+    `${acertoPercentual}%`;
+
+  resultadoErroPercentual.textContent =
+    `${erroPercentual}%`;
+
+
+  resultadoFinal.style.display =
+    "block";
+
+
+  resultadoFinal.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+
+embaralharBtn.addEventListener(
+  "click",
+  () => {
+
+    if (provaIniciada) {
+      return;
+    }
+
+
+    embaralharAtivo =
+      !embaralharAtivo;
+
+
+    embaralharBtn.textContent =
+      embaralharAtivo
+        ? "🔀 Embaralhamento: ON"
+        : "🔀 Embaralhamento: OFF";
+
+
+    montarProva();
+  }
+);
+
+
+iniciarBtn.addEventListener(
+  "click",
+  iniciarProva
+);
+
+
+refazerBtn.addEventListener(
+  "click",
+  () => {
+
+    montarProva();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+);
+
+
+dificuldadeSelect.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+      montarProva();
+    }
+
+  }
+);
+
+
+quantidadeSelect.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+      montarProva();
+    }
+
+  }
+);
+
+
+tempoSelect.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+      atualizarTimerInicial();
+    }
+
+  }
+);
+
+
+carregarQuestoes();
+
+</script>
+
+</body>
+</html>

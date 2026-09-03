@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Estequiometria | AprovaQuest</title>
+  <title>Estequiometria — AprovaQuest</title>
 
   <link rel="stylesheet" href="../../../css/style.css">
 </head>
@@ -13,447 +14,690 @@
 
 <header>
   <div class="container">
-    <div class="logo">
-      Aprova<span>Quest</span>
-    </div>
 
-    <nav>
-      <a href="../../../">Início</a>
-      <a href="../../">Questões</a>
-      <a href="../">Química</a>
-    </nav>
+```
+<div class="logo">
+  Aprova<span>Quest</span>
+</div>
+
+<nav>
+  <a href="../../../">Início</a>
+  <a href="../../">Questões</a>
+  <a href="../">Química</a>
+</nav>
+```
+
   </div>
 </header>
 
 <main class="container">
 
   <div class="breadcrumb">
-    <a href="../../../">Início</a> /
-    <a href="../../">Questões</a> /
-    <a href="../">Química</a> /
-    Estequiometria
+
+```
+<a href="../../../">Início</a> /
+<a href="../../">Questões</a> /
+<a href="../">Química</a> /
+Estequiometria
+```
+
   </div>
-
-  <section class="quiz-header">
-
-    <h1>📐 Estequiometria</h1>
-
-    <p>
-      Pratique seus conhecimentos sobre mol, massa molar,
-      proporções químicas, reagente limitante, rendimento e pureza.
-    </p>
-
-  </section>
-
 
   <section class="quiz-config">
 
-    <div class="config-item">
-      <label for="dificuldade">Dificuldade</label>
+```
+<h2>📐 Questões de Estequiometria</h2>
 
-      <select id="dificuldade">
-        <option value="Todas">Todas</option>
-        <option value="Fácil">Fácil</option>
-        <option value="Médio">Médio</option>
-        <option value="Difícil">Difícil</option>
-      </select>
-    </div>
+<p>
+  Pratique seus conhecimentos sobre mol, massa molar,
+  proporções químicas, reagente limitante, rendimento e pureza.
+</p>
 
 
-    <div class="config-item">
-      <label for="quantidade">Quantidade</label>
+<div class="config-grid">
 
-      <select id="quantidade">
-        <option value="5">5 questões</option>
-        <option value="10">10 questões</option>
-        <option value="15">15 questões</option>
-        <option value="20" selected>20 questões</option>
-      </select>
-    </div>
+  <div>
 
+    <label for="dificuldade">
+      Dificuldade
+    </label>
 
-    <div class="config-item">
-      <label for="tempo">Tempo</label>
+    <select id="dificuldade">
 
-      <select id="tempo">
-        <option value="0">Sem limite</option>
-        <option value="300">5 minutos</option>
-        <option value="600">10 minutos</option>
-        <option value="1200">20 minutos</option>
-      </select>
-    </div>
+      <option value="todas">
+        Todas
+      </option>
 
-  </section>
+      <option value="Fácil">
+        Fácil
+      </option>
 
+      <option value="Médio">
+        Médio
+      </option>
 
-  <div id="acoes-iniciais" class="quiz-actions">
+      <option value="Difícil">
+        Difícil
+      </option>
 
-    <button id="btn-embaralhar" class="btn-secondary">
-      🔀 Embaralhar
-    </button>
-
-    <button id="btn-iniciar" class="btn-primary">
-      ▶️ Começar prova
-    </button>
+    </select>
 
   </div>
 
 
-  <section id="quiz" style="display: none;">
+  <div>
 
-    <div class="quiz-info">
+    <label for="quantidade">
+      Quantidade
+    </label>
 
-      <div>
-        <strong>Questão</strong>
-        <span id="numero-questao">1</span>/<span id="total-questoes">20</span>
-      </div>
+    <select id="quantidade">
 
-      <div>
-        <strong>Pontos</strong>
-        <span id="pontuacao">0</span>
-      </div>
+      <option value="5">
+        5 questões
+      </option>
 
-      <div>
-        <strong>⏱️ Tempo</strong>
-        <span id="cronometro">--:--</span>
-      </div>
+      <option value="10">
+        10 questões
+      </option>
 
-    </div>
+      <option value="15">
+        15 questões
+      </option>
+
+      <option value="20" selected>
+        20 questões
+      </option>
+
+      <option value="todas">
+        Todas
+      </option>
+
+    </select>
+
+  </div>
 
 
-    <div class="progress-container">
-      <div id="progress-bar" class="progress-bar"></div>
-    </div>
+  <div>
+
+    <label for="tempo">
+      Tempo
+    </label>
+
+    <select id="tempo">
+
+      <option value="0">
+        Sem limite
+      </option>
+
+      <option value="300">
+        5 minutos
+      </option>
+
+      <option value="600">
+        10 minutos
+      </option>
+
+      <option value="900">
+        15 minutos
+      </option>
+
+      <option value="1200">
+        20 minutos
+      </option>
+
+      <option value="1800">
+        30 minutos
+      </option>
+
+    </select>
+
+  </div>
+
+</div>
 
 
-    <div id="questao-container"></div>
+<div class="quiz-actions">
+
+  <button
+    id="embaralharBtn"
+    class="btn-secondary"
+  >
+    🔀 Embaralhar: ON
+  </button>
+
+
+  <button
+    id="iniciarBtn"
+    class="btn-primary"
+  >
+    ▶️ Começar
+  </button>
+
+
+  <button
+    id="refazerBtn"
+    class="btn-primary"
+    style="display:none;"
+  >
+    🔄 Refazer
+  </button>
+
+</div>
+```
 
   </section>
 
+  <section
+    id="quizArea"
+    style="display:none;"
+  >
 
-  <section id="resultado" style="display: none;">
+```
+<div class="quiz-info">
 
-    <div class="resultado-card">
+  <div>
 
-      <h2>🎉 Prova concluída!</h2>
+    <strong>Pontuação:</strong>
 
-      <div class="resultado-pontuacao">
+    <span id="pontuacao">
+      0
+    </span>
 
-        <span id="resultado-acertos">0</span>
+  </div>
 
-        <small>
-          acertos de
-          <span id="resultado-total">0</span>
-        </small>
 
-      </div>
+  <div>
 
-      <div class="resultado-percentual">
-        <span id="resultado-percentual">0%</span>
-      </div>
+    <strong>Tempo:</strong>
 
-      <p id="resultado-mensagem"></p>
+    <span id="timer">
+      ∞
+    </span>
 
-      <button id="btn-refazer" class="btn-primary">
-        🔄 Refazer prova
-      </button>
+  </div>
 
-    </div>
+</div>
+
+
+<div class="progress-container">
+
+  <div class="progress-bar">
+
+    <div id="progressBar"></div>
+
+  </div>
+
+  <p id="progressoTexto">
+    Questão 1 de 20
+  </p>
+
+</div>
+
+
+<div id="questoesContainer"></div>
+```
+
+  </section>
+
+  <section
+    id="resultado"
+    style="display:none;"
+  >
+
+```
+<h2>🎉 Resultado</h2>
+
+
+<div class="resultado-card">
+
+  <p>
+
+    Você fez
+
+    <strong id="resultadoPontuacao">
+      0
+    </strong>
+
+    pontos.
+
+  </p>
+
+
+  <p>
+
+    Acertos:
+
+    <strong id="resultadoAcertos">
+      0
+    </strong>
+
+  </p>
+
+
+  <p>
+
+    Aproveitamento:
+
+    <strong id="resultadoPorcentagem">
+      0%
+    </strong>
+
+  </p>
+
+
+  <p id="mensagemResultado"></p>
+
+</div>
+
+
+<button
+  id="resultadoRefazer"
+  class="btn-primary"
+>
+  🔄 Fazer novamente
+</button>
+```
 
   </section>
 
 </main>
 
-
 <footer>
-  <div class="container">
-    <p>© 2026 AprovaQuest — Estude, pratique e evolua.</p>
-  </div>
-</footer>
 
+  <div class="container">
+
+```
+<p>
+  © 2026 AprovaQuest — Estude, pratique e evolua.
+</p>
+```
+
+  </div>
+
+</footer>
 
 <script type="module">
 
 import { supabase } from "../../../js/supabase.js";
 
 
-let todasQuestoes = [];
-let questoesSelecionadas = [];
+let questoes = [];
+
+let questoesAtuais = [];
 
 let indiceAtual = 0;
-let acertos = 0;
+
 let pontuacao = 0;
 
+let acertos = 0;
+
 let tempoRestante = 0;
-let intervaloTempo = null;
 
-let embaralhado = false;
+let intervaloTimer = null;
+
+let embaralhar = true;
 
 
-const configuracao = document.querySelector(".quiz-config");
-const acoesIniciais = document.getElementById("acoes-iniciais");
+/* ================================
+   ELEMENTOS
+================================ */
 
-const quiz = document.getElementById("quiz");
-const resultado = document.getElementById("resultado");
+const dificuldadeSelect =
+  document.getElementById("dificuldade");
 
-const dificuldade = document.getElementById("dificuldade");
-const quantidade = document.getElementById("quantidade");
-const tempo = document.getElementById("tempo");
+const quantidadeSelect =
+  document.getElementById("quantidade");
 
-const btnEmbaralhar = document.getElementById("btn-embaralhar");
-const btnIniciar = document.getElementById("btn-iniciar");
-const btnRefazer = document.getElementById("btn-refazer");
+const tempoSelect =
+  document.getElementById("tempo");
 
-const questaoContainer = document.getElementById("questao-container");
+const iniciarBtn =
+  document.getElementById("iniciarBtn");
 
-const numeroQuestao = document.getElementById("numero-questao");
-const totalQuestoes = document.getElementById("total-questoes");
+const embaralharBtn =
+  document.getElementById("embaralharBtn");
 
-const pontuacaoElemento = document.getElementById("pontuacao");
+const refazerBtn =
+  document.getElementById("refazerBtn");
 
-const progressBar = document.getElementById("progress-bar");
+const resultadoRefazer =
+  document.getElementById("resultadoRefazer");
 
-const cronometro = document.getElementById("cronometro");
+const quizArea =
+  document.getElementById("quizArea");
 
-const resultadoAcertos = document.getElementById("resultado-acertos");
-const resultadoTotal = document.getElementById("resultado-total");
-const resultadoPercentual = document.getElementById("resultado-percentual");
-const resultadoMensagem = document.getElementById("resultado-mensagem");
+const resultado =
+  document.getElementById("resultado");
 
+const questoesContainer =
+  document.getElementById("questoesContainer");
+
+const pontuacaoElement =
+  document.getElementById("pontuacao");
+
+const timerElement =
+  document.getElementById("timer");
+
+const progressBar =
+  document.getElementById("progressBar");
+
+const progressoTexto =
+  document.getElementById("progressoTexto");
+
+
+/* ================================
+   EMBARALHAR
+================================ */
+
+function embaralharArray(array) {
+
+  return array
+    .map(value => ({
+      value,
+      sort: Math.random()
+    }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+
+}
+
+
+/* ================================
+   CARREGAR QUESTÕES
+================================ */
 
 async function carregarQuestoes() {
 
-  btnIniciar.disabled = true;
-  btnIniciar.textContent = "⏳ Carregando...";
+  const { data, error } =
+    await supabase
+      .from("questoes")
+      .select("*")
+      .eq("materia", "Química")
+      .eq("assunto", "Estequiometria")
+      .order("id", {
+        ascending: true
+      });
 
-  const { data, error } = await supabase
-    .from("questoes")
-    .select("*")
-    .eq("materia", "Química")
-    .eq("assunto", "Estequiometria");
 
   if (error) {
 
     console.error(error);
 
-    questaoContainer.innerHTML = `
-      <div class="erro">
-        ❌ Não foi possível carregar as questões.
-      </div>
-    `;
-
-    btnIniciar.disabled = false;
-    btnIniciar.textContent = "▶️ Começar prova";
+    alert(
+      "Erro ao carregar as questões."
+    );
 
     return;
+
   }
 
-  todasQuestoes = data || [];
 
-  btnIniciar.disabled = false;
-  btnIniciar.textContent = "▶️ Começar prova";
+  questoes = data || [];
+
 
   console.log(
     "Questões de Estequiometria carregadas:",
-    todasQuestoes.length
+    questoes.length
   );
+
 }
 
 
-function embaralharArray(array) {
+/* ================================
+   PREPARAR QUESTÕES
+================================ */
 
-  const copia = [...array];
+function prepararQuestoes() {
 
-  for (let i = copia.length - 1; i > 0; i--) {
+  let filtradas =
+    [...questoes];
 
-    const j = Math.floor(Math.random() * (i + 1));
 
-    [copia[i], copia[j]] = [copia[j], copia[i]];
+  const dificuldade =
+    dificuldadeSelect.value;
+
+
+  const quantidade =
+    quantidadeSelect.value;
+
+
+  if (
+    dificuldade !== "todas"
+  ) {
+
+    filtradas =
+      filtradas.filter(
+        questao =>
+          questao.dificuldade ===
+          dificuldade
+      );
+
   }
 
-  return copia;
+
+  if (embaralhar) {
+
+    filtradas =
+      embaralharArray(
+        filtradas
+      );
+
+  }
+
+
+  if (quantidade === "todas") {
+
+    questoesAtuais =
+      filtradas;
+
+  } else {
+
+    questoesAtuais =
+      filtradas.slice(
+        0,
+        Number(quantidade)
+      );
+
+  }
+
 }
 
 
-btnEmbaralhar.addEventListener("click", function () {
+/* ================================
+   INICIAR
+================================ */
 
-  if (!todasQuestoes.length) {
+async function iniciarQuiz() {
 
-    alert("As questões ainda estão carregando.");
+  if (!questoes.length) {
 
-    return;
-  }
+    await carregarQuestoes();
 
-  embaralhado = !embaralhado;
-
-  btnEmbaralhar.textContent =
-    embaralhado
-      ? "🔀 Embaralhado"
-      : "🔀 Embaralhar";
-
-});
-
-
-btnIniciar.addEventListener("click", iniciarProva);
-
-
-function iniciarProva() {
-
-  if (!todasQuestoes.length) {
-
-    alert("Nenhuma questão encontrada para este assunto.");
-
-    return;
   }
 
 
-  const dificuldadeSelecionada = dificuldade.value;
-
-  let filtradas = [...todasQuestoes];
+  prepararQuestoes();
 
 
-  if (dificuldadeSelecionada !== "Todas") {
+  if (!questoesAtuais.length) {
 
-    filtradas = filtradas.filter(
-      questao =>
-        questao.dificuldade === dificuldadeSelecionada
+    alert(
+      "Nenhuma questão encontrada."
     );
-  }
-
-
-  if (!filtradas.length) {
-
-    alert("Não existem questões para essa dificuldade.");
 
     return;
+
   }
-
-
-  filtradas = embaralharArray(filtradas);
-
-
-  const quantidadeSelecionada =
-    parseInt(quantidade.value);
-
-
-  questoesSelecionadas =
-    filtradas.slice(
-      0,
-      Math.min(
-        quantidadeSelecionada,
-        filtradas.length
-      )
-    );
 
 
   indiceAtual = 0;
-  acertos = 0;
+
   pontuacao = 0;
 
-  pontuacaoElemento.textContent = "0";
+  acertos = 0;
 
-  totalQuestoes.textContent =
-    questoesSelecionadas.length;
+
+  pontuacaoElement.textContent =
+    "0";
+
+
+  quizArea.style.display =
+    "block";
+
+
+  resultado.style.display =
+    "none";
+
+
+  refazerBtn.style.display =
+    "none";
+
+
+  iniciarBtn.style.display =
+    "none";
+
+
+  embaralharBtn.style.display =
+    "none";
+
+
+  dificuldadeSelect.disabled =
+    true;
+
+
+  quantidadeSelect.disabled =
+    true;
+
+
+  tempoSelect.disabled =
+    true;
+
+
+  iniciarTimer();
+
+  mostrarQuestao();
+
+}
+
+
+/* ================================
+   TIMER
+================================ */
+
+function iniciarTimer() {
+
+  clearInterval(
+    intervaloTimer
+  );
 
 
   tempoRestante =
-    parseInt(tempo.value);
-
-  iniciarCronometro();
-
-
-  configuracao.style.display = "none";
-  acoesIniciais.style.display = "none";
-
-  resultado.style.display = "none";
-
-  quiz.style.display = "block";
+    Number(
+      tempoSelect.value
+    );
 
 
-  mostrarQuestao();
-}
+  if (
+    tempoRestante <= 0
+  ) {
 
-
-function iniciarCronometro() {
-
-  clearInterval(intervaloTempo);
-
-
-  if (tempoRestante <= 0) {
-
-    cronometro.textContent = "--:--";
+    timerElement.textContent =
+      "∞";
 
     return;
+
   }
 
 
-  atualizarCronometro();
+  atualizarTimer();
 
 
-  intervaloTempo = setInterval(() => {
+  intervaloTimer =
+    setInterval(() => {
 
-    tempoRestante--;
+      tempoRestante--;
 
-    atualizarCronometro();
+      atualizarTimer();
 
 
-    if (tempoRestante <= 0) {
+      if (
+        tempoRestante <= 0
+      ) {
 
-      clearInterval(intervaloTempo);
+        clearInterval(
+          intervaloTimer
+        );
 
-      finalizarProva();
+        finalizarQuiz();
 
-    }
+      }
 
-  }, 1000);
+    }, 1000);
+
 }
 
 
-function atualizarCronometro() {
+/* ================================
+   ATUALIZAR TIMER
+================================ */
+
+function atualizarTimer() {
 
   const minutos =
-    Math.floor(tempoRestante / 60);
+    Math.floor(
+      tempoRestante / 60
+    );
+
 
   const segundos =
     tempoRestante % 60;
 
 
-  cronometro.textContent =
-    String(minutos).padStart(2, "0") +
-    ":" +
-    String(segundos).padStart(2, "0");
+  timerElement.textContent =
+    `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+
 }
 
+
+/* ================================
+   MOSTRAR QUESTÃO
+================================ */
 
 function mostrarQuestao() {
 
   if (
     indiceAtual >=
-    questoesSelecionadas.length
+    questoesAtuais.length
   ) {
 
-    finalizarProva();
+    finalizarQuiz();
 
     return;
+
   }
 
 
   const questao =
-    questoesSelecionadas[indiceAtual];
+    questoesAtuais[
+      indiceAtual
+    ];
 
 
-  numeroQuestao.textContent =
+  const numero =
     indiceAtual + 1;
 
 
-  const progresso =
-    (indiceAtual /
-      questoesSelecionadas.length) *
-    100;
+  const total =
+    questoesAtuais.length;
+
+
+  progressoTexto.textContent =
+    `Questão ${numero} de ${total}`;
 
 
   progressBar.style.width =
-    progresso + "%";
+    `${(numero / total) * 100}%`;
 
 
   const alternativas = [
@@ -487,11 +731,15 @@ function mostrarQuestao() {
 
 
   const alternativasEmbaralhadas =
-    embaralharArray(alternativas);
+    embaralharArray(
+      alternativas
+    );
 
 
   const article =
-    document.createElement("article");
+    document.createElement(
+      "article"
+    );
 
 
   article.className =
@@ -500,18 +748,22 @@ function mostrarQuestao() {
 
   article.innerHTML = `
 
-    <div class="questao-topo">
+    <div class="questao-header">
 
-      <span class="questao-dificuldade">
+      <span class="questao-numero">
+        Questão ${numero}
+      </span>
+
+      <span class="badge">
         ${questao.dificuldade}
       </span>
 
     </div>
 
 
-    <h2>
+    <h3>
       ${questao.titulo}
-    </h2>
+    </h3>
 
 
     <p class="enunciado">
@@ -522,24 +774,25 @@ function mostrarQuestao() {
     <div class="alternativas">
 
       ${alternativasEmbaralhadas
-        .map(alternativa => `
+        .map(
+          alternativa => `
 
-          <button
-            class="alternativa"
-            data-letra="${alternativa.letra}"
-          >
+            <button
+              type="button"
+              class="alternativa"
+              data-letra="${alternativa.letra}"
+            >
 
-            <span class="letra">
-              ${alternativa.letra}
-            </span>
+              <strong>
+                ${alternativa.letra})
+              </strong>
 
-            <span>
               ${alternativa.texto}
-            </span>
 
-          </button>
+            </button>
 
-        `)
+          `
+        )
         .join("")}
 
     </div>
@@ -547,39 +800,48 @@ function mostrarQuestao() {
 
     <div
       class="feedback"
-      style="display: none;"
+      style="display:none;"
     ></div>
 
   `;
 
 
-  const botoes =
-    article.querySelectorAll(".alternativa");
+  questoesContainer.innerHTML =
+    "";
 
 
-  botoes.forEach(botao => {
-
-    botao.addEventListener(
-      "click",
-      function () {
-
-        responderQuestao(
-          article,
-          questao,
-          botao
-        );
-
-      }
-    );
-
-  });
+  questoesContainer.appendChild(
+    article
+  );
 
 
-  questaoContainer.innerHTML = "";
+  article
+    .querySelectorAll(
+      ".alternativa"
+    )
+    .forEach(botao => {
 
-  questaoContainer.appendChild(article);
+      botao.addEventListener(
+        "click",
+        () => {
+
+          responderQuestao(
+            article,
+            questao,
+            botao
+          );
+
+        }
+      );
+
+    });
+
 }
 
+
+/* ================================
+   RESPONDER
+================================ */
 
 function responderQuestao(
   article,
@@ -588,17 +850,18 @@ function responderQuestao(
 ) {
 
   const botoes =
-    article.querySelectorAll(".alternativa");
+    article.querySelectorAll(
+      ".alternativa"
+    );
 
-  const feedback =
-    article.querySelector(".feedback");
 
+  botoes.forEach(
+    botao => {
 
-  botoes.forEach(botao => {
+      botao.disabled = true;
 
-    botao.disabled = true;
-
-  });
+    }
+  );
 
 
   const letraSelecionada =
@@ -606,110 +869,120 @@ function responderQuestao(
 
 
   const respostaCorreta =
-    String(questao.resposta_correta)
+    String(
+      questao.resposta_correta
+    )
       .trim()
       .toUpperCase();
 
 
-  const acertou =
+  const feedback =
+    article.querySelector(
+      ".feedback"
+    );
+
+
+  const pontos = {
+
+    "Fácil": 1,
+
+    "Médio": 2,
+
+    "Difícil": 3
+
+  };
+
+
+  if (
     letraSelecionada ===
-    respostaCorreta;
-
-
-  botoes.forEach(botao => {
-
-    const letra =
-      botao.dataset.letra;
-
-
-    if (letra === respostaCorreta) {
-
-      botao.classList.add("correta");
-
-    }
-
-
-    if (
-      letra === letraSelecionada &&
-      !acertou
-    ) {
-
-      botao.classList.add("incorreta");
-
-    }
-
-  });
-
-
-  if (acertou) {
+    respostaCorreta
+  ) {
 
     acertos++;
 
 
-    if (questao.dificuldade === "Fácil") {
-
-      pontuacao += 1;
-
-    } else if (
-      questao.dificuldade === "Médio"
-    ) {
-
-      pontuacao += 2;
-
-    } else if (
-      questao.dificuldade === "Difícil"
-    ) {
-
-      pontuacao += 3;
-
-    }
+    pontuacao +=
+      pontos[
+        questao.dificuldade
+      ] || 1;
 
 
-    pontuacaoElemento.textContent =
-      pontuacao;
-
-
-    feedback.className =
-      "feedback correto";
+    botaoClicado.classList.add(
+      "correta"
+    );
 
 
     feedback.innerHTML = `
-      <strong>✅ Resposta correta!</strong>
 
-      <p>
-        ${questao.explicacao || ""}
-      </p>
+      <strong>
+        ✅ Correto!
+      </strong>
 
-      ${
-        questao.dica
-          ? `<small>💡 ${questao.dica}</small>`
-          : ""
-      }
+      <br>
+
+      ${questao.explicacao || ""}
+
     `;
 
   } else {
 
-    feedback.className =
-      "feedback incorreto";
+    botaoClicado.classList.add(
+      "incorreta"
+    );
+
+
+    botoes.forEach(
+      botao => {
+
+        if (
+          botao.dataset.letra ===
+          respostaCorreta
+        ) {
+
+          botao.classList.add(
+            "correta"
+          );
+
+        }
+
+      }
+    );
 
 
     feedback.innerHTML = `
-      <strong>❌ Resposta incorreta.</strong>
 
-      <p>
-        A resposta correta é:
-        <strong>${respostaCorreta}</strong>
-      </p>
+      <strong>
+        ❌ Incorreto!
+      </strong>
 
-      <p>
-        ${questao.explicacao || ""}
-      </p>
+      <br>
 
-      ${
-        questao.dica
-          ? `<small>💡 ${questao.dica}</small>`
-          : ""
-      }
+      Resposta correta:
+      <strong>
+        ${respostaCorreta}
+      </strong>
+
+      <br><br>
+
+      ${questao.explicacao || ""}
+
+    `;
+
+  }
+
+
+  if (questao.dica) {
+
+    feedback.innerHTML += `
+
+      <br><br>
+
+      <strong>
+        💡 Dica:
+      </strong>
+
+      ${questao.dica}
+
     `;
 
   }
@@ -719,142 +992,194 @@ function responderQuestao(
     "block";
 
 
-  const proximoBotao =
-    document.createElement("button");
+  pontuacaoElement.textContent =
+    pontuacao;
 
 
-  proximoBotao.className =
-    "btn-primary proxima-questao";
+  setTimeout(() => {
 
+    indiceAtual++;
 
-  proximoBotao.textContent =
-    indiceAtual ===
-    questoesSelecionadas.length - 1
-      ? "🏁 Finalizar"
-      : "➡️ Próxima questão";
+    mostrarQuestao();
 
+  }, 1800);
 
-  proximoBotao.addEventListener(
-    "click",
-    () => {
-
-      indiceAtual++;
-
-      mostrarQuestao();
-
-    }
-  );
-
-
-  article.appendChild(
-    proximoBotao
-  );
 }
 
 
-function finalizarProva() {
+/* ================================
+   FINALIZAR
+================================ */
 
-  clearInterval(intervaloTempo);
+function finalizarQuiz() {
+
+  clearInterval(
+    intervaloTimer
+  );
 
 
-  quiz.style.display =
+  quizArea.style.display =
     "none";
+
 
   resultado.style.display =
     "block";
 
 
+  refazerBtn.style.display =
+    "inline-block";
+
+
+  iniciarBtn.style.display =
+    "none";
+
+
   const total =
-    questoesSelecionadas.length;
+    questoesAtuais.length;
 
 
-  const percentual =
-    total > 0
+  const porcentagem =
+    total
       ? Math.round(
           (acertos / total) * 100
         )
       : 0;
 
 
-  resultadoAcertos.textContent =
-    acertos;
-
-  resultadoTotal.textContent =
-    total;
-
-  resultadoPercentual.textContent =
-    percentual + "%";
+  document.getElementById(
+    "resultadoPontuacao"
+  ).textContent =
+    pontuacao;
 
 
-  if (percentual >= 90) {
+  document.getElementById(
+    "resultadoAcertos"
+  ).textContent =
+    `${acertos}/${total}`;
 
-    resultadoMensagem.textContent =
-      "🏆 Excelente! Você domina muito bem este assunto.";
 
-  } else if (percentual >= 70) {
+  document.getElementById(
+    "resultadoPorcentagem"
+  ).textContent =
+    `${porcentagem}%`;
 
-    resultadoMensagem.textContent =
-      "👏 Muito bom! Você está indo muito bem.";
 
-  } else if (percentual >= 50) {
+  const mensagem =
+    document.getElementById(
+      "mensagemResultado"
+    );
 
-    resultadoMensagem.textContent =
-      "📚 Bom trabalho! Continue praticando para melhorar.";
+
+  if (
+    porcentagem >= 90
+  ) {
+
+    mensagem.textContent =
+      "🔥 Excelente! Você domina muito bem Estequiometria!";
+
+  } else if (
+    porcentagem >= 70
+  ) {
+
+    mensagem.textContent =
+      "👏 Muito bom! Seu conhecimento de Estequiometria está ótimo.";
+
+  } else if (
+    porcentagem >= 50
+  ) {
+
+    mensagem.textContent =
+      "👍 Bom trabalho! Continue praticando para melhorar.";
 
   } else {
 
-    resultadoMensagem.textContent =
-      "💪 Continue estudando! A prática vai ajudar você a evoluir.";
+    mensagem.textContent =
+      "📚 Continue estudando e tente novamente. Você consegue!";
 
   }
 
 
-  progressBar.style.width =
-    "100%";
+  dificuldadeSelect.disabled =
+    false;
+
+
+  quantidadeSelect.disabled =
+    false;
+
+
+  tempoSelect.disabled =
+    false;
+
 }
 
 
-btnRefazer.addEventListener(
+/* ================================
+   BOTÕES
+================================ */
+
+embaralharBtn.addEventListener(
   "click",
-  function () {
+  () => {
 
-    clearInterval(intervaloTempo);
-
-
-    quiz.style.display =
-      "none";
-
-    resultado.style.display =
-      "none";
-
-    configuracao.style.display =
-      "grid";
-
-    acoesIniciais.style.display =
-      "flex";
+    embaralhar =
+      !embaralhar;
 
 
-    questaoContainer.innerHTML =
-      "";
-
-    cronometro.textContent =
-      "--:--";
-
-    pontuacaoElemento.textContent =
-      "0";
-
-    progressBar.style.width =
-      "0%";
-
-
-    btnEmbaralhar.textContent =
-      "🔀 Embaralhar";
-
-    embaralhado = false;
+    embaralharBtn.textContent =
+      embaralhar
+        ? "🔀 Embaralhar: ON"
+        : "🔀 Embaralhar: OFF";
 
   }
 );
 
+
+iniciarBtn.addEventListener(
+  "click",
+  iniciarQuiz
+);
+
+
+refazerBtn.addEventListener(
+  "click",
+  () => {
+
+    resultado.style.display =
+      "none";
+
+
+    iniciarBtn.style.display =
+      "inline-block";
+
+
+    embaralharBtn.style.display =
+      "inline-block";
+
+
+    refazerBtn.style.display =
+      "none";
+
+  }
+);
+
+
+resultadoRefazer.addEventListener(
+  "click",
+  () => {
+
+    resultado.style.display =
+      "none";
+
+
+    iniciarQuiz();
+
+  }
+);
+
+
+/* ================================
+   INICIALIZAÇÃO
+================================ */
 
 carregarQuestoes();
 

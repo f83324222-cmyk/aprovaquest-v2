@@ -1,0 +1,1166 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Zoologia | AprovaQuest</title>
+
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <style>
+    .controles {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+
+    .controle-grupo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .controle-grupo:last-child {
+      margin-bottom: 0;
+    }
+
+    .controle-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .controle-item label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .controle-item select {
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: white;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .botoes-prova {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 11px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-principal {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-principal:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secundario {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .btn-secundario:hover {
+      background: #d1d5db;
+    }
+
+    .btn-sorteio {
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-sorteio.ativo {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+    .placar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .placar-item {
+      flex: 1;
+      min-width: 120px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .placar-item strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    .placar-item span {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .cronometro {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      margin: 15px 0;
+      color: #374151;
+    }
+
+    .progresso-container {
+      margin: 15px 0 25px;
+    }
+
+    .progresso-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 7px;
+    }
+
+    .progresso {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progresso-barra {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      transition: width 0.3s;
+    }
+
+    .questao {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .questao-numero {
+      font-size: 13px;
+      font-weight: 700;
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+
+    .questao h2 {
+      font-size: 18px;
+      margin: 0 0 15px;
+      line-height: 1.5;
+    }
+
+    .enunciado {
+      line-height: 1.7;
+      color: #374151;
+      margin-bottom: 20px;
+    }
+
+    .alternativas {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .alternativa {
+      width: 100%;
+      padding: 13px 15px;
+      text-align: left;
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 15px;
+      line-height: 1.5;
+      transition: 0.2s;
+    }
+
+    .alternativa:hover:not(:disabled) {
+      border-color: #2563eb;
+      background: #eff6ff;
+    }
+
+    .alternativa:disabled {
+      cursor: default;
+    }
+
+    .alternativa.correta {
+      border-color: #16a34a;
+      background: #f0fdf4;
+    }
+
+    .alternativa.incorreta {
+      border-color: #dc2626;
+      background: #fef2f2;
+    }
+
+    .explicacao,
+    .dica {
+      display: none;
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 9px;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .explicacao {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+    }
+
+    .dica {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .explicacao strong,
+    .dica strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .mensagem-inicial {
+      text-align: center;
+      padding: 35px 20px;
+      background: #f8fafc;
+      border-radius: 14px;
+      color: #666;
+      margin: 25px 0;
+    }
+
+    .resultado-final {
+      display: none;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 30px;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .resultado-final h2 {
+      margin-top: 0;
+      font-size: 26px;
+    }
+
+    .resultado-percentual {
+      font-size: 40px;
+      font-weight: 700;
+      color: #2563eb;
+      margin: 15px 0;
+    }
+
+    .resultado-detalhes {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 20px 0;
+    }
+
+    .resultado-detalhes div {
+      min-width: 100px;
+    }
+
+    .resultado-detalhes strong {
+      display: block;
+      font-size: 22px;
+    }
+
+    .status-prova {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin: 10px 0 20px;
+    }
+
+    @media (max-width: 600px) {
+      .questao {
+        padding: 20px 16px;
+      }
+
+      .controle-item {
+        min-width: 100%;
+      }
+
+      .placar-item {
+        min-width: 100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="../../../" class="logo">AprovaQuest</a>
+
+        <nav>
+          <a href="../../../">Início</a>
+          <a href="../../">Questões</a>
+          <a href="../">Biologia</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <div class="breadcrumb">
+      <a href="../../../">Início</a> /
+      <a href="../../">Questões</a> /
+      <a href="../">Biologia</a> /
+      Zoologia
+    </div>
+
+    <section class="pagina-header">
+      <h1>🐾 Zoologia</h1>
+
+      <p>
+        Pratique questões sobre características, classificação,
+        evolução e diversidade dos animais.
+      </p>
+    </section>
+
+    <div class="controles">
+
+      <div class="controle-grupo">
+
+        <div class="controle-item">
+          <label for="dificuldade">Dificuldade</label>
+
+          <select id="dificuldade">
+            <option value="Todas">Todas</option>
+            <option value="Fácil">Fácil</option>
+            <option value="Médio">Médio</option>
+            <option value="Difícil">Difícil</option>
+          </select>
+        </div>
+
+        <div class="controle-item">
+          <label for="quantidade">Quantidade</label>
+
+          <select id="quantidade">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="todas">Todas</option>
+          </select>
+        </div>
+
+        <div class="controle-item">
+          <label for="tempo">Tempo</label>
+
+          <select id="tempo">
+            <option value="0">Sem limite</option>
+            <option value="5">5 minutos</option>
+            <option value="10">10 minutos</option>
+            <option value="15">15 minutos</option>
+            <option value="20">20 minutos</option>
+            <option value="30">30 minutos</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="botoes-prova">
+
+        <button
+          id="btnShuffle"
+          class="btn btn-sorteio"
+          type="button">
+          🔀 Embaralhar: OFF
+        </button>
+
+        <button
+          id="btnIniciar"
+          class="btn btn-principal"
+          type="button">
+          ▶️ Iniciar prova
+        </button>
+
+        <button
+          id="btnRefazer"
+          class="btn btn-secundario"
+          type="button"
+          style="display:none;">
+          🔄 Refazer prova
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="placar">
+
+      <div class="placar-item">
+        <strong id="acertos">0</strong>
+        <span>Acertos</span>
+      </div>
+
+      <div class="placar-item">
+        <strong id="erros">0</strong>
+        <span>Erros</span>
+      </div>
+
+      <div class="placar-item">
+        <strong id="aproveitamento">0%</strong>
+        <span>Aproveitamento</span>
+      </div>
+
+    </div>
+
+    <div
+      id="mensagemInicial"
+      class="mensagem-inicial">
+
+      <strong>🐾 Prepare-se!</strong>
+
+      <p>
+        Escolha a dificuldade, a quantidade de questões
+        e o tempo. Depois clique em "Iniciar prova".
+      </p>
+
+    </div>
+
+    <div
+      id="cronometro"
+      class="cronometro"
+      style="display:none;">
+      ⏱️ <span id="tempoRestante">00:00</span>
+    </div>
+
+    <div
+      id="progressoContainer"
+      class="progresso-container"
+      style="display:none;">
+
+      <div class="progresso-info">
+        <span id="progressoTexto">Questão 0 de 0</span>
+        <span id="progressoStatus">0%</span>
+      </div>
+
+      <div class="progresso">
+        <div
+          id="progressoBarra"
+          class="progresso-barra">
+        </div>
+      </div>
+
+    </div>
+
+    <div
+      id="statusProva"
+      class="status-prova"
+      style="display:none;">
+    </div>
+
+    <div id="questoesContainer"></div>
+
+    <div
+      id="resultadoFinal"
+      class="resultado-final">
+
+      <h2>🏆 Prova concluída!</h2>
+
+      <div
+        id="resultadoPercentual"
+        class="resultado-percentual">
+        0%
+      </div>
+
+      <div class="resultado-detalhes">
+
+        <div>
+          <strong id="resultadoAcertos">0</strong>
+          <span>Acertos</span>
+        </div>
+
+        <div>
+          <strong id="resultadoErros">0</strong>
+          <span>Erros</span>
+        </div>
+
+        <div>
+          <strong id="resultadoTotal">0</strong>
+          <span>Total</span>
+        </div>
+
+      </div>
+
+      <button
+        id="btnRefazerFinal"
+        class="btn btn-principal"
+        type="button">
+        🔄 Refazer prova
+      </button>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 AprovaQuest. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script type="module">
+
+    import { supabase } from "../../../js/supabase.js";
+
+    let todasQuestoes = [];
+    let questoesProva = [];
+
+    let provaIniciada = false;
+    let shuffleAtivo = false;
+
+    let acertos = 0;
+    let erros = 0;
+    let respondidas = 0;
+
+    let intervaloTimer = null;
+    let segundosRestantes = 0;
+
+    const dificuldade = document.getElementById("dificuldade");
+    const quantidade = document.getElementById("quantidade");
+    const tempo = document.getElementById("tempo");
+
+    const btnShuffle = document.getElementById("btnShuffle");
+    const btnIniciar = document.getElementById("btnIniciar");
+    const btnRefazer = document.getElementById("btnRefazer");
+    const btnRefazerFinal = document.getElementById("btnRefazerFinal");
+
+    const mensagemInicial = document.getElementById("mensagemInicial");
+    const questoesContainer = document.getElementById("questoesContainer");
+
+    const cronometro = document.getElementById("cronometro");
+    const tempoRestante = document.getElementById("tempoRestante");
+
+    const progressoContainer =
+      document.getElementById("progressoContainer");
+
+    const progressoTexto =
+      document.getElementById("progressoTexto");
+
+    const progressoStatus =
+      document.getElementById("progressoStatus");
+
+    const progressoBarra =
+      document.getElementById("progressoBarra");
+
+    const statusProva =
+      document.getElementById("statusProva");
+
+    const resultadoFinal =
+      document.getElementById("resultadoFinal");
+
+    async function carregarQuestoes() {
+
+      const { data, error } = await supabase
+        .from("questoes")
+        .select("*")
+        .eq("materia", "Biologia")
+        .eq("assunto", "Zoologia")
+        .order("id", { ascending: true });
+
+      if (error) {
+
+        console.error(error);
+
+        mensagemInicial.innerHTML = `
+          <strong>❌ Erro ao carregar questões.</strong>
+          <p>Não foi possível carregar as questões de Zoologia.</p>
+        `;
+
+        return;
+      }
+
+      todasQuestoes = data || [];
+
+      if (todasQuestoes.length === 0) {
+
+        mensagemInicial.innerHTML = `
+          <strong>⚠️ Nenhuma questão encontrada.</strong>
+          <p>
+            Verifique se as questões de Zoologia foram cadastradas
+            no Supabase.
+          </p>
+        `;
+
+      }
+
+    }
+
+    function embaralhar(array) {
+
+      const copia = [...array];
+
+      for (let i = copia.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [copia[i], copia[j]] =
+          [copia[j], copia[i]];
+
+      }
+
+      return copia;
+
+    }
+
+    function atualizarPlacar() {
+
+      document.getElementById("acertos").textContent =
+        acertos;
+
+      document.getElementById("erros").textContent =
+        erros;
+
+      const totalRespondidas =
+        acertos + erros;
+
+      const aproveitamento =
+        totalRespondidas > 0
+          ? Math.round((acertos / totalRespondidas) * 100)
+          : 0;
+
+      document.getElementById("aproveitamento").textContent =
+        `${aproveitamento}%`;
+
+    }
+
+    function atualizarProgresso() {
+
+      const total = questoesProva.length;
+
+      const porcentagem =
+        total > 0
+          ? Math.round((respondidas / total) * 100)
+          : 0;
+
+      progressoTexto.textContent =
+        `Questão ${respondidas} de ${total}`;
+
+      progressoStatus.textContent =
+        `${porcentagem}%`;
+
+      progressoBarra.style.width =
+        `${porcentagem}%`;
+
+    }
+
+    function formatarTempo(segundos) {
+
+      const minutos =
+        Math.floor(segundos / 60);
+
+      const segundosRestantes =
+        segundos % 60;
+
+      return `${String(minutos).padStart(2, "0")}:${String(segundosRestantes).padStart(2, "0")}`;
+
+    }
+
+    function iniciarTimer() {
+
+      const minutos =
+        Number(tempo.value);
+
+      if (minutos === 0) {
+
+        cronometro.style.display = "none";
+
+        return;
+
+      }
+
+      segundosRestantes =
+        minutos * 60;
+
+      cronometro.style.display =
+        "block";
+
+      tempoRestante.textContent =
+        formatarTempo(segundosRestantes);
+
+      intervaloTimer =
+        setInterval(() => {
+
+          segundosRestantes--;
+
+          tempoRestante.textContent =
+            formatarTempo(segundosRestantes);
+
+          if (segundosRestantes <= 0) {
+
+            clearInterval(intervaloTimer);
+
+            finalizarProva(true);
+
+          }
+
+        }, 1000);
+
+    }
+
+    function pararTimer() {
+
+      if (intervaloTimer) {
+
+        clearInterval(intervaloTimer);
+
+        intervaloTimer = null;
+
+      }
+
+    }
+
+    function renderizarQuestoes() {
+
+      questoesContainer.innerHTML = "";
+
+      questoesProva.forEach((questao, index) => {
+
+        const card =
+          document.createElement("div");
+
+        card.className = "questao";
+
+        card.innerHTML = `
+
+          <div class="questao-numero">
+            Questão ${index + 1}
+          </div>
+
+          <h2>
+            ${questao.titulo}
+          </h2>
+
+          <div class="enunciado">
+            ${questao.enunciado}
+          </div>
+
+          <div class="alternativas">
+
+            <button class="alternativa"
+              data-resposta="A">
+              <strong>A)</strong>
+              ${questao.alternativa_a}
+            </button>
+
+            <button class="alternativa"
+              data-resposta="B">
+              <strong>B)</strong>
+              ${questao.alternativa_b}
+            </button>
+
+            <button class="alternativa"
+              data-resposta="C">
+              <strong>C)</strong>
+              ${questao.alternativa_c}
+            </button>
+
+            <button class="alternativa"
+              data-resposta="D">
+              <strong>D)</strong>
+              ${questao.alternativa_d}
+            </button>
+
+            <button class="alternativa"
+              data-resposta="E">
+              <strong>E)</strong>
+              ${questao.alternativa_e}
+            </button>
+
+          </div>
+
+          <div class="explicacao">
+
+            <strong>💡 Explicação</strong>
+
+            <span>
+              ${questao.explicacao || ""}
+            </span>
+
+          </div>
+
+          <div class="dica">
+
+            <strong>📌 Dica</strong>
+
+            <span>
+              ${questao.dica || ""}
+            </span>
+
+          </div>
+
+        `;
+
+        const alternativas =
+          card.querySelectorAll(".alternativa");
+
+        alternativas.forEach(botao => {
+
+          botao.addEventListener(
+            "click",
+            () => responderQuestao(
+              botao,
+              questao,
+              card
+            )
+          );
+
+        });
+
+        questoesContainer.appendChild(card);
+
+      });
+
+      atualizarProgresso();
+
+    }
+
+    function responderQuestao(
+      botao,
+      questao,
+      card
+    ) {
+
+      if (!provaIniciada) return;
+
+      const alternativas =
+        card.querySelectorAll(".alternativa");
+
+      if (
+        [...alternativas].some(
+          item => item.disabled
+        )
+      ) return;
+
+      alternativas.forEach(
+        item => item.disabled = true
+      );
+
+      const resposta =
+        botao.dataset.resposta;
+
+      const correta =
+        questao.resposta_correta
+          .toUpperCase();
+
+      if (resposta === correta) {
+
+        botao.classList.add(
+          "correta"
+        );
+
+        acertos++;
+
+      } else {
+
+        botao.classList.add(
+          "incorreta"
+        );
+
+        erros++;
+
+        alternativas.forEach(item => {
+
+          if (
+            item.dataset.resposta === correta
+          ) {
+
+            item.classList.add(
+              "correta"
+            );
+
+          }
+
+        });
+
+      }
+
+      respondidas++;
+
+      const explicacao =
+        card.querySelector(".explicacao");
+
+      const dica =
+        card.querySelector(".dica");
+
+      explicacao.style.display =
+        "block";
+
+      dica.style.display =
+        "block";
+
+      atualizarPlacar();
+      atualizarProgresso();
+
+      if (
+        respondidas ===
+        questoesProva.length
+      ) {
+
+        finalizarProva(false);
+
+      }
+
+    }
+
+    function finalizarProva(tempoEsgotado) {
+
+      if (!provaIniciada) return;
+
+      provaIniciada = false;
+
+      pararTimer();
+
+      const total =
+        questoesProva.length;
+
+      const aproveitamento =
+        total > 0
+          ? Math.round(
+              (acertos / total) * 100
+            )
+          : 0;
+
+      resultadoFinal.style.display =
+        "block";
+
+      document.getElementById(
+        "resultadoPercentual"
+      ).textContent =
+        `${aproveitamento}%`;
+
+      document.getElementById(
+        "resultadoAcertos"
+      ).textContent =
+        acertos;
+
+      document.getElementById(
+        "resultadoErros"
+      ).textContent =
+        erros;
+
+      document.getElementById(
+        "resultadoTotal"
+      ).textContent =
+        total;
+
+      statusProva.style.display =
+        "block";
+
+      statusProva.textContent =
+        tempoEsgotado
+          ? "⏰ O tempo acabou! A prova foi encerrada."
+          : "✅ Você respondeu todas as questões.";
+
+      btnRefazer.style.display =
+        "inline-block";
+
+      resultadoFinal.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+    function prepararProva() {
+
+      let filtradas =
+        [...todasQuestoes];
+
+      const filtro =
+        dificuldade.value;
+
+      if (filtro !== "Todas") {
+
+        filtradas =
+          filtradas.filter(
+            questao =>
+              questao.dificuldade === filtro
+          );
+
+      }
+
+      if (shuffleAtivo) {
+
+        filtradas =
+          embaralhar(filtradas);
+
+      }
+
+      const qtd =
+        quantidade.value;
+
+      if (qtd !== "todas") {
+
+        filtradas =
+          filtradas.slice(
+            0,
+            Number(qtd)
+          );
+
+      }
+
+      questoesProva =
+        filtradas;
+
+    }
+
+    function iniciarProva() {
+
+      if (todasQuestoes.length === 0) {
+
+        return;
+
+      }
+
+      prepararProva();
+
+      if (questoesProva.length === 0) {
+
+        alert(
+          "Nenhuma questão encontrada para essa configuração."
+        );
+
+        return;
+
+      }
+
+      acertos = 0;
+      erros = 0;
+      respondidas = 0;
+
+      provaIniciada = true;
+
+      atualizarPlacar();
+
+      mensagemInicial.style.display =
+        "none";
+
+      resultadoFinal.style.display =
+        "none";
+
+      progressoContainer.style.display =
+        "block";
+
+      statusProva.style.display =
+        "block";
+
+      statusProva.textContent =
+        "📝 Prova em andamento...";
+
+      btnIniciar.style.display =
+        "none";
+
+      btnRefazer.style.display =
+        "inline-block";
+
+      renderizarQuestoes();
+
+      iniciarTimer();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+    function refazerProva() {
+
+      pararTimer();
+
+      provaIniciada = false;
+
+      iniciarProva();
+
+    }
+
+    btnShuffle.addEventListener(
+      "click",
+      () => {
+
+        shuffleAtivo =
+          !shuffleAtivo;
+
+        btnShuffle.classList.toggle(
+          "ativo",
+          shuffleAtivo
+        );
+
+        btnShuffle.textContent =
+          shuffleAtivo
+            ? "🔀 Embaralhar: ON"
+            : "🔀 Embaralhar: OFF";
+
+      }
+    );
+
+    btnIniciar.addEventListener(
+      "click",
+      iniciarProva
+    );
+
+    btnRefazer.addEventListener(
+      "click",
+      refazerProva
+    );
+
+    btnRefazerFinal.addEventListener(
+      "click",
+      refazerProva
+    );
+
+    carregarQuestoes();
+
+  </script>
+
+</body>
+</html>
+```

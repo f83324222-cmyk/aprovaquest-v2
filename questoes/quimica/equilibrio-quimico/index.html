@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,7 +12,9 @@
 
 <header>
   <div class="container">
-    <h1>⚖️ Equilíbrio Químico</h1>
+    <div class="logo">
+      Aprova<span>Quest</span>
+    </div>
 
     <nav>
       <a href="../../../">Início</a>
@@ -60,6 +63,7 @@
           <option value="10">10 questões</option>
           <option value="15">15 questões</option>
           <option value="20" selected>20 questões</option>
+          <option value="todas">Todas</option>
         </select>
       </div>
 
@@ -72,6 +76,7 @@
           <option value="600">10 minutos</option>
           <option value="900">15 minutos</option>
           <option value="1200">20 minutos</option>
+          <option value="1800">30 minutos</option>
         </select>
       </div>
 
@@ -158,6 +163,12 @@
   </section>
 
 </main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 AprovaQuest — Estude, pratique e evolua.</p>
+  </div>
+</footer>
 
 <script type="module">
 
@@ -250,7 +261,8 @@ async function carregarQuestoes() {
     .from("questoes")
     .select("*")
     .eq("materia", "Química")
-    .eq("assunto", "Equilíbrio Químico");
+    .eq("assunto", "Equilíbrio Químico")
+    .order("id", { ascending: true });
 
   if (error) {
 
@@ -264,7 +276,10 @@ async function carregarQuestoes() {
 
   questoes = data || [];
 
-  console.log("Questões carregadas:", questoes.length);
+  console.log(
+    "Questões de Equilíbrio Químico carregadas:",
+    questoes.length
+  );
 
 }
 
@@ -281,7 +296,7 @@ function prepararQuestoes() {
     dificuldadeSelect.value;
 
   const quantidade =
-    Number(quantidadeSelect.value);
+    quantidadeSelect.value;
 
 
   if (dificuldade !== "todas") {
@@ -301,8 +316,16 @@ function prepararQuestoes() {
   }
 
 
-  questoesAtuais =
-    filtradas.slice(0, quantidade);
+  if (quantidade === "todas") {
+
+    questoesAtuais = filtradas;
+
+  } else {
+
+    questoesAtuais =
+      filtradas.slice(0, Number(quantidade));
+
+  }
 
 }
 
@@ -556,7 +579,7 @@ function mostrarQuestao() {
 
 
 /* ================================
-   RESPONDER
+   RESPONDER QUESTÃO
 ================================ */
 
 function responderQuestao(
@@ -672,7 +695,7 @@ function responderQuestao(
 
 
 /* ================================
-   FINALIZAR
+   FINALIZAR QUIZ
 ================================ */
 
 function finalizarQuiz() {
@@ -752,7 +775,7 @@ function finalizarQuiz() {
 
 
 /* ================================
-   BOTÕES
+   BOTÃO EMBARALHAR
 ================================ */
 
 embaralharBtn.addEventListener(
@@ -770,11 +793,19 @@ embaralharBtn.addEventListener(
 );
 
 
+/* ================================
+   BOTÃO COMEÇAR
+================================ */
+
 iniciarBtn.addEventListener(
   "click",
   iniciarQuiz
 );
 
+
+/* ================================
+   BOTÃO REFAZER
+================================ */
 
 refazerBtn.addEventListener(
   "click",
@@ -792,6 +823,10 @@ refazerBtn.addEventListener(
 );
 
 
+/* ================================
+   BOTÃO RESULTADO
+================================ */
+
 resultadoRefazer.addEventListener(
   "click",
   () => {
@@ -804,9 +839,14 @@ resultadoRefazer.addEventListener(
 );
 
 
+/* ================================
+   CARREGAR AO ABRIR
+================================ */
+
 carregarQuestoes();
 
 </script>
 
 </body>
 </html>
+```

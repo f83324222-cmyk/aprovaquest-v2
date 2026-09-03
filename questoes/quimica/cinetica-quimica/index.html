@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Cinética Química — AprovaQuest</title>
+
   <link rel="stylesheet" href="../../../css/style.css">
 </head>
 
@@ -11,166 +14,316 @@
 
 <header>
   <div class="container">
-    <h1>⚡ Cinética Química</h1>
 
-    <nav>
-      <a href="../../../">Início</a>
-      <a href="../../">Questões</a>
-      <a href="../">Química</a>
-    </nav>
+```
+<h1>⚡ Cinética Química</h1>
+
+<nav>
+  <a href="../../../">Início</a>
+  <a href="../../">Questões</a>
+  <a href="../">Química</a>
+</nav>
+```
+
   </div>
 </header>
 
 <main class="container">
 
   <div class="breadcrumb">
-    <a href="../../../">Início</a> /
-    <a href="../../">Questões</a> /
-    <a href="../">Química</a> /
-    Cinética Química
+
+```
+<a href="../../../">Início</a> /
+<a href="../../">Questões</a> /
+<a href="../">Química</a> /
+Cinética Química
+```
+
   </div>
 
   <section class="quiz-config">
 
-    <h2>Questões de Cinética Química</h2>
+```
+<h2>Questões de Cinética Química</h2>
 
-    <p>
-      Pratique velocidade das reações, energia de ativação,
-      catalisadores, concentração, temperatura e leis de velocidade.
-    </p>
+<p>
+  Pratique velocidade das reações, energia de ativação,
+  catalisadores, concentração, temperatura e leis de velocidade.
+</p>
 
-    <div class="config-grid">
 
-      <div>
-        <label for="dificuldade">Dificuldade</label>
+<div class="config-grid">
 
-        <select id="dificuldade">
-          <option value="todas">Todas</option>
-          <option value="Fácil">Fácil</option>
-          <option value="Médio">Médio</option>
-          <option value="Difícil">Difícil</option>
-        </select>
-      </div>
+  <div>
 
-      <div>
-        <label for="quantidade">Quantidade</label>
+    <label for="dificuldade">
+      Dificuldade
+    </label>
 
-        <select id="quantidade">
-          <option value="5">5 questões</option>
-          <option value="10">10 questões</option>
-          <option value="15">15 questões</option>
-          <option value="20" selected>20 questões</option>
-        </select>
-      </div>
+    <select id="dificuldade">
 
-      <div>
-        <label for="tempo">Tempo</label>
+      <option value="todas">
+        Todas
+      </option>
 
-        <select id="tempo">
-          <option value="0">Sem limite</option>
-          <option value="300">5 minutos</option>
-          <option value="600">10 minutos</option>
-          <option value="900">15 minutos</option>
-          <option value="1200">20 minutos</option>
-        </select>
-      </div>
+      <option value="Fácil">
+        Fácil
+      </option>
 
-    </div>
+      <option value="Médio">
+        Médio
+      </option>
 
-    <div class="quiz-actions">
+      <option value="Difícil">
+        Difícil
+      </option>
 
-      <button id="embaralharBtn" class="btn-secondary">
-        🔀 Embaralhar
-      </button>
+    </select>
 
-      <button id="iniciarBtn" class="btn-primary">
-        ▶️ Começar
-      </button>
+  </div>
 
-      <button id="refazerBtn" class="btn-primary" style="display:none;">
-        🔄 Refazer
-      </button>
 
-    </div>
+  <div>
+
+    <label for="quantidade">
+      Quantidade
+    </label>
+
+    <select id="quantidade">
+
+      <option value="5">
+        5 questões
+      </option>
+
+      <option value="10">
+        10 questões
+      </option>
+
+      <option value="15">
+        15 questões
+      </option>
+
+      <option value="20" selected>
+        20 questões
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div>
+
+    <label for="tempo">
+      Tempo
+    </label>
+
+    <select id="tempo">
+
+      <option value="0">
+        Sem limite
+      </option>
+
+      <option value="300">
+        5 minutos
+      </option>
+
+      <option value="600">
+        10 minutos
+      </option>
+
+      <option value="900">
+        15 minutos
+      </option>
+
+      <option value="1200">
+        20 minutos
+      </option>
+
+    </select>
+
+  </div>
+
+</div>
+
+
+<div class="quiz-actions">
+
+  <button
+    id="embaralharBtn"
+    class="btn-secondary"
+  >
+    🔀 Embaralhar
+  </button>
+
+
+  <button
+    id="iniciarBtn"
+    class="btn-primary"
+  >
+    ▶️ Começar
+  </button>
+
+
+  <button
+    id="refazerBtn"
+    class="btn-primary"
+    style="display:none;"
+  >
+    🔄 Refazer
+  </button>
+
+</div>
+```
 
   </section>
 
-  <section id="quizArea" style="display:none;">
+  <section
+    id="quizArea"
+    style="display:none;"
+  >
 
-    <div class="quiz-info">
+```
+<div class="quiz-info">
 
-      <div>
-        <strong>Pontuação:</strong>
-        <span id="pontuacao">0</span>
-      </div>
+  <div>
 
-      <div>
-        <strong>Tempo:</strong>
-        <span id="timer">--:--</span>
-      </div>
+    <strong>Pontuação:</strong>
 
-    </div>
+    <span id="pontuacao">
+      0
+    </span>
 
-    <div class="progress-container">
+  </div>
 
-      <div class="progress-bar">
-        <div id="progressBar"></div>
-      </div>
 
-      <p id="progressoTexto">Questão 1 de 20</p>
+  <div>
 
-    </div>
+    <strong>Tempo:</strong>
 
-    <div id="questoesContainer"></div>
+    <span id="timer">
+      --:--
+    </span>
+
+  </div>
+
+</div>
+
+
+<div class="progress-container">
+
+  <div class="progress-bar">
+
+    <div id="progressBar"></div>
+
+  </div>
+
+  <p id="progressoTexto">
+    Questão 1 de 20
+  </p>
+
+</div>
+
+
+<div id="questoesContainer"></div>
+```
 
   </section>
 
-  <section id="resultado" style="display:none;">
+  <section
+    id="resultado"
+    style="display:none;"
+  >
 
-    <h2>🎉 Resultado</h2>
+```
+<h2>🎉 Resultado</h2>
 
-    <div class="resultado-card">
 
-      <p>
-        Você fez
-        <strong id="resultadoPontuacao">0</strong>
-        pontos.
-      </p>
+<div class="resultado-card">
 
-      <p>
-        Acertos:
-        <strong id="resultadoAcertos">0</strong>
-      </p>
+  <p>
 
-      <p>
-        Aproveitamento:
-        <strong id="resultadoPorcentagem">0%</strong>
-      </p>
+    Você fez
 
-      <p id="mensagemResultado"></p>
+    <strong id="resultadoPontuacao">
+      0
+    </strong>
 
-    </div>
+    pontos.
 
-    <button id="resultadoRefazer" class="btn-primary">
-      🔄 Fazer novamente
-    </button>
+  </p>
+
+
+  <p>
+
+    Acertos:
+
+    <strong id="resultadoAcertos">
+      0
+    </strong>
+
+  </p>
+
+
+  <p>
+
+    Aproveitamento:
+
+    <strong id="resultadoPorcentagem">
+      0%
+    </strong>
+
+  </p>
+
+
+  <p id="mensagemResultado"></p>
+
+</div>
+
+
+<button
+  id="resultadoRefazer"
+  class="btn-primary"
+>
+  🔄 Fazer novamente
+</button>
+```
 
   </section>
 
 </main>
 
+<footer>
+
+  <div class="container">
+
+```
+<p>
+  © 2026 AprovaQuest — Estude, pratique e evolua.
+</p>
+```
+
+  </div>
+
+</footer>
+
 <script type="module">
 
 import { supabase } from "../../../js/supabase.js";
 
+
 let questoes = [];
+
 let questoesAtuais = [];
 
 let indiceAtual = 0;
+
 let pontuacao = 0;
+
 let acertos = 0;
 
 let tempoRestante = 0;
+
 let intervaloTimer = null;
 
 let embaralhar = true;
@@ -224,7 +377,7 @@ const progressoTexto =
 
 
 /* ================================
-   EMBARALHAR
+   EMBARALHAR ARRAY
 ================================ */
 
 function embaralharArray(array) {
@@ -246,49 +399,72 @@ function embaralharArray(array) {
 
 async function carregarQuestoes() {
 
-  const { data, error } = await supabase
-    .from("questoes")
-    .select("*")
-    .eq("materia", "Química")
-    .eq("assunto", "Cinética Química");
+  const { data, error } =
+    await supabase
+
+      .from("questoes")
+
+      .select("*")
+
+      .eq("materia", "Química")
+
+      .eq("assunto", "Cinética Química");
+
 
   if (error) {
 
     console.error(error);
 
-    alert("Erro ao carregar as questões.");
+    alert(
+      "Erro ao carregar as questões."
+    );
 
     return;
 
   }
 
+
   questoes = data || [];
 
-  console.log("Questões carregadas:", questoes.length);
+
+  console.log(
+    "Questões carregadas:",
+    questoes.length
+  );
 
 }
 
 
 /* ================================
-   PREPARAR
+   PREPARAR QUESTÕES
 ================================ */
 
 function prepararQuestoes() {
 
-  let filtradas = [...questoes];
+  let filtradas =
+    [...questoes];
+
 
   const dificuldade =
     dificuldadeSelect.value;
 
+
   const quantidade =
-    Number(quantidadeSelect.value);
-
-
-  if (dificuldade !== "todas") {
-
-    filtradas = filtradas.filter(
-      q => q.dificuldade === dificuldade
+    Number(
+      quantidadeSelect.value
     );
+
+
+  if (
+    dificuldade !== "todas"
+  ) {
+
+    filtradas =
+      filtradas.filter(
+        questao =>
+          questao.dificuldade ===
+          dificuldade
+      );
 
   }
 
@@ -296,19 +472,24 @@ function prepararQuestoes() {
   if (embaralhar) {
 
     filtradas =
-      embaralharArray(filtradas);
+      embaralharArray(
+        filtradas
+      );
 
   }
 
 
   questoesAtuais =
-    filtradas.slice(0, quantidade);
+    filtradas.slice(
+      0,
+      quantidade
+    );
 
 }
 
 
 /* ================================
-   INICIAR
+   INICIAR QUIZ
 ================================ */
 
 async function iniciarQuiz() {
@@ -319,34 +500,66 @@ async function iniciarQuiz() {
 
   }
 
+
   prepararQuestoes();
+
 
   if (!questoesAtuais.length) {
 
-    alert("Nenhuma questão encontrada.");
+    alert(
+      "Nenhuma questão encontrada."
+    );
 
     return;
 
   }
 
+
   indiceAtual = 0;
+
   pontuacao = 0;
+
   acertos = 0;
 
-  pontuacaoElement.textContent = "0";
 
-  quizArea.style.display = "block";
-  resultado.style.display = "none";
+  pontuacaoElement.textContent =
+    "0";
 
-  refazerBtn.style.display = "none";
-  iniciarBtn.style.display = "none";
-  embaralharBtn.style.display = "none";
 
-  dificuldadeSelect.disabled = true;
-  quantidadeSelect.disabled = true;
-  tempoSelect.disabled = true;
+  quizArea.style.display =
+    "block";
+
+
+  resultado.style.display =
+    "none";
+
+
+  refazerBtn.style.display =
+    "none";
+
+
+  iniciarBtn.style.display =
+    "none";
+
+
+  embaralharBtn.style.display =
+    "none";
+
+
+  dificuldadeSelect.disabled =
+    true;
+
+
+  quantidadeSelect.disabled =
+    true;
+
+
+  tempoSelect.disabled =
+    true;
+
 
   iniciarTimer();
+
   mostrarQuestao();
 
 }
@@ -358,47 +571,72 @@ async function iniciarQuiz() {
 
 function iniciarTimer() {
 
-  clearInterval(intervaloTimer);
+  clearInterval(
+    intervaloTimer
+  );
+
 
   tempoRestante =
-    Number(tempoSelect.value);
+    Number(
+      tempoSelect.value
+    );
 
-  if (tempoRestante <= 0) {
 
-    timerElement.textContent = "∞";
+  if (
+    tempoRestante <= 0
+  ) {
+
+    timerElement.textContent =
+      "∞";
 
     return;
 
   }
 
+
   atualizarTimer();
 
-  intervaloTimer = setInterval(() => {
 
-    tempoRestante--;
+  intervaloTimer =
+    setInterval(() => {
 
-    atualizarTimer();
+      tempoRestante--;
 
-    if (tempoRestante <= 0) {
+      atualizarTimer();
 
-      clearInterval(intervaloTimer);
 
-      finalizarQuiz();
+      if (
+        tempoRestante <= 0
+      ) {
 
-    }
+        clearInterval(
+          intervaloTimer
+        );
 
-  }, 1000);
+        finalizarQuiz();
+
+      }
+
+    }, 1000);
 
 }
 
 
+/* ================================
+   ATUALIZAR TIMER
+================================ */
+
 function atualizarTimer() {
 
   const minutos =
-    Math.floor(tempoRestante / 60);
+    Math.floor(
+      tempoRestante / 60
+    );
+
 
   const segundos =
     tempoRestante % 60;
+
 
   timerElement.textContent =
     `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
@@ -412,7 +650,10 @@ function atualizarTimer() {
 
 function mostrarQuestao() {
 
-  if (indiceAtual >= questoesAtuais.length) {
+  if (
+    indiceAtual >=
+    questoesAtuais.length
+  ) {
 
     finalizarQuiz();
 
@@ -420,17 +661,24 @@ function mostrarQuestao() {
 
   }
 
+
   const questao =
-    questoesAtuais[indiceAtual];
+    questoesAtuais[
+      indiceAtual
+    ];
+
 
   const numero =
     indiceAtual + 1;
 
+
   const total =
     questoesAtuais.length;
 
+
   progressoTexto.textContent =
     `Questão ${numero} de ${total}`;
+
 
   progressBar.style.width =
     `${(numero / total) * 100}%`;
@@ -467,11 +715,16 @@ function mostrarQuestao() {
 
 
   const alternativasEmbaralhadas =
-    embaralharArray(alternativas);
+    embaralharArray(
+      alternativas
+    );
 
 
   const article =
-    document.createElement("article");
+    document.createElement(
+      "article"
+    );
+
 
   article.className =
     "questao-card";
@@ -491,33 +744,43 @@ function mostrarQuestao() {
 
     </div>
 
+
     <h3>
       ${questao.titulo}
     </h3>
+
 
     <p class="enunciado">
       ${questao.enunciado}
     </p>
 
+
     <div class="alternativas">
 
-      ${alternativasEmbaralhadas.map(
-        alternativa => `
+      ${alternativasEmbaralhadas
+        .map(
+          alternativa => `
 
-          <button
-            class="alternativa"
-            data-letra="${alternativa.letra}"
-          >
+            <button
+              type="button"
+              class="alternativa"
+              data-letra="${alternativa.letra}"
+            >
 
-            <strong>${alternativa.letra})</strong>
-            ${alternativa.texto}
+              <strong>
+                ${alternativa.letra})
+              </strong>
 
-          </button>
+              ${alternativa.texto}
 
-        `
-      ).join("")}
+            </button>
+
+          `
+        )
+        .join("")}
 
     </div>
+
 
     <div
       class="feedback"
@@ -527,13 +790,19 @@ function mostrarQuestao() {
   `;
 
 
-  questoesContainer.innerHTML = "";
+  questoesContainer.innerHTML =
+    "";
 
-  questoesContainer.appendChild(article);
+
+  questoesContainer.appendChild(
+    article
+  );
 
 
   article
-    .querySelectorAll(".alternativa")
+    .querySelectorAll(
+      ".alternativa"
+    )
     .forEach(botao => {
 
       botao.addEventListener(
@@ -555,7 +824,7 @@ function mostrarQuestao() {
 
 
 /* ================================
-   RESPONDER
+   RESPONDER QUESTÃO
 ================================ */
 
 function responderQuestao(
@@ -565,31 +834,44 @@ function responderQuestao(
 ) {
 
   const botoes =
-    article.querySelectorAll(".alternativa");
+    article.querySelectorAll(
+      ".alternativa"
+    );
 
 
-  botoes.forEach(botao => {
+  botoes.forEach(
+    botao => {
 
-    botao.disabled = true;
+      botao.disabled = true;
 
-  });
+    }
+  );
 
 
   const letraSelecionada =
     botaoClicado.dataset.letra;
 
+
   const respostaCorreta =
-    questao.resposta_correta;
+    String(
+      questao.resposta_correta
+    )
+      .trim()
+      .toUpperCase();
 
 
   const feedback =
-    article.querySelector(".feedback");
+    article.querySelector(
+      ".feedback"
+    );
 
 
   const pontos = {
 
     "Fácil": 1,
+
     "Médio": 2,
+
     "Difícil": 3
 
   };
@@ -602,15 +884,29 @@ function responderQuestao(
 
     acertos++;
 
+
     pontuacao +=
-      pontos[questao.dificuldade] || 1;
+      pontos[
+        questao.dificuldade
+      ] || 1;
+
 
     botaoClicado.classList.add(
       "correta"
     );
 
-    feedback.innerHTML =
-      `<strong>✅ Correto!</strong><br>${questao.explicacao}`;
+
+    feedback.innerHTML = `
+
+      <strong>
+        ✅ Correto!
+      </strong>
+
+      <br>
+
+      ${questao.explicacao || ""}
+
+    `;
 
   } else {
 
@@ -619,34 +915,59 @@ function responderQuestao(
     );
 
 
-    botoes.forEach(botao => {
+    botoes.forEach(
+      botao => {
 
-      if (
-        botao.dataset.letra ===
-        respostaCorreta
-      ) {
+        if (
+          botao.dataset.letra ===
+          respostaCorreta
+        ) {
 
-        botao.classList.add(
-          "correta"
-        );
+          botao.classList.add(
+            "correta"
+          );
+
+        }
 
       }
+    );
 
-    });
 
+    feedback.innerHTML = `
 
-    feedback.innerHTML =
-      `<strong>❌ Incorreto!</strong><br>
-       Resposta correta: ${respostaCorreta}<br>
-       ${questao.explicacao}`;
+      <strong>
+        ❌ Incorreto!
+      </strong>
+
+      <br>
+
+      Resposta correta:
+      <strong>
+        ${respostaCorreta}
+      </strong>
+
+      <br><br>
+
+      ${questao.explicacao || ""}
+
+    `;
 
   }
 
 
   if (questao.dica) {
 
-    feedback.innerHTML +=
-      `<br><br><strong>💡 Dica:</strong> ${questao.dica}`;
+    feedback.innerHTML += `
+
+      <br><br>
+
+      <strong>
+        💡 Dica:
+      </strong>
+
+      ${questao.dica}
+
+    `;
 
   }
 
@@ -676,23 +997,36 @@ function responderQuestao(
 
 function finalizarQuiz() {
 
-  clearInterval(intervaloTimer);
+  clearInterval(
+    intervaloTimer
+  );
 
-  quizArea.style.display = "none";
 
-  resultado.style.display = "block";
+  quizArea.style.display =
+    "none";
 
-  refazerBtn.style.display = "inline-block";
 
-  iniciarBtn.style.display = "none";
+  resultado.style.display =
+    "block";
+
+
+  refazerBtn.style.display =
+    "inline-block";
+
+
+  iniciarBtn.style.display =
+    "none";
 
 
   const total =
     questoesAtuais.length;
 
+
   const porcentagem =
     total
-      ? Math.round((acertos / total) * 100)
+      ? Math.round(
+          (acertos / total) * 100
+        )
       : 0;
 
 
@@ -720,17 +1054,23 @@ function finalizarQuiz() {
     );
 
 
-  if (porcentagem >= 90) {
+  if (
+    porcentagem >= 90
+  ) {
 
     mensagem.textContent =
       "🔥 Excelente! Você domina muito bem Cinética Química!";
 
-  } else if (porcentagem >= 70) {
+  } else if (
+    porcentagem >= 70
+  ) {
 
     mensagem.textContent =
       "👏 Muito bom! Seu conhecimento de Cinética Química está ótimo.";
 
-  } else if (porcentagem >= 50) {
+  } else if (
+    porcentagem >= 50
+  ) {
 
     mensagem.textContent =
       "👍 Bom trabalho! Continue praticando para melhorar.";
@@ -743,22 +1083,31 @@ function finalizarQuiz() {
   }
 
 
-  dificuldadeSelect.disabled = false;
-  quantidadeSelect.disabled = false;
-  tempoSelect.disabled = false;
+  dificuldadeSelect.disabled =
+    false;
+
+
+  quantidadeSelect.disabled =
+    false;
+
+
+  tempoSelect.disabled =
+    false;
 
 }
 
 
 /* ================================
-   BOTÕES
+   EMBARALHAR
 ================================ */
 
 embaralharBtn.addEventListener(
   "click",
   () => {
 
-    embaralhar = !embaralhar;
+    embaralhar =
+      !embaralhar;
+
 
     embaralharBtn.textContent =
       embaralhar
@@ -769,37 +1118,95 @@ embaralharBtn.addEventListener(
 );
 
 
+/* ================================
+   INICIAR
+================================ */
+
 iniciarBtn.addEventListener(
   "click",
   iniciarQuiz
 );
 
 
+/* ================================
+   REFAZER
+================================ */
+
+function voltarParaConfiguracao() {
+
+  clearInterval(
+    intervaloTimer
+  );
+
+
+  quizArea.style.display =
+    "none";
+
+
+  resultado.style.display =
+    "none";
+
+
+  iniciarBtn.style.display =
+    "inline-block";
+
+
+  embaralharBtn.style.display =
+    "inline-block";
+
+
+  refazerBtn.style.display =
+    "none";
+
+
+  dificuldadeSelect.disabled =
+    false;
+
+
+  quantidadeSelect.disabled =
+    false;
+
+
+  tempoSelect.disabled =
+    false;
+
+
+  questoesContainer.innerHTML =
+    "";
+
+
+  cronometroReset();
+
+
+  pontuacaoElement.textContent =
+    "0";
+
+
+  progressBar.style.width =
+    "0%";
+
+}
+
+
+function cronometroReset() {
+
+  tempoRestante = 0;
+
+  timerElement.textContent =
+    "∞";
+
+}
+
+
 refazerBtn.addEventListener(
   "click",
-  () => {
-
-    resultado.style.display = "none";
-
-    iniciarBtn.style.display =
-      "inline-block";
-
-    embaralharBtn.style.display =
-      "inline-block";
-
-  }
+  voltarParaConfiguracao
 );
 
 
 resultadoRefazer.addEventListener(
   "click",
-  () => {
-
-    resultado.style.display = "none";
-
-    iniciarQuiz();
-
-  }
+  voltarParaConfiguracao
 );
 
 

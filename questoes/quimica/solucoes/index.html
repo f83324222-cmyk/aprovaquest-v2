@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -84,15 +83,15 @@
 
     <div class="quiz-actions">
 
-      <button id="embaralharBtn" class="btn-secondary">
+      <button id="embaralharBtn" class="btn-secondary" type="button">
         🔀 Embaralhar
       </button>
 
-      <button id="iniciarBtn" class="btn-primary">
+      <button id="iniciarBtn" class="btn-primary" type="button">
         ▶️ Começar
       </button>
 
-      <button id="refazerBtn" class="btn-primary" style="display:none;">
+      <button id="refazerBtn" class="btn-primary" style="display:none;" type="button">
         🔄 Refazer
       </button>
 
@@ -156,7 +155,7 @@
 
     </div>
 
-    <button id="resultadoRefazer" class="btn-primary">
+    <button id="resultadoRefazer" class="btn-primary" type="button">
       🔄 Fazer novamente
     </button>
 
@@ -532,6 +531,7 @@ function mostrarQuestao() {
         alternativa => `
 
           <button
+            type="button"
             class="alternativa"
             data-letra="${alternativa.letra}"
           >
@@ -602,6 +602,7 @@ function responderQuestao(
   const letraSelecionada =
     botaoClicado.dataset.letra;
 
+
   const respostaCorreta =
     String(questao.resposta_correta)
       .trim()
@@ -631,12 +632,15 @@ function responderQuestao(
     pontuacao +=
       pontos[questao.dificuldade] || 1;
 
+
     botaoClicado.classList.add(
       "correta"
     );
 
+
     feedback.className =
       "feedback correto";
+
 
     feedback.innerHTML =
       `<strong>✅ Correto!</strong><br>${questao.explicacao || ""}`;
@@ -666,6 +670,7 @@ function responderQuestao(
 
     feedback.className =
       "feedback incorreto";
+
 
     feedback.innerHTML =
       `<strong>❌ Incorreto!</strong><br>
@@ -721,6 +726,7 @@ function finalizarQuiz() {
 
   const total =
     questoesAtuais.length;
+
 
   const porcentagem =
     total
@@ -783,7 +789,46 @@ function finalizarQuiz() {
 
 
 /* ================================
-   BOTÕES
+   RESETAR QUIZ
+================================ */
+
+function resetarQuiz() {
+
+  clearInterval(intervaloTimer);
+
+  indiceAtual = 0;
+  pontuacao = 0;
+  acertos = 0;
+  tempoRestante = 0;
+
+  questoesAtuais = [];
+
+  pontuacaoElement.textContent = "0";
+  timerElement.textContent = "--:--";
+  progressoTexto.textContent = "Questão 1 de 20";
+  progressBar.style.width = "0%";
+
+  questoesContainer.innerHTML = "";
+
+  quizArea.style.display = "none";
+
+  resultado.style.display = "none";
+
+  iniciarBtn.style.display = "inline-block";
+
+  embaralharBtn.style.display = "inline-block";
+
+  refazerBtn.style.display = "none";
+
+  dificuldadeSelect.disabled = false;
+  quantidadeSelect.disabled = false;
+  tempoSelect.disabled = false;
+
+}
+
+
+/* ================================
+   BOTÃO EMBARALHAR
 ================================ */
 
 embaralharBtn.addEventListener(
@@ -801,37 +846,33 @@ embaralharBtn.addEventListener(
 );
 
 
+/* ================================
+   BOTÃO COMEÇAR
+================================ */
+
 iniciarBtn.addEventListener(
   "click",
   iniciarQuiz
 );
 
 
+/* ================================
+   BOTÃO REFAZER
+================================ */
+
 refazerBtn.addEventListener(
   "click",
-  () => {
-
-    resultado.style.display = "none";
-
-    iniciarBtn.style.display =
-      "inline-block";
-
-    embaralharBtn.style.display =
-      "inline-block";
-
-  }
+  resetarQuiz
 );
 
 
+/* ================================
+   BOTÃO RESULTADO
+================================ */
+
 resultadoRefazer.addEventListener(
   "click",
-  () => {
-
-    resultado.style.display = "none";
-
-    iniciarQuiz();
-
-  }
+  resetarQuiz
 );
 
 
@@ -845,4 +886,3 @@ carregarQuestoes();
 
 </body>
 </html>
-```

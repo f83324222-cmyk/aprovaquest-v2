@@ -1,16 +1,210 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eletroquímica — AprovaQuest</title>
+  <title>Questões de Eletroquímica - AprovaQuest</title>
   <link rel="stylesheet" href="../../../css/style.css">
+
+  <style>
+    .controles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .controle {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .controle label {
+      font-weight: 600;
+    }
+
+    .controle select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+
+    .acoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      padding: 11px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-principal {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secundario {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-refazer {
+      background: #16a34a;
+      color: white;
+    }
+
+    .pontuacao {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .pontuacao-item {
+      padding: 10px 15px;
+      border-radius: 8px;
+      background: #f3f4f6;
+    }
+
+    .timer {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .progresso-container {
+      width: 100%;
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 10px 0 20px;
+    }
+
+    .progresso {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+      transition: width 0.3s ease;
+    }
+
+    .status {
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .question {
+      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .enunciado {
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+
+    .alternatives {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .alternative {
+      width: 100%;
+      text-align: left;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .alternative:hover:not(:disabled) {
+      background: #f3f4f6;
+    }
+
+    .alternative.respondida {
+      cursor: default;
+    }
+
+    .alternative.correta {
+      background: #dcfce7;
+      border-color: #16a34a;
+    }
+
+    .alternative.errada {
+      background: #fee2e2;
+      border-color: #dc2626;
+    }
+
+    .explicacao {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f0fdf4;
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+
+    .dica {
+      margin-top: 10px;
+      padding: 12px;
+      background: #fffbeb;
+      border-radius: 8px;
+    }
+
+    .mensagem-inicial {
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+      background: #f3f4f6;
+    }
+
+    .final-result {
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 12px;
+      background: #f8fafc;
+    }
+
+    .resultado-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .resultado-item {
+      padding: 15px;
+      border-radius: 10px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .resultado-item strong {
+      display: block;
+      font-size: 24px;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
   <div class="container">
+
     <div class="logo">
       Aprova<span>Quest</span>
     </div>
@@ -20,6 +214,7 @@
       <a href="../../">Questões</a>
       <a href="../">Química</a>
     </nav>
+
   </div>
 </header>
 
@@ -32,131 +227,133 @@
     Eletroquímica
   </div>
 
-  <section class="quiz-config">
+  <h1>Questões de Eletroquímica</h1>
 
-    <h2>Questões de Eletroquímica</h2>
+  <p>
+    Pratique seus conhecimentos sobre oxidação, redução, pilhas,
+    eletrólise, agentes oxidantes e redutores, potencial elétrico e Lei de Faraday.
+  </p>
 
-    <p>
-      Pratique oxidação, redução, pilhas, eletrólise,
-      agentes oxidantes e redutores, potencial elétrico e Lei de Faraday.
-    </p>
+  <div class="controles">
 
-    <div class="config-grid">
+    <div class="controle">
+      <label for="dificuldade">Dificuldade</label>
 
-      <div>
-        <label for="dificuldade">Dificuldade</label>
+      <select id="dificuldade">
+        <option value="todas">Todas</option>
+        <option value="Fácil">Fácil</option>
+        <option value="Médio">Médio</option>
+        <option value="Difícil">Difícil</option>
+      </select>
+    </div>
 
-        <select id="dificuldade">
-          <option value="todas">Todas</option>
-          <option value="Fácil">Fácil</option>
-          <option value="Médio">Médio</option>
-          <option value="Difícil">Difícil</option>
-        </select>
+    <div class="controle">
+      <label for="quantidade">Quantidade</label>
+
+      <select id="quantidade">
+        <option value="5">5 questões</option>
+        <option value="10">10 questões</option>
+        <option value="15">15 questões</option>
+        <option value="20" selected>20 questões</option>
+        <option value="todas">Todas</option>
+      </select>
+    </div>
+
+    <div class="controle">
+      <label for="tempo">Tempo</label>
+
+      <select id="tempo">
+        <option value="0">Sem limite</option>
+        <option value="5">5 minutos</option>
+        <option value="10">10 minutos</option>
+        <option value="15">15 minutos</option>
+        <option value="20">20 minutos</option>
+        <option value="30">30 minutos</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="acoes">
+
+    <button type="button" class="btn btn-secundario" id="embaralhar">
+      🔀 Embaralhamento: OFF
+    </button>
+
+    <button type="button" class="btn btn-principal" id="iniciar">
+      Iniciar prova
+    </button>
+
+    <button type="button" class="btn btn-refazer" id="refazer-prova">
+      Refazer prova
+    </button>
+
+  </div>
+
+  <div class="pontuacao">
+
+    <div class="pontuacao-item">
+      Acertos: <strong id="acertos">0</strong>
+    </div>
+
+    <div class="pontuacao-item">
+      Erros: <strong id="erros">0</strong>
+    </div>
+
+    <div class="pontuacao-item">
+      Aproveitamento: <strong id="aproveitamento">0%</strong>
+    </div>
+
+    <div class="pontuacao-item timer" id="timer">
+      Tempo: --
+    </div>
+
+  </div>
+
+  <div class="progresso-container">
+    <div class="progresso" id="progresso"></div>
+  </div>
+
+  <div class="status" id="status">
+    0 de 0 questões respondidas
+  </div>
+
+  <div class="mensagem-inicial" id="mensagem-inicial">
+    Carregando questões de Eletroquímica...
+  </div>
+
+  <div id="questoes-container"></div>
+
+  <section class="final-result" id="final-result" style="display:none;">
+
+    <h2>🎉 Resultado final</h2>
+
+    <div class="resultado-grid">
+
+      <div class="resultado-item">
+        Acertos
+        <strong id="resultado-acertos">0</strong>
       </div>
 
-      <div>
-        <label for="quantidade">Quantidade</label>
-
-        <select id="quantidade">
-          <option value="5">5 questões</option>
-          <option value="10">10 questões</option>
-          <option value="15">15 questões</option>
-          <option value="20" selected>20 questões</option>
-          <option value="todas">Todas</option>
-        </select>
+      <div class="resultado-item">
+        Erros
+        <strong id="resultado-erros">0</strong>
       </div>
 
-      <div>
-        <label for="tempo">Tempo</label>
+      <div class="resultado-item">
+        Acertos
+        <strong id="resultado-acerto-percentual">0%</strong>
+      </div>
 
-        <select id="tempo">
-          <option value="0">Sem limite</option>
-          <option value="300">5 minutos</option>
-          <option value="600">10 minutos</option>
-          <option value="900">15 minutos</option>
-          <option value="1200">20 minutos</option>
-          <option value="1800">30 minutos</option>
-        </select>
+      <div class="resultado-item">
+        Erros
+        <strong id="resultado-erro-percentual">0%</strong>
       </div>
 
     </div>
 
-    <div class="quiz-actions">
-
-      <button id="embaralharBtn" class="btn-secondary" type="button">
-        🔀 Embaralhar
-      </button>
-
-      <button id="iniciarBtn" class="btn-primary" type="button">
-        ▶️ Começar
-      </button>
-
-      <button id="refazerBtn" class="btn-primary" style="display:none;" type="button">
-        🔄 Refazer
-      </button>
-
-    </div>
-
-  </section>
-
-  <section id="quizArea" style="display:none;">
-
-    <div class="quiz-info">
-
-      <div>
-        <strong>Pontuação:</strong>
-        <span id="pontuacao">0</span>
-      </div>
-
-      <div>
-        <strong>Tempo:</strong>
-        <span id="timer">--:--</span>
-      </div>
-
-    </div>
-
-    <div class="progress-container">
-
-      <div class="progress-bar">
-        <div id="progressBar"></div>
-      </div>
-
-      <p id="progressoTexto">Questão 1 de 20</p>
-
-    </div>
-
-    <div id="questoesContainer"></div>
-
-  </section>
-
-  <section id="resultado" style="display:none;">
-
-    <h2>🎉 Resultado</h2>
-
-    <div class="resultado-card">
-
-      <p>
-        Você fez
-        <strong id="resultadoPontuacao">0</strong>
-        pontos.
-      </p>
-
-      <p>
-        Acertos:
-        <strong id="resultadoAcertos">0</strong>
-      </p>
-
-      <p>
-        Aproveitamento:
-        <strong id="resultadoPorcentagem">0%</strong>
-      </p>
-
-      <p id="mensagemResultado"></p>
-
-    </div>
-
-    <button id="resultadoRefazer" class="btn-primary" type="button">
-      🔄 Fazer novamente
+    <button type="button" class="btn btn-refazer" id="refazer-prova-final">
+      Refazer prova
     </button>
 
   </section>
@@ -165,7 +362,9 @@
 
 <footer>
   <div class="container">
-    <p>© 2026 AprovaQuest — Estude, pratique e evolua.</p>
+    <p>
+      © 2026 AprovaQuest. Todos os direitos reservados.
+    </p>
   </div>
 </footer>
 
@@ -173,22 +372,16 @@
 
 import { supabase } from "../../../js/supabase.js";
 
-let questoes = [];
+let todasQuestoes = [];
 let questoesAtuais = [];
-
-let indiceAtual = 0;
-let pontuacao = 0;
 let acertos = 0;
-
-let tempoRestante = 0;
+let erros = 0;
+let provaIniciada = false;
+let provaEncerrada = false;
 let intervaloTimer = null;
+let segundosRestantes = 0;
+let embaralharAtivo = false;
 
-let embaralhar = true;
-
-
-/* ================================
-   ELEMENTOS
-================================ */
 
 const dificuldadeSelect =
   document.getElementById("dificuldade");
@@ -196,100 +389,93 @@ const dificuldadeSelect =
 const quantidadeSelect =
   document.getElementById("quantidade");
 
-const tempoSelect =
+const timeSelect =
   document.getElementById("tempo");
 
-const iniciarBtn =
-  document.getElementById("iniciarBtn");
-
 const embaralharBtn =
-  document.getElementById("embaralharBtn");
+  document.getElementById("embaralhar");
+
+const iniciarBtn =
+  document.getElementById("iniciar");
 
 const refazerBtn =
-  document.getElementById("refazerBtn");
+  document.getElementById("refazer-prova");
 
-const resultadoRefazer =
-  document.getElementById("resultadoRefazer");
-
-const quizArea =
-  document.getElementById("quizArea");
-
-const resultado =
-  document.getElementById("resultado");
+const refazerProvaFinal =
+  document.getElementById("refazer-prova-final");
 
 const questoesContainer =
-  document.getElementById("questoesContainer");
+  document.getElementById("questoes-container");
 
-const pontuacaoElement =
-  document.getElementById("pontuacao");
+const finalResult =
+  document.getElementById("final-result");
 
-const timerElement =
+const mensagemInicial =
+  document.getElementById("mensagem-inicial");
+
+const timer =
   document.getElementById("timer");
 
-const progressBar =
-  document.getElementById("progressBar");
+const progresso =
+  document.getElementById("progresso");
 
-const progressoTexto =
-  document.getElementById("progressoTexto");
+const status =
+  document.getElementById("status");
 
+const acertosElement =
+  document.getElementById("acertos");
 
-/* ================================
-   EMBARALHAR ARRAY
-================================ */
+const errosElement =
+  document.getElementById("erros");
 
-function embaralharArray(array) {
+const aproveitamento =
+  document.getElementById("aproveitamento");
 
-  return array
-    .map(value => ({
-      value,
-      sort: Math.random()
-    }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value);
+const resultadoAcertos =
+  document.getElementById("resultado-acertos");
 
-}
+const resultadoErros =
+  document.getElementById("resultado-erros");
 
+const resultadoAcertoPercentual =
+  document.getElementById("resultado-acerto-percentual");
 
-/* ================================
-   CARREGAR QUESTÕES
-================================ */
+const resultadoErroPercentual =
+  document.getElementById("resultado-erro-percentual");
+
 
 async function carregarQuestoes() {
 
-  const { data, error } = await supabase
-    .from("questoes")
-    .select("*")
-    .eq("materia", "Química")
-    .eq("assunto", "Eletroquímica")
-    .order("id", { ascending: true });
+  mensagemInicial.innerHTML =
+    "Carregando questões de Eletroquímica...";
+
+  const { data, error } =
+    await supabase
+      .from("questoes")
+      .select("*")
+      .eq("materia", "Química")
+      .eq("assunto", "Eletroquímica")
+      .order("id", { ascending: true });
 
   if (error) {
 
     console.error(error);
 
-    alert("Erro ao carregar as questões.");
+    mensagemInicial.innerHTML =
+      "Não foi possível carregar as questões. Tente novamente.";
 
     return;
 
   }
 
-  questoes = data || [];
+  todasQuestoes = data || [];
 
-  console.log(
-    "Questões de Eletroquímica carregadas:",
-    questoes.length
-  );
+  montarProva();
 
 }
 
 
-/* ================================
-   PREPARAR QUESTÕES
-================================ */
-
-function prepararQuestoes() {
-
-  let filtradas = [...questoes];
+function montarProva() {
 
   const dificuldade =
     dificuldadeSelect.value;
@@ -297,360 +483,301 @@ function prepararQuestoes() {
   const quantidade =
     quantidadeSelect.value;
 
+  let filtradas =
+    [...todasQuestoes];
 
   if (dificuldade !== "todas") {
 
-    filtradas = filtradas.filter(
-      q => q.dificuldade === dificuldade
-    );
-
-  }
-
-
-  if (embaralhar) {
-
     filtradas =
-      embaralharArray(filtradas);
+      filtradas.filter(
+        questao =>
+          questao.dificuldade === dificuldade
+      );
 
   }
 
+  if (embaralharAtivo) {
+
+    for (
+      let i = filtradas.length - 1;
+      i > 0;
+      i--
+    ) {
+
+      const j =
+        Math.floor(Math.random() * (i + 1));
+
+      [
+        filtradas[i],
+        filtradas[j]
+      ] =
+      [
+        filtradas[j],
+        filtradas[i]
+      ];
+
+    }
+
+  }
 
   if (quantidade === "todas") {
 
-    questoesAtuais = filtradas;
+    questoesAtuais =
+      filtradas;
 
   } else {
 
     questoesAtuais =
-      filtradas.slice(0, Number(quantidade));
+      filtradas.slice(
+        0,
+        Number(quantidade)
+      );
 
   }
 
-}
-
-
-/* ================================
-   INICIAR QUIZ
-================================ */
-
-async function iniciarQuiz() {
-
-  if (!questoes.length) {
-
-    await carregarQuestoes();
-
-  }
-
-  prepararQuestoes();
-
-  if (!questoesAtuais.length) {
-
-    alert("Nenhuma questão encontrada.");
-
-    return;
-
-  }
-
-  indiceAtual = 0;
-  pontuacao = 0;
   acertos = 0;
-
-  pontuacaoElement.textContent = "0";
-
-  quizArea.style.display = "block";
-
-  resultado.style.display = "none";
-
-  refazerBtn.style.display = "none";
-
-  iniciarBtn.style.display = "none";
-
-  embaralharBtn.style.display = "none";
-
-  dificuldadeSelect.disabled = true;
-  quantidadeSelect.disabled = true;
-  tempoSelect.disabled = true;
-
-  iniciarTimer();
-
-  mostrarQuestao();
-
-}
-
-
-/* ================================
-   TIMER
-================================ */
-
-function iniciarTimer() {
+  erros = 0;
+  provaIniciada = false;
+  provaEncerrada = false;
 
   clearInterval(intervaloTimer);
 
-  tempoRestante =
-    Number(tempoSelect.value);
+  atualizarPontuacao();
+  atualizarProgresso();
+  atualizarTimerInicial();
 
-  if (tempoRestante <= 0) {
+  finalResult.style.display =
+    "none";
 
-    timerElement.textContent = "∞";
+  mensagemInicial.style.display =
+    "block";
 
-    return;
+  mensagemInicial.innerHTML =
+    `Foram encontradas <strong>${questoesAtuais.length}</strong> questões de Eletroquímica.`;
 
-  }
+  iniciarBtn.style.display =
+    "inline-block";
 
-  atualizarTimer();
+  refazerBtn.style.display =
+    "none";
 
-  intervaloTimer = setInterval(() => {
-
-    tempoRestante--;
-
-    atualizarTimer();
-
-    if (tempoRestante <= 0) {
-
-      clearInterval(intervaloTimer);
-
-      finalizarQuiz();
-
-    }
-
-  }, 1000);
+  renderizarQuestoes();
 
 }
 
 
-function atualizarTimer() {
+function renderizarQuestoes() {
 
-  const minutos =
-    Math.floor(tempoRestante / 60);
+  questoesContainer.innerHTML =
+    "";
 
-  const segundos =
-    tempoRestante % 60;
+  questoesAtuais.forEach(
+    (questao, indice) => {
 
-  timerElement.textContent =
-    `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+      const article =
+        document.createElement("article");
 
-}
+      article.className =
+        "question";
 
+      article.innerHTML = `
 
-/* ================================
-   MOSTRAR QUESTÃO
-================================ */
+        <h2>Questão ${indice + 1}</h2>
 
-function mostrarQuestao() {
+        <p>
+          <strong>Dificuldade:</strong>
+          ${questao.dificuldade}
+        </p>
 
-  if (indiceAtual >= questoesAtuais.length) {
+        <div class="enunciado">
+          ${questao.enunciado}
+        </div>
 
-    finalizarQuiz();
+        <div class="alternatives">
 
-    return;
+          ${criarAlternativa(
+            "A",
+            questao.alternativa_a
+          )}
 
-  }
+          ${criarAlternativa(
+            "B",
+            questao.alternativa_b
+          )}
 
-  const questao =
-    questoesAtuais[indiceAtual];
+          ${criarAlternativa(
+            "C",
+            questao.alternativa_c
+          )}
 
-  const numero =
-    indiceAtual + 1;
+          ${criarAlternativa(
+            "D",
+            questao.alternativa_d
+          )}
 
-  const total =
-    questoesAtuais.length;
+          ${criarAlternativa(
+            "E",
+            questao.alternativa_e
+          )}
 
-  progressoTexto.textContent =
-    `Questão ${numero} de ${total}`;
+        </div>
 
-  progressBar.style.width =
-    `${(numero / total) * 100}%`;
+        <div class="explicacao" style="display:none;">
+          ${questao.explicacao || ""}
+        </div>
 
+        <div class="dica" style="display:none;">
+          💡 <strong>Dica:</strong>
+          ${questao.dica || ""}
+        </div>
 
-  const alternativas = [
+      `;
 
-    {
-      letra: "A",
-      texto: questao.alternativa_a
-    },
+      article
+        .querySelectorAll(".alternative")
+        .forEach(botao => {
 
-    {
-      letra: "B",
-      texto: questao.alternativa_b
-    },
+          botao.addEventListener(
+            "click",
+            () => {
 
-    {
-      letra: "C",
-      texto: questao.alternativa_c
-    },
+              responderQuestao(
+                article,
+                questao,
+                botao
+              );
 
-    {
-      letra: "D",
-      texto: questao.alternativa_d
-    },
-
-    {
-      letra: "E",
-      texto: questao.alternativa_e
-    }
-
-  ];
-
-
-  const alternativasEmbaralhadas =
-    embaralharArray(alternativas);
-
-
-  const article =
-    document.createElement("article");
-
-  article.className =
-    "questao-card";
-
-
-  article.innerHTML = `
-
-    <div class="questao-header">
-
-      <span class="questao-numero">
-        Questão ${numero}
-      </span>
-
-      <span class="badge">
-        ${questao.dificuldade}
-      </span>
-
-    </div>
-
-    <h3>
-      ${questao.titulo}
-    </h3>
-
-    <p class="enunciado">
-      ${questao.enunciado}
-    </p>
-
-    <div class="alternativas">
-
-      ${alternativasEmbaralhadas.map(
-        alternativa => `
-
-          <button
-            type="button"
-            class="alternativa"
-            data-letra="${alternativa.letra}"
-          >
-
-            <strong>${alternativa.letra})</strong>
-            ${alternativa.texto}
-
-          </button>
-
-        `
-      ).join("")}
-
-    </div>
-
-    <div class="feedback" style="display:none;"></div>
-
-  `;
-
-
-  questoesContainer.innerHTML = "";
-
-  questoesContainer.appendChild(article);
-
-
-  article
-    .querySelectorAll(".alternativa")
-    .forEach(botao => {
-
-      botao.addEventListener(
-        "click",
-        () => {
-
-          responderQuestao(
-            article,
-            questao,
-            botao
+            }
           );
 
-        }
+        });
+
+      questoesContainer.appendChild(
+        article
       );
 
-    });
+    }
+  );
+
+  atualizarBotoes();
 
 }
 
 
-/* ================================
-   RESPONDER QUESTÃO
-================================ */
+function criarAlternativa(
+  letra,
+  texto
+) {
+
+  return `
+    <button
+      type="button"
+      class="alternative"
+      data-letra="${letra}"
+      disabled
+    >
+      <strong>${letra})</strong>
+      ${texto || ""}
+    </button>
+  `;
+
+}
+
+
+function iniciarProva() {
+
+  if (provaIniciada || provaEncerrada) {
+    return;
+  }
+
+  if (!questoesAtuais.length) {
+
+    mensagemInicial.innerHTML =
+      "Nenhuma questão encontrada.";
+
+    return;
+
+  }
+
+  provaIniciada = true;
+
+  mensagemInicial.style.display =
+    "none";
+
+  iniciarBtn.style.display =
+    "none";
+
+  atualizarBotoes();
+
+  iniciarTimer();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
 
 function responderQuestao(
   article,
   questao,
-  botaoClicado
+  botaoSelecionado
 ) {
 
-  const botoes =
-    article.querySelectorAll(".alternativa");
+  if (
+    !provaIniciada ||
+    provaEncerrada ||
+    botaoSelecionado.disabled
+  ) {
 
+    return;
+
+  }
+
+  const respostaSelecionada =
+    botaoSelecionado.dataset.letra;
+
+  const respostaCorreta =
+    String(
+      questao.resposta_correta
+    )
+      .trim()
+      .toUpperCase();
+
+  const botoes =
+    article.querySelectorAll(
+      ".alternative"
+    );
 
   botoes.forEach(botao => {
 
     botao.disabled = true;
 
+    botao.classList.add(
+      "respondida"
+    );
+
   });
 
-
-  const letraSelecionada =
-    botaoClicado.dataset.letra;
-
-
-  const respostaCorreta =
-    String(questao.resposta_correta)
-      .trim()
-      .toUpperCase();
-
-
-  const feedback =
-    article.querySelector(".feedback");
-
-
-  const pontos = {
-
-    "Fácil": 1,
-    "Médio": 2,
-    "Difícil": 3
-
-  };
-
-
   if (
-    letraSelecionada ===
+    respostaSelecionada ===
     respostaCorreta
   ) {
 
     acertos++;
 
-    pontuacao +=
-      pontos[questao.dificuldade] || 1;
-
-
-    botaoClicado.classList.add(
+    botaoSelecionado.classList.add(
       "correta"
     );
 
-
-    feedback.className =
-      "feedback correto";
-
-
-    feedback.innerHTML =
-      `<strong>✅ Correto!</strong><br>${questao.explicacao || ""}`;
-
   } else {
 
-    botaoClicado.classList.add(
-      "incorreta"
-    );
+    erros++;
 
+    botaoSelecionado.classList.add(
+      "errada"
+    );
 
     botoes.forEach(botao => {
 
@@ -667,222 +794,367 @@ function responderQuestao(
 
     });
 
-
-    feedback.className =
-      "feedback incorreto";
-
-
-    feedback.innerHTML =
-      `<strong>❌ Incorreto!</strong><br>
-       Resposta correta: ${respostaCorreta}<br>
-       ${questao.explicacao || ""}`;
-
   }
 
+  const explicacao =
+    article.querySelector(
+      ".explicacao"
+    );
 
-  if (questao.dica) {
+  const dica =
+    article.querySelector(
+      ".dica"
+    );
 
-    feedback.innerHTML +=
-      `<br><br><strong>💡 Dica:</strong> ${questao.dica}`;
-
-  }
-
-
-  feedback.style.display =
+  explicacao.style.display =
     "block";
 
+  dica.style.display =
+    questao.dica
+      ? "block"
+      : "none";
 
-  pontuacaoElement.textContent =
-    pontuacao;
+  atualizarPontuacao();
+  atualizarProgresso();
 
+  if (
+    contarRespondidas() ===
+    questoesAtuais.length
+  ) {
 
-  setTimeout(() => {
+    encerrarProva();
 
-    indiceAtual++;
-
-    mostrarQuestao();
-
-  }, 1800);
+  }
 
 }
 
 
-/* ================================
-   FINALIZAR QUIZ
-================================ */
+function contarRespondidas() {
 
-function finalizarQuiz() {
+  return document.querySelectorAll(
+    ".question .alternative.respondida"
+  ).length / 5;
 
-  clearInterval(intervaloTimer);
+}
 
-  quizArea.style.display = "none";
 
-  resultado.style.display = "block";
+function atualizarPontuacao() {
 
-  refazerBtn.style.display = "inline-block";
+  acertosElement.textContent =
+    acertos;
 
-  iniciarBtn.style.display = "none";
+  errosElement.textContent =
+    erros;
 
+  const totalRespondidas =
+    acertos + erros;
+
+  const percentual =
+    totalRespondidas
+      ? Math.round(
+          (acertos / totalRespondidas) * 100
+        )
+      : 0;
+
+  aproveitamento.textContent =
+    `${percentual}%`;
+
+}
+
+
+function atualizarProgresso() {
+
+  const respondidas =
+    acertos + erros;
 
   const total =
     questoesAtuais.length;
 
-
-  const porcentagem =
+  const percentual =
     total
-      ? Math.round((acertos / total) * 100)
+      ? (respondidas / total) * 100
       : 0;
 
+  progresso.style.width =
+    `${percentual}%`;
 
-  document.getElementById(
-    "resultadoPontuacao"
-  ).textContent =
-    pontuacao;
+  status.textContent =
+    `${respondidas} de ${total} questões respondidas`;
 
-
-  document.getElementById(
-    "resultadoAcertos"
-  ).textContent =
-    `${acertos}/${total}`;
+}
 
 
-  document.getElementById(
-    "resultadoPorcentagem"
-  ).textContent =
-    `${porcentagem}%`;
+function atualizarBotoes() {
 
-
-  const mensagem =
-    document.getElementById(
-      "mensagemResultado"
+  const botoes =
+    document.querySelectorAll(
+      ".alternative"
     );
 
+  botoes.forEach(botao => {
 
-  if (porcentagem >= 90) {
+    botao.disabled =
+      !provaIniciada ||
+      provaEncerrada;
 
-    mensagem.textContent =
-      "🔥 Excelente! Você domina muito bem Eletroquímica!";
+  });
 
-  } else if (porcentagem >= 70) {
+}
 
-    mensagem.textContent =
-      "👏 Muito bom! Seu conhecimento de Eletroquímica está ótimo.";
 
-  } else if (porcentagem >= 50) {
+function atualizarTimerInicial() {
 
-    mensagem.textContent =
-      "👍 Bom trabalho! Continue praticando para melhorar.";
+  const minutos =
+    Number(timeSelect.value);
 
-  } else {
+  if (minutos <= 0) {
 
-    mensagem.textContent =
-      "📚 Continue estudando e tente novamente. Você consegue!";
+    timer.textContent =
+      "Tempo: ∞";
+
+    return;
 
   }
 
+  const segundos =
+    minutos * 60;
 
-  dificuldadeSelect.disabled = false;
-  quantidadeSelect.disabled = false;
-  tempoSelect.disabled = false;
+  const mm =
+    Math.floor(segundos / 60);
+
+  const ss =
+    segundos % 60;
+
+  timer.textContent =
+    `Tempo: ${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
 
 }
 
 
-/* ================================
-   RESETAR QUIZ
-================================ */
-
-function resetarQuiz() {
+function iniciarTimer() {
 
   clearInterval(intervaloTimer);
 
-  indiceAtual = 0;
-  pontuacao = 0;
-  acertos = 0;
-  tempoRestante = 0;
+  const minutos =
+    Number(timeSelect.value);
 
-  questoesAtuais = [];
+  if (minutos <= 0) {
 
-  pontuacaoElement.textContent = "0";
+    timer.textContent =
+      "Tempo: ∞";
 
-  timerElement.textContent = "--:--";
+    return;
 
-  progressoTexto.textContent =
-    "Questão 1 de 20";
+  }
 
-  progressBar.style.width = "0%";
+  segundosRestantes =
+    minutos * 60;
 
-  questoesContainer.innerHTML = "";
+  atualizarTextoTimer();
 
-  quizArea.style.display = "none";
+  intervaloTimer =
+    setInterval(() => {
 
-  resultado.style.display = "none";
+      segundosRestantes--;
 
-  iniciarBtn.style.display = "inline-block";
+      atualizarTextoTimer();
 
-  embaralharBtn.style.display = "inline-block";
+      if (
+        segundosRestantes <= 0
+      ) {
 
-  refazerBtn.style.display = "none";
+        clearInterval(
+          intervaloTimer
+        );
 
-  dificuldadeSelect.disabled = false;
-  quantidadeSelect.disabled = false;
-  tempoSelect.disabled = false;
+        encerrarProva();
+
+      }
+
+    }, 1000);
 
 }
 
 
-/* ================================
-   BOTÃO EMBARALHAR
-================================ */
+function atualizarTextoTimer() {
+
+  const minutos =
+    Math.floor(
+      segundosRestantes / 60
+    );
+
+  const segundos =
+    segundosRestantes % 60;
+
+  timer.textContent =
+    `Tempo: ${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+
+}
+
+
+function encerrarProva() {
+
+  if (provaEncerrada) {
+    return;
+  }
+
+  provaEncerrada = true;
+
+  clearInterval(intervaloTimer);
+
+  atualizarBotoes();
+
+  mensagemInicial.style.display =
+    "none";
+
+  iniciarBtn.style.display =
+    "none";
+
+  mostrarResultadoFinal();
+
+  finalResult.style.display =
+    "block";
+
+  finalResult.scrollIntoView({
+    behavior: "smooth"
+  });
+
+}
+
+
+function mostrarResultadoFinal() {
+
+  const total =
+    acertos + erros;
+
+  const percentualAcertos =
+    total
+      ? Math.round(
+          (acertos / total) * 100
+        )
+      : 0;
+
+  const percentualErros =
+    total
+      ? Math.round(
+          (erros / total) * 100
+        )
+      : 0;
+
+  resultadoAcertos.textContent =
+    acertos;
+
+  resultadoErros.textContent =
+    erros;
+
+  resultadoAcertoPercentual.textContent =
+    `${percentualAcertos}%`;
+
+  resultadoErroPercentual.textContent =
+    `${percentualErros}%`;
+
+}
+
 
 embaralharBtn.addEventListener(
   "click",
   () => {
 
-    embaralhar = !embaralhar;
+    embaralharAtivo =
+      !embaralharAtivo;
 
     embaralharBtn.textContent =
-      embaralhar
-        ? "🔀 Embaralhar: ON"
-        : "🔀 Embaralhar: OFF";
+      embaralharAtivo
+        ? "🔀 Embaralhamento: ON"
+        : "🔀 Embaralhamento: OFF";
+
+    if (!provaIniciada) {
+
+      montarProva();
+
+    }
 
   }
 );
 
 
-/* ================================
-   BOTÃO COMEÇAR
-================================ */
-
 iniciarBtn.addEventListener(
   "click",
-  iniciarQuiz
+  iniciarProva
 );
 
-
-/* ================================
-   BOTÃO REFAZER
-================================ */
 
 refazerBtn.addEventListener(
   "click",
-  resetarQuiz
+  () => {
+
+    montarProva();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
 );
 
 
-/* ================================
-   BOTÃO RESULTADO
-================================ */
-
-resultadoRefazer.addEventListener(
+refazerProvaFinal.addEventListener(
   "click",
-  resetarQuiz
+  () => {
+
+    montarProva();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
 );
 
 
-/* ================================
-   CARREGAR QUESTÕES
-================================ */
+dificuldadeSelect.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+
+      montarProva();
+
+    }
+
+  }
+);
+
+
+quantidadeSelect.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+
+      montarProva();
+
+    }
+
+  }
+);
+
+
+timeSelect.addEventListener(
+  "change",
+  () => {
+
+    if (!provaIniciada) {
+
+      atualizarTimerInicial();
+
+    }
+
+  }
+);
+
 
 carregarQuestoes();
 
@@ -890,3 +1162,4 @@ carregarQuestoes();
 
 </body>
 </html>
+```

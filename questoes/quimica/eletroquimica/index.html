@@ -11,7 +11,9 @@
 
 <header>
   <div class="container">
-    <h1>⚡ Eletroquímica</h1>
+    <div class="logo">
+      Aprova<span>Quest</span>
+    </div>
 
     <nav>
       <a href="../../../">Início</a>
@@ -60,6 +62,7 @@
           <option value="10">10 questões</option>
           <option value="15">15 questões</option>
           <option value="20" selected>20 questões</option>
+          <option value="todas">Todas</option>
         </select>
       </div>
 
@@ -72,6 +75,7 @@
           <option value="600">10 minutos</option>
           <option value="900">15 minutos</option>
           <option value="1200">20 minutos</option>
+          <option value="1800">30 minutos</option>
         </select>
       </div>
 
@@ -79,15 +83,15 @@
 
     <div class="quiz-actions">
 
-      <button id="embaralharBtn" class="btn-secondary">
+      <button id="embaralharBtn" class="btn-secondary" type="button">
         🔀 Embaralhar
       </button>
 
-      <button id="iniciarBtn" class="btn-primary">
+      <button id="iniciarBtn" class="btn-primary" type="button">
         ▶️ Começar
       </button>
 
-      <button id="refazerBtn" class="btn-primary" style="display:none;">
+      <button id="refazerBtn" class="btn-primary" style="display:none;" type="button">
         🔄 Refazer
       </button>
 
@@ -151,13 +155,19 @@
 
     </div>
 
-    <button id="resultadoRefazer" class="btn-primary">
+    <button id="resultadoRefazer" class="btn-primary" type="button">
       🔄 Fazer novamente
     </button>
 
   </section>
 
 </main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 AprovaQuest — Estude, pratique e evolua.</p>
+  </div>
+</footer>
 
 <script type="module">
 
@@ -224,7 +234,7 @@ const progressoTexto =
 
 
 /* ================================
-   EMBARALHAR
+   EMBARALHAR ARRAY
 ================================ */
 
 function embaralharArray(array) {
@@ -250,7 +260,8 @@ async function carregarQuestoes() {
     .from("questoes")
     .select("*")
     .eq("materia", "Química")
-    .eq("assunto", "Eletroquímica");
+    .eq("assunto", "Eletroquímica")
+    .order("id", { ascending: true });
 
   if (error) {
 
@@ -264,7 +275,10 @@ async function carregarQuestoes() {
 
   questoes = data || [];
 
-  console.log("Questões carregadas:", questoes.length);
+  console.log(
+    "Questões de Eletroquímica carregadas:",
+    questoes.length
+  );
 
 }
 
@@ -281,7 +295,7 @@ function prepararQuestoes() {
     dificuldadeSelect.value;
 
   const quantidade =
-    Number(quantidadeSelect.value);
+    quantidadeSelect.value;
 
 
   if (dificuldade !== "todas") {
@@ -301,8 +315,16 @@ function prepararQuestoes() {
   }
 
 
-  questoesAtuais =
-    filtradas.slice(0, quantidade);
+  if (quantidade === "todas") {
+
+    questoesAtuais = filtradas;
+
+  } else {
+
+    questoesAtuais =
+      filtradas.slice(0, Number(quantidade));
+
+  }
 
 }
 
@@ -509,6 +531,7 @@ function mostrarQuestao() {
         alternativa => `
 
           <button
+            type="button"
             class="alternativa"
             data-letra="${alternativa.letra}"
           >
@@ -556,7 +579,7 @@ function mostrarQuestao() {
 
 
 /* ================================
-   RESPONDER
+   RESPONDER QUESTÃO
 ================================ */
 
 function responderQuestao(
@@ -579,8 +602,11 @@ function responderQuestao(
   const letraSelecionada =
     botaoClicado.dataset.letra;
 
+
   const respostaCorreta =
-    questao.resposta_correta;
+    String(questao.resposta_correta)
+      .trim()
+      .toUpperCase();
 
 
   const feedback =
@@ -606,12 +632,18 @@ function responderQuestao(
     pontuacao +=
       pontos[questao.dificuldade] || 1;
 
+
     botaoClicado.classList.add(
       "correta"
     );
 
+
+    feedback.className =
+      "feedback correto";
+
+
     feedback.innerHTML =
-      `<strong>✅ Correto!</strong><br>${questao.explicacao}`;
+      `<strong>✅ Correto!</strong><br>${questao.explicacao || ""}`;
 
   } else {
 
@@ -636,10 +668,14 @@ function responderQuestao(
     });
 
 
+    feedback.className =
+      "feedback incorreto";
+
+
     feedback.innerHTML =
       `<strong>❌ Incorreto!</strong><br>
        Resposta correta: ${respostaCorreta}<br>
-       ${questao.explicacao}`;
+       ${questao.explicacao || ""}`;
 
   }
 
@@ -672,7 +708,7 @@ function responderQuestao(
 
 
 /* ================================
-   FINALIZAR
+   FINALIZAR QUIZ
 ================================ */
 
 function finalizarQuiz() {
@@ -690,6 +726,7 @@ function finalizarQuiz() {
 
   const total =
     questoesAtuais.length;
+
 
   const porcentagem =
     total
@@ -752,7 +789,50 @@ function finalizarQuiz() {
 
 
 /* ================================
-   BOTÕES
+   RESETAR QUIZ
+================================ */
+
+function resetarQuiz() {
+
+  clearInterval(intervaloTimer);
+
+  indiceAtual = 0;
+  pontuacao = 0;
+  acertos = 0;
+  tempoRestante = 0;
+
+  questoesAtuais = [];
+
+  pontuacaoElement.textContent = "0";
+
+  timerElement.textContent = "--:--";
+
+  progressoTexto.textContent =
+    "Questão 1 de 20";
+
+  progressBar.style.width = "0%";
+
+  questoesContainer.innerHTML = "";
+
+  quizArea.style.display = "none";
+
+  resultado.style.display = "none";
+
+  iniciarBtn.style.display = "inline-block";
+
+  embaralharBtn.style.display = "inline-block";
+
+  refazerBtn.style.display = "none";
+
+  dificuldadeSelect.disabled = false;
+  quantidadeSelect.disabled = false;
+  tempoSelect.disabled = false;
+
+}
+
+
+/* ================================
+   BOTÃO EMBARALHAR
 ================================ */
 
 embaralharBtn.addEventListener(
@@ -770,39 +850,39 @@ embaralharBtn.addEventListener(
 );
 
 
+/* ================================
+   BOTÃO COMEÇAR
+================================ */
+
 iniciarBtn.addEventListener(
   "click",
   iniciarQuiz
 );
 
 
+/* ================================
+   BOTÃO REFAZER
+================================ */
+
 refazerBtn.addEventListener(
   "click",
-  () => {
-
-    resultado.style.display = "none";
-
-    iniciarBtn.style.display =
-      "inline-block";
-
-    embaralharBtn.style.display =
-      "inline-block";
-
-  }
+  resetarQuiz
 );
 
+
+/* ================================
+   BOTÃO RESULTADO
+================================ */
 
 resultadoRefazer.addEventListener(
   "click",
-  () => {
-
-    resultado.style.display = "none";
-
-    iniciarQuiz();
-
-  }
+  resetarQuiz
 );
 
+
+/* ================================
+   CARREGAR QUESTÕES
+================================ */
 
 carregarQuestoes();
 

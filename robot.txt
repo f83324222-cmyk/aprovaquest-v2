@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://f83324222-cmyk.github.io/aprovaquest-v2/sitemap.xml

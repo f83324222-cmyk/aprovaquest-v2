@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Microbiologia | AprovaQuest</title>
+
+  <link rel="stylesheet" href="../../../css/style.css">
+
+  <style>
+    .controles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .controle {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .controle label {
+      font-weight: 600;
+    }
+
+    .controle select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .acoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      border: none;
+      padding: 11px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .pontuacao {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .timer {
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .progresso-container {
+      width: 100%;
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progresso {
+      width: 0%;
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    .status {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .question {
+      margin-bottom: 25px;
+      padding: 20px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .question h3 {
+      margin-top: 0;
+    }
+
+    .question h3 small {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.7;
+    }
+
+    .enunciado {
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+    .alternatives {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .alternative {
+      width: 100%;
+      text-align: left;
+      padding: 13px 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .alternative:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    .alternative:disabled {
+      cursor: default;
+    }
+
+    .explicacao {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .dica {
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .mensagem-inicial {
+      text-align: center;
+      padding: 30px 15px;
+      opacity: 0.8;
+    }
+
+    .final-result {
+      display: none;
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .resultado-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .resultado-item {
+      padding: 15px;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .acoes {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .question {
+        padding: 15px;
+      }
+
+      .enunciado {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="../../../">Início</a>
+    <a href="../../">Questões</a>
+    <a href="../">Biologia</a>
+  </nav>
+
+  <main class="container">
+
+    <header class="hero">
+      <h1>🦠 Microbiologia</h1>
+
+      <p>
+        Teste seus conhecimentos sobre microrganismos, bactérias, vírus,
+        fungos, protozoários, doenças infecciosas, fermentação e a importância
+        dos microrganismos para os seres vivos e para o ambiente.
+      </p>
+    </header>
+
+    <section class="controles">
+
+      <div class="controle">
+        <label for="quantidade">Quantidade de questões</label>
+
+        <select id="quantidade">
+          <option value="10">10 questões</option>
+          <option value="15">15 questões</option>
+          <option value="20" selected>20 questões</option>
+        </select>
+      </div>
+
+      <div class="controle">
+        <label for="dificuldade">Dificuldade</label>
+
+        <select id="dificuldade">
+          <option value="todas">Todas</option>
+          <option value="Fácil">Fácil</option>
+          <option value="Médio">Médio</option>
+          <option value="Difícil">Difícil</option>
+        </select>
+      </div>
+
+    </section>
+
+    <section class="acoes">
+
+      <button class="btn" id="btnIniciar">
+        ▶ Iniciar prova
+      </button>
+
+      <button class="btn" id="btnEncerrar" disabled>
+        ⏹ Encerrar prova
+      </button>
+
+      <button class="btn" id="btnReiniciar" disabled>
+        🔄 Nova prova
+      </button>
+
+    </section>
+
+    <section class="pontuacao">
+
+      <span>
+        ✅ Acertos:
+        <strong id="acertos">0</strong>
+      </span>
+
+      <span>
+        ❌ Erros:
+        <strong id="erros">0</strong>
+      </span>
+
+    </section>
+
+    <div class="timer">
+      ⏱️ Tempo:
+      <span id="tempo">00:00</span>
+    </div>
+
+    <div class="progresso-container">
+      <div class="progresso" id="progresso"></div>
+    </div>
+
+    <div class="status" id="status">
+      Nenhuma prova iniciada.
+    </div>
+
+    <section id="questoes">
+
+      <div class="mensagem-inicial">
+        <h2>Pronto para começar?</h2>
+
+        <p>
+          Escolha a quantidade e a dificuldade das questões e clique em
+          <strong>Iniciar prova</strong>.
+        </p>
+      </div>
+
+    </section>
+
+    <section class="final-result" id="resultadoFinal">
+
+      <h2>🎉 Resultado da prova</h2>
+
+      <div class="resultado-grid">
+
+        <div class="resultado-item">
+          <strong>Acertos</strong>
+          <div id="resultadoAcertos">0</div>
+        </div>
+
+        <div class="resultado-item">
+          <strong>Erros</strong>
+          <div id="resultadoErros">0</div>
+        </div>
+
+        <div class="resultado-item">
+          <strong>Aproveitamento</strong>
+          <div id="resultadoPercentual">0%</div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="../../../js/supabase.js"></script>
+
+  <script>
+    let todasQuestoes = [];
+    let questoesAtuais = [];
+
+    let acertos = 0;
+    let erros = 0;
+
+    let provaIniciada = false;
+    let provaEncerrada = false;
+
+    let tempoSegundos = 0;
+    let intervaloTimer = null;
+
+    const quantidade = document.getElementById("quantidade");
+    const dificuldade = document.getElementById("dificuldade");
+
+    const btnIniciar = document.getElementById("btnIniciar");
+    const btnEncerrar = document.getElementById("btnEncerrar");
+    const btnReiniciar = document.getElementById("btnReiniciar");
+
+    const acertosEl = document.getElementById("acertos");
+    const errosEl = document.getElementById("erros");
+
+    const tempoEl = document.getElementById("tempo");
+    const progressoEl = document.getElementById("progresso");
+    const statusEl = document.getElementById("status");
+
+    const questoesEl = document.getElementById("questoes");
+    const resultadoFinalEl = document.getElementById("resultadoFinal");
+
+    const resultadoAcertosEl =
+      document.getElementById("resultadoAcertos");
+
+    const resultadoErrosEl =
+      document.getElementById("resultadoErros");
+
+    const resultadoPercentualEl =
+      document.getElementById("resultadoPercentual");
+
+
+    async function carregarQuestoes() {
+
+      statusEl.textContent = "Carregando questões...";
+
+      const { data, error } = await supabase
+        .from("questoes")
+        .select("*")
+        .eq("materia", "Biologia")
+        .eq("assunto", "Microbiologia")
+        .order("id", { ascending: true });
+
+      if (error) {
+
+        console.error(error);
+
+        statusEl.textContent =
+          "❌ Não foi possível carregar as questões.";
+
+        questoesEl.innerHTML = `
+          <div class="mensagem-inicial">
+            <h2>Erro ao carregar</h2>
+            <p>
+              Verifique a conexão com o Supabase e tente novamente.
+            </p>
+          </div>
+        `;
+
+        return;
+      }
+
+      todasQuestoes = data || [];
+
+      statusEl.textContent =
+        `${todasQuestoes.length} questões disponíveis.`;
+
+    }
+
+
+    function embaralharArray(array) {
+
+      const novoArray = [...array];
+
+      for (let i = novoArray.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [novoArray[i], novoArray[j]] =
+          [novoArray[j], novoArray[i]];
+      }
+
+      return novoArray;
+    }
+
+
+    function montarProva() {
+
+      let filtradas = [...todasQuestoes];
+
+      const dificuldadeSelecionada =
+        dificuldade.value;
+
+      if (dificuldadeSelecionada !== "todas") {
+
+        filtradas = filtradas.filter(
+          questao =>
+            String(questao.dificuldade || "")
+              .trim()
+              .toLowerCase() ===
+            dificuldadeSelecionada.toLowerCase()
+        );
+
+      }
+
+      filtradas = embaralharArray(filtradas);
+
+      const quantidadeSelecionada =
+        Number(quantidade.value);
+
+      questoesAtuais =
+        filtradas.slice(0, quantidadeSelecionada);
+
+      if (questoesAtuais.length === 0) {
+
+        questoesEl.innerHTML = `
+          <div class="mensagem-inicial">
+            <h2>Nenhuma questão encontrada</h2>
+            <p>
+              Não existem questões disponíveis para
+              essa dificuldade.
+            </p>
+          </div>
+        `;
+
+        return false;
+      }
+
+      return true;
+    }
+
+
+    function renderizarQuestoes() {
+
+      questoesEl.innerHTML = "";
+
+      questoesAtuais.forEach((questao, index) => {
+
+        const question = document.createElement("article");
+
+        question.className = "question";
+
+        question.dataset.index = index;
+
+        const respostaCorreta =
+          String(
+            questao.resposta_correta ||
+            questao.resposta ||
+            ""
+          )
+            .trim()
+            .toUpperCase();
+
+        question.innerHTML = `
+
+          <h3>
+            Questão ${index + 1}
+
+            ${
+              questao.dificuldade
+                ? `<small>${questao.dificuldade}</small>`
+                : ""
+            }
+
+          </h3>
+
+          <div class="enunciado">
+            ${
+              questao.enunciado ||
+              questao.pergunta ||
+              ""
+            }
+          </div>
+
+          <div class="alternatives">
+
+          </div>
+
+          <div class="explicacao">
+            <strong>💡 Explicação:</strong>
+            <div class="texto-explicacao"></div>
+          </div>
+
+        `;
+
+        const alternatives =
+          question.querySelector(".alternatives");
+
+        const letras = ["A", "B", "C", "D", "E"];
+
+        letras.forEach(letra => {
+
+          const alternativa =
+            questao[`alternativa_${letra.toLowerCase()}`];
+
+          if (!alternativa) return;
+
+          const botao =
+            criarAlternativa(
+              letra,
+              alternativa,
+              respostaCorreta,
+              question,
+              questao
+            );
+
+          alternatives.appendChild(botao);
+
+        });
+
+        questoesEl.appendChild(question);
+
+      });
+
+      atualizarProgresso();
+
+    }
+
+
+    function criarAlternativa(
+      letra,
+      texto,
+      respostaCorreta,
+      question,
+      questao
+    ) {
+
+      const botao =
+        document.createElement("button");
+
+      botao.className = "alternative";
+
+      botao.type = "button";
+
+      botao.innerHTML =
+        `<strong>${letra})</strong> ${texto}`;
+
+      botao.addEventListener(
+        "click",
+        () => responderQuestao(
+          botao,
+          letra,
+          respostaCorreta,
+          question,
+          questao
+        )
+      );
+
+      return botao;
+    }
+
+
+    function responderQuestao(
+      botao,
+      respostaSelecionada,
+      respostaCorreta,
+      question,
+      questao
+    ) {
+
+      if (
+        !provaIniciada ||
+        provaEncerrada ||
+        question.dataset.respondida === "true"
+      ) {
+        return;
+      }
+
+      question.dataset.respondida = "true";
+
+      const botoes =
+        question.querySelectorAll(".alternative");
+
+      botoes.forEach(botaoAtual => {
+        botaoAtual.disabled = true;
+      });
+
+      const explicacao =
+        question.querySelector(".explicacao");
+
+      const textoExplicacao =
+        question.querySelector(".texto-explicacao");
+
+      if (
+        respostaSelecionada ===
+        respostaCorreta
+      ) {
+
+        acertos++;
+
+        botao.setAttribute(
+          "data-correta",
+          "true"
+        );
+
+        botao.innerHTML =
+          `✅ <strong>${respostaSelecionada})</strong> ${botao.textContent.substring(3)}`;
+
+      } else {
+
+        erros++;
+
+        botao.setAttribute(
+          "data-errada",
+          "true"
+        );
+
+        botoes.forEach(botaoAtual => {
+
+          const texto =
+            botaoAtual.textContent.trim();
+
+          if (
+            texto.startsWith(
+              respostaCorreta + ")"
+            )
+          ) {
+
+            botaoAtual.innerHTML =
+              `✅ ${botaoAtual.innerHTML}`;
+
+          }
+
+        });
+
+        botao.innerHTML =
+          `❌ ${botao.innerHTML}`;
+
+      }
+
+      if (questao.explicacao) {
+
+        textoExplicacao.textContent =
+          questao.explicacao;
+
+        explicacao.style.display =
+          "block";
+
+      }
+
+      atualizarPontuacao();
+      atualizarProgresso();
+
+      if (
+        contarRespondidas() ===
+        questoesAtuais.length
+      ) {
+
+        encerrarProva();
+
+      }
+
+    }
+
+
+    function contarRespondidas() {
+
+      return document.querySelectorAll(
+        '.question[data-respondida="true"]'
+      ).length;
+
+    }
+
+
+    function atualizarPontuacao() {
+
+      acertosEl.textContent = acertos;
+      errosEl.textContent = erros;
+
+    }
+
+
+    function atualizarProgresso() {
+
+      const total =
+        questoesAtuais.length;
+
+      if (!total) {
+
+        progressoEl.style.width = "0%";
+
+        return;
+
+      }
+
+      const respondidas =
+        contarRespondidas();
+
+      const porcentagem =
+        (respondidas / total) * 100;
+
+      progressoEl.style.width =
+        `${porcentagem}%`;
+
+      statusEl.textContent =
+        `${respondidas} de ${total} questões respondidas.`;
+
+    }
+
+
+    function atualizarBotoes() {
+
+      btnIniciar.disabled =
+        provaIniciada && !provaEncerrada;
+
+      btnEncerrar.disabled =
+        !provaIniciada || provaEncerrada;
+
+      btnReiniciar.disabled =
+        !provaIniciada;
+
+    }
+
+
+    function formatarTempo(segundos) {
+
+      const minutos =
+        Math.floor(segundos / 60);
+
+      const segundosRestantes =
+        segundos % 60;
+
+      return `${String(minutos).padStart(2, "0")}:${String(segundosRestantes).padStart(2, "0")}`;
+
+    }
+
+
+    function iniciarTimer() {
+
+      clearInterval(intervaloTimer);
+
+      intervaloTimer =
+        setInterval(() => {
+
+          tempoSegundos++;
+
+          tempoEl.textContent =
+            formatarTempo(tempoSegundos);
+
+        }, 1000);
+
+    }
+
+
+    function pararTimer() {
+
+      clearInterval(intervaloTimer);
+
+      intervaloTimer = null;
+
+    }
+
+
+    function iniciarProva() {
+
+      if (!todasQuestoes.length) {
+
+        alert(
+          "Nenhuma questão foi encontrada."
+        );
+
+        return;
+      }
+
+      if (!montarProva()) return;
+
+      acertos = 0;
+      erros = 0;
+
+      tempoSegundos = 0;
+
+      provaIniciada = true;
+      provaEncerrada = false;
+
+      resultadoFinalEl.style.display =
+        "none";
+
+      tempoEl.textContent = "00:00";
+
+      atualizarPontuacao();
+
+      renderizarQuestoes();
+
+      iniciarTimer();
+
+      atualizarBotoes();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function encerrarProva() {
+
+      if (
+        !provaIniciada ||
+        provaEncerrada
+      ) {
+        return;
+      }
+
+      provaEncerrada = true;
+
+      pararTimer();
+
+      mostrarResultadoFinal();
+
+      atualizarBotoes();
+
+    }
+
+
+    function mostrarResultadoFinal() {
+
+      const total =
+        questoesAtuais.length;
+
+      const percentual =
+        total > 0
+          ? Math.round(
+              (acertos / total) * 100
+            )
+          : 0;
+
+      resultadoAcertosEl.textContent =
+        acertos;
+
+      resultadoErrosEl.textContent =
+        erros;
+
+      resultadoPercentualEl.textContent =
+        `${percentual}%`;
+
+      resultadoFinalEl.style.display =
+        "block";
+
+      statusEl.textContent =
+        `Prova encerrada. Você acertou ${acertos} de ${total} questões.`;
+
+      resultadoFinalEl.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    }
+
+
+    function reiniciarProva() {
+
+      pararTimer();
+
+      provaIniciada = false;
+      provaEncerrada = false;
+
+      acertos = 0;
+      erros = 0;
+
+      tempoSegundos = 0;
+
+      questoesAtuais = [];
+
+      atualizarPontuacao();
+
+      tempoEl.textContent =
+        "00:00";
+
+      progressoEl.style.width =
+        "0%";
+
+      statusEl.textContent =
+        "Escolha as opções e inicie uma nova prova.";
+
+      questoesEl.innerHTML = `
+        <div class="mensagem-inicial">
+          <h2>Pronto para começar?</h2>
+
+          <p>
+            Escolha a quantidade e a dificuldade
+            das questões e clique em
+            <strong>Iniciar prova</strong>.
+          </p>
+        </div>
+      `;
+
+      resultadoFinalEl.style.display =
+        "none";
+
+      atualizarBotoes();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    btnIniciar.addEventListener(
+      "click",
+      iniciarProva
+    );
+
+    btnEncerrar.addEventListener(
+      "click",
+      encerrarProva
+    );
+
+    btnReiniciar.addEventListener(
+      "click",
+      reiniciarProva
+    );
+
+
+    carregarQuestoes();
+
+  </script>
+
+</body>
+</html>

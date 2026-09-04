@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Página inicial -->
+  <url>
+    <loc>https://SEU-DOMINIO.com/</loc>
+  </url>
+
+  <!-- Institucionais -->
+  <url>
+    <loc>https://SEU-DOMINIO.com/sobre/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/politica-privacidade/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/termos-de-uso/</loc>
+  </url>
+
+  <!-- Questões -->
+  <url>
+    <loc>https://SEU-DOMINIO.com/questoes/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/questoes/matematica/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/questoes/fisica/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/questoes/quimica/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/questoes/biologia/</loc>
+  </url>
+
+  <!-- Matemática -->
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/equacoes/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/funcao-afim/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/funcao-quadratica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/geometria/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/juros-compostos/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/juros-simples/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/porcentagem/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/probabilidade/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/matematica/regra-de-tres/</loc></url>
+
+  <!-- Física -->
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/cinematica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/dinamica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/eletricidade/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/eletrodinamica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/eletromagnetismo/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/gravitacao/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/hidrostatica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/leis-de-newton/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/ondulatoria/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/optica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/termodinamica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/fisica/trabalho-e-energia/</loc></url>
+
+  <!-- Química -->
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/cinetica-quimica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/eletroquimica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/equilibrio-quimico/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/estequiometria/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/estrutura-atomica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/funcoes-inorganicas/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/ligacoes-quimicas/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/quimica-organica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/reacoes-quimicas/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/solucoes/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/tabela-periodica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/quimica/termoquimica/</loc></url>
+
+  <!-- Biologia -->
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/biologia-celular/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/bioquimica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/botanica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/ecologia/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/evolucao/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/fisiologia-humana/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/genetica/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/microbiologia/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/reproducao-e-desenvolvimento/</loc></url>
+  <url><loc>https://SEU-DOMINIO.com/questoes/biologia/zoologia/</loc></url>
+
+  <!-- Simulados -->
+  <url>
+    <loc>https://SEU-DOMINIO.com/simulados/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/simulados/biologia/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/simulados/fisica/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/simulados/matematica/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/simulados/quimica/</loc>
+  </url>
+
+  <url>
+    <loc>https://SEU-DOMINIO.com/simulados/geral/</loc>
+  </url>
+
+</urlset>

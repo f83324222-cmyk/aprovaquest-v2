@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Simulado de Matemática | AprovaQuest</title>
+
+  <meta
+    name="description"
+    content="Faça o simulado de Matemática do AprovaQuest, responda questões e confira seu desempenho."
+  >
+
+  <link rel="stylesheet" href="../../css/style.css">
+
+  <style>
+    .simulado-pagina {
+      padding: 35px 0 60px;
+    }
+
+    .simulado-cabecalho {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .simulado-cabecalho h1 {
+      margin-bottom: 10px;
+    }
+
+    .simulado-cabecalho p {
+      line-height: 1.7;
+      opacity: 0.85;
+    }
+
+    .controles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+      max-width: 900px;
+      margin: 0 auto 25px;
+    }
+
+    .controle {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .controle label {
+      font-weight: 600;
+    }
+
+    .controle select {
+      padding: 11px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(128, 128, 128, 0.35);
+      background: inherit;
+      color: inherit;
+      font-size: 15px;
+    }
+
+    .embaralhar {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .embaralhar input {
+      width: 17px;
+      height: 17px;
+    }
+
+    .area-botao {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .btn-simulado {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .painel-simulado {
+      max-width: 900px;
+      margin: 0 auto 25px;
+      display: none;
+    }
+
+    .placar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .placar-item {
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .placar-item strong {
+      display: block;
+      font-size: 23px;
+      margin-bottom: 4px;
+    }
+
+    .placar-item span {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .timer-box {
+      text-align: center;
+      margin-bottom: 15px;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .progresso-container {
+      width: 100%;
+      height: 10px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    #progressoBarra {
+      width: 0%;
+      height: 100%;
+      transition: width 0.25s ease;
+    }
+
+    .questao {
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .questao h2 {
+      font-size: 20px;
+      line-height: 1.5;
+      margin-top: 0;
+    }
+
+    .enunciado {
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .alternativas {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .alternativa {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+
+    .alternativa input {
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .alternativa.correta {
+      outline: 2px solid rgba(40, 167, 69, 0.7);
+    }
+
+    .alternativa.errada {
+      outline: 2px solid rgba(220, 53, 69, 0.7);
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 8px;
+      line-height: 1.7;
+      display: none;
+    }
+
+    .feedback strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .controles-navegacao {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .controles-navegacao button {
+      border: none;
+      border-radius: 8px;
+      padding: 11px 20px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .status {
+      text-align: center;
+      margin: 15px 0;
+      font-weight: 600;
+    }
+
+    .resultado-final {
+      display: none;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .resultado-final h2 {
+      margin-top: 0;
+    }
+
+    .resultado-numero {
+      font-size: 52px;
+      font-weight: 800;
+      margin: 15px 0;
+    }
+
+    .resultado-texto {
+      line-height: 1.7;
+    }
+
+    @media (max-width: 700px) {
+      .simulado-pagina {
+        padding: 25px 15px 50px;
+      }
+
+      .controles {
+        grid-template-columns: 1fr;
+      }
+
+      .placar {
+        grid-template-columns: 1fr;
+      }
+
+      .questao {
+        padding: 20px;
+      }
+
+      .questao h2 {
+        font-size: 18px;
+      }
+
+      .controles-navegacao {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container header-content">
+
+    <a href="../../" class="logo">
+      Aprova<span>Quest</span>
+    </a>
+
+    <nav>
+      <a href="../../questoes/">Questões</a>
+      <a href="../">Simulados</a>
+      <a href="../../sobre/">Sobre</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main class="simulado-pagina">
+
+  <div class="container">
+
+    <section class="simulado-cabecalho">
+
+      <h1>📐 Simulado de Matemática</h1>
+
+      <p>
+        Teste seus conhecimentos em Matemática com questões de
+        diferentes assuntos e níveis de dificuldade.
+      </p>
+
+    </section>
+
+
+    <section id="configuracao">
+
+      <div class="controles">
+
+        <div class="controle">
+          <label for="dificuldade">Dificuldade</label>
+
+          <select id="dificuldade">
+            <option value="Todas">Todas</option>
+            <option value="Fácil">Fácil</option>
+            <option value="Médio">Médio</option>
+            <option value="Difícil">Difícil</option>
+          </select>
+        </div>
+
+
+        <div class="controle">
+          <label for="quantidade">Questões</label>
+
+          <select id="quantidade">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="Todas">Todas disponíveis</option>
+          </select>
+        </div>
+
+
+        <div class="controle">
+          <label for="tempo">Tempo</label>
+
+          <select id="tempo">
+            <option value="0">Sem limite</option>
+            <option value="5">5 minutos</option>
+            <option value="10">10 minutos</option>
+            <option value="15">15 minutos</option>
+            <option value="20">20 minutos</option>
+            <option value="30">30 minutos</option>
+          </select>
+        </div>
+
+      </div>
+
+
+      <div class="embaralhar">
+
+        <input
+          type="checkbox"
+          id="embaralhar"
+          checked
+        >
+
+        <label for="embaralhar">
+          Embaralhar questões
+        </label>
+
+      </div>
+
+
+      <div class="area-botao">
+
+        <button
+          id="btnIniciar"
+          class="btn-simulado"
+        >
+          Começar simulado
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <section
+      id="painelSimulado"
+      class="painel-simulado"
+    >
+
+      <div class="placar">
+
+        <div class="placar-item">
+          <strong id="acertos">0</strong>
+          <span>Acertos</span>
+        </div>
+
+        <div class="placar-item">
+          <strong id="erros">0</strong>
+          <span>Erros</span>
+        </div>
+
+        <div class="placar-item">
+          <strong id="aproveitamento">0%</strong>
+          <span>Aproveitamento</span>
+        </div>
+
+      </div>
+
+
+      <div class="timer-box">
+        ⏱️ <span id="timer">Sem limite</span>
+      </div>
+
+
+      <div class="progresso-container">
+        <div id="progressoBarra"></div>
+      </div>
+
+
+      <div id="status" class="status"></div>
+
+
+      <div id="questoes"></div>
+
+
+      <div class="controles-navegacao">
+
+        <button id="btnAnterior">
+          ← Anterior
+        </button>
+
+        <button id="btnProxima">
+          Próxima →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <section
+      id="resultadoFinal"
+      class="resultado-final"
+    >
+
+      <h2>🎉 Simulado concluído!</h2>
+
+      <div
+        id="resultadoNumero"
+        class="resultado-numero"
+      >
+        0%
+      </div>
+
+      <p
+        id="resultadoTexto"
+        class="resultado-texto"
+      ></p>
+
+      <button
+        id="btnRefazerFinal"
+        class="btn-simulado"
+      >
+        Fazer novamente
+      </button>
+
+    </section>
+
+  </div>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="container">
+
+    <p>© 2026 AprovaQuest</p>
+
+    <p>
+      <a href="../../sobre/">Sobre</a>
+      &nbsp; | &nbsp;
+      <a href="../../politica-privacidade/">Política de Privacidade</a>
+      &nbsp; | &nbsp;
+      <a href="../../termos-de-uso/">Termos de Uso</a>
+    </p>
+
+  </div>
+
+</footer>
+
+
+<script type="module">
+
+import { supabase } from "../../js/supabase.js";
+
+
+const dificuldade = document.getElementById("dificuldade");
+const quantidade = document.getElementById("quantidade");
+const tempo = document.getElementById("tempo");
+const embaralhar = document.getElementById("embaralhar");
+
+const btnIniciar = document.getElementById("btnIniciar");
+const btnAnterior = document.getElementById("btnAnterior");
+const btnProxima = document.getElementById("btnProxima");
+const btnRefazerFinal = document.getElementById("btnRefazerFinal");
+
+const configuracao = document.getElementById("configuracao");
+const painelSimulado = document.getElementById("painelSimulado");
+
+const questoesContainer = document.getElementById("questoes");
+
+const acertosElemento = document.getElementById("acertos");
+const errosElemento = document.getElementById("erros");
+const aproveitamentoElemento = document.getElementById("aproveitamento");
+
+const timerElemento = document.getElementById("timer");
+const progressoBarra = document.getElementById("progressoBarra");
+const statusElemento = document.getElementById("status");
+
+const resultadoFinal = document.getElementById("resultadoFinal");
+const resultadoNumero = document.getElementById("resultadoNumero");
+const resultadoTexto = document.getElementById("resultadoTexto");
+
+
+let todasQuestoes = [];
+let questoesSelecionadas = [];
+
+let respostas = [];
+
+let indiceAtual = 0;
+
+let tempoRestante = 0;
+let intervaloTimer = null;
+
+let simuladoFinalizado = false;
+
+
+function embaralharArray(array) {
+
+  const copia = [...array];
+
+  for (let i = copia.length - 1; i > 0; i--) {
+
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+
+  return copia;
+}
+
+
+async function carregarQuestoes() {
+
+  statusElemento.textContent =
+    "Carregando questões...";
+
+  const { data, error } = await supabase
+    .from("questoes")
+    .select("*")
+    .eq("materia", "Matemática")
+    .order("id", { ascending: true });
+
+
+  if (error) {
+
+    console.error(error);
+
+    statusElemento.textContent =
+      "Não foi possível carregar as questões.";
+
+    return false;
+  }
+
+
+  todasQuestoes = data || [];
+
+  statusElemento.textContent = "";
+
+  return true;
+}
+
+
+function iniciarSimulado() {
+
+  if (todasQuestoes.length === 0) {
+
+    alert(
+      "Nenhuma questão de Matemática foi encontrada."
+    );
+
+    return;
+  }
+
+
+  let filtradas = [...todasQuestoes];
+
+
+  if (dificuldade.value !== "Todas") {
+
+    filtradas = filtradas.filter(
+      questao =>
+        questao.dificuldade === dificuldade.value
+    );
+
+  }
+
+
+  if (filtradas.length === 0) {
+
+    alert(
+      "Não existem questões disponíveis para essa dificuldade."
+    );
+
+    return;
+  }
+
+
+  if (embaralhar.checked) {
+
+    filtradas =
+      embaralharArray(filtradas);
+
+  }
+
+
+  if (quantidade.value !== "Todas") {
+
+    const quantidadeSelecionada =
+      Number(quantidade.value);
+
+    filtradas =
+      filtradas.slice(
+        0,
+        quantidadeSelecionada
+      );
+  }
+
+
+  questoesSelecionadas =
+    filtradas;
+
+  respostas =
+    new Array(
+      questoesSelecionadas.length
+    ).fill(null);
+
+
+  indiceAtual = 0;
+
+  simuladoFinalizado = false;
+
+
+  configurarTimer();
+
+
+  configuracao.style.display =
+    "none";
+
+  painelSimulado.style.display =
+    "block";
+
+  resultadoFinal.style.display =
+    "none";
+
+
+  atualizarPlacar();
+
+  renderizarQuestao();
+
+}
+
+
+function configurarTimer() {
+
+  clearInterval(intervaloTimer);
+
+
+  const minutos =
+    Number(tempo.value);
+
+
+  if (minutos === 0) {
+
+    tempoRestante = 0;
+
+    timerElemento.textContent =
+      "Sem limite";
+
+    return;
+  }
+
+
+  tempoRestante =
+    minutos * 60;
+
+  atualizarTimer();
+
+
+  intervaloTimer =
+    setInterval(() => {
+
+      tempoRestante--;
+
+      atualizarTimer();
+
+
+      if (tempoRestante <= 0) {
+
+        clearInterval(intervaloTimer);
+
+        finalizarSimulado();
+
+      }
+
+    }, 1000);
+
+}
+
+
+function atualizarTimer() {
+
+  if (tempoRestante <= 0) {
+
+    if (Number(tempo.value) === 0) {
+
+      timerElemento.textContent =
+        "Sem limite";
+
+    }
+
+    return;
+  }
+
+
+  const minutos =
+    Math.floor(
+      tempoRestante / 60
+    );
+
+  const segundos =
+    tempoRestante % 60;
+
+
+  timerElemento.textContent =
+    `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+
+}
+
+
+function renderizarQuestao() {
+
+  if (simuladoFinalizado) {
+    return;
+  }
+
+
+  const questao =
+    questoesSelecionadas[indiceAtual];
+
+
+  if (!questao) {
+    return;
+  }
+
+
+  const respostaSalva =
+    respostas[indiceAtual];
+
+
+  questoesContainer.innerHTML = `
+
+    <article class="questao">
+
+      <h2>
+        ${indiceAtual + 1}. ${questao.titulo}
+      </h2>
+
+      <div class="enunciado">
+        ${questao.enunciado}
+      </div>
+
+      <div class="alternativas">
+
+        <label class="alternativa">
+          <input
+            type="radio"
+            name="resposta"
+            value="A"
+            ${respostaSalva === "A" ? "checked" : ""}
+          >
+          <span>${questao.alternativa_a}</span>
+        </label>
+
+        <label class="alternativa">
+          <input
+            type="radio"
+            name="resposta"
+            value="B"
+            ${respostaSalva === "B" ? "checked" : ""}
+          >
+          <span>${questao.alternativa_b}</span>
+        </label>
+
+        <label class="alternativa">
+          <input
+            type="radio"
+            name="resposta"
+            value="C"
+            ${respostaSalva === "C" ? "checked" : ""}
+          >
+          <span>${questao.alternativa_c}</span>
+        </label>
+
+        <label class="alternativa">
+          <input
+            type="radio"
+            name="resposta"
+            value="D"
+            ${respostaSalva === "D" ? "checked" : ""}
+          >
+          <span>${questao.alternativa_d}</span>
+        </label>
+
+        <label class="alternativa">
+          <input
+            type="radio"
+            name="resposta"
+            value="E"
+            ${respostaSalva === "E" ? "checked" : ""}
+          >
+          <span>${questao.alternativa_e}</span>
+        </label>
+
+      </div>
+
+    </article>
+
+  `;
+
+
+  const alternativas =
+    document.querySelectorAll(
+      'input[name="resposta"]'
+    );
+
+
+  alternativas.forEach(input => {
+
+    input.addEventListener(
+      "change",
+      salvarResposta
+    );
+
+  });
+
+
+  atualizarBotoes();
+
+  atualizarProgresso();
+
+}
+
+
+function salvarResposta(event) {
+
+  respostas[indiceAtual] =
+    event.target.value;
+
+  atualizarPlacar();
+
+}
+
+
+function atualizarPlacar() {
+
+  let acertos = 0;
+  let respondidas = 0;
+
+
+  questoesSelecionadas.forEach(
+    (questao, index) => {
+
+      if (respostas[index] !== null) {
+
+        respondidas++;
+
+
+        const correta =
+          String(
+            questao.resposta_correta
+          )
+            .trim()
+            .toUpperCase();
+
+
+        if (
+          respostas[index] === correta
+        ) {
+
+          acertos++;
+
+        }
+
+      }
+
+    }
+  );
+
+
+  const erros =
+    respondidas - acertos;
+
+
+  const total =
+    questoesSelecionadas.length;
+
+
+  const aproveitamento =
+    total > 0
+      ? Math.round(
+          (acertos / total) * 100
+        )
+      : 0;
+
+
+  acertosElemento.textContent =
+    acertos;
+
+  errosElemento.textContent =
+    erros;
+
+  aproveitamentoElemento.textContent =
+    `${aproveitamento}%`;
+
+}
+
+
+function atualizarProgresso() {
+
+  const total =
+    questoesSelecionadas.length;
+
+
+  if (total === 0) {
+
+    progressoBarra.style.width =
+      "0%";
+
+    return;
+  }
+
+
+  const progresso =
+    ((indiceAtual + 1) / total) * 100;
+
+
+  progressoBarra.style.width =
+    `${progresso}%`;
+
+
+  statusElemento.textContent =
+    `Questão ${indiceAtual + 1} de ${total}`;
+
+}
+
+
+function atualizarBotoes() {
+
+  btnAnterior.disabled =
+    indiceAtual === 0;
+
+
+  if (
+    indiceAtual ===
+    questoesSelecionadas.length - 1
+  ) {
+
+    btnProxima.textContent =
+      "Finalizar simulado";
+
+  } else {
+
+    btnProxima.textContent =
+      "Próxima →";
+
+  }
+
+}
+
+
+function salvarRespostaAtual() {
+
+  const selecionada =
+    document.querySelector(
+      'input[name="resposta"]:checked'
+    );
+
+
+  if (selecionada) {
+
+    respostas[indiceAtual] =
+      selecionada.value;
+
+  }
+
+}
+
+
+function irParaProxima() {
+
+  salvarRespostaAtual();
+
+
+  if (
+    indiceAtual ===
+    questoesSelecionadas.length - 1
+  ) {
+
+    finalizarSimulado();
+
+    return;
+  }
+
+
+  indiceAtual++;
+
+  renderizarQuestao();
+
+}
+
+
+function irParaAnterior() {
+
+  salvarRespostaAtual();
+
+
+  if (indiceAtual <= 0) {
+    return;
+  }
+
+
+  indiceAtual--;
+
+  renderizarQuestao();
+
+}
+
+
+function finalizarSimulado() {
+
+  if (simuladoFinalizado) {
+    return;
+  }
+
+
+  salvarRespostaAtual();
+
+
+  simuladoFinalizado = true;
+
+
+  clearInterval(intervaloTimer);
+
+
+  let acertos = 0;
+
+
+  questoesSelecionadas.forEach(
+    (questao, index) => {
+
+      const correta =
+        String(
+          questao.resposta_correta
+        )
+          .trim()
+          .toUpperCase();
+
+
+      if (
+        respostas[index] === correta
+      ) {
+
+        acertos++;
+
+      }
+
+    }
+  );
+
+
+  const total =
+    questoesSelecionadas.length;
+
+
+  const erros =
+    total - acertos;
+
+
+  const porcentagem =
+    total > 0
+      ? Math.round(
+          (acertos / total) * 100
+        )
+      : 0;
+
+
+  painelSimulado.style.display =
+    "none";
+
+
+  resultadoFinal.style.display =
+    "block";
+
+
+  resultadoNumero.textContent =
+    `${porcentagem}%`;
+
+
+  resultadoTexto.innerHTML = `
+    Você acertou
+    <strong>${acertos}</strong>
+    de
+    <strong>${total}</strong>
+    questões.
+
+    <br><br>
+
+    Você teve
+    <strong>${erros}</strong>
+    erro(s).
+
+    <br><br>
+
+    ${
+      porcentagem >= 80
+        ? "Excelente desempenho! Continue praticando. 🚀"
+        : porcentagem >= 60
+          ? "Bom desempenho! Continue estudando e praticando. 📚"
+          : "Continue estudando. A prática ajuda a melhorar seu desempenho! 💪"
+    }
+  `;
+
+}
+
+
+function refazer() {
+
+  clearInterval(intervaloTimer);
+
+
+  configuracao.style.display =
+    "block";
+
+
+  painelSimulado.style.display =
+    "none";
+
+
+  resultadoFinal.style.display =
+    "none";
+
+
+  questoesContainer.innerHTML =
+    "";
+
+  statusElemento.textContent =
+    "";
+
+  timerElemento.textContent =
+    "Sem limite";
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+btnIniciar.addEventListener(
+  "click",
+  async () => {
+
+    if (todasQuestoes.length === 0) {
+
+      const carregou =
+        await carregarQuestoes();
+
+
+      if (!carregou) {
+        return;
+      }
+
+    }
+
+
+    iniciarSimulado();
+
+  }
+);
+
+
+btnAnterior.addEventListener(
+  "click",
+  irParaAnterior
+);
+
+
+btnProxima.addEventListener(
+  "click",
+  irParaProxima
+);
+
+
+btnRefazerFinal.addEventListener(
+  "click",
+  refazer
+);
+
+
+carregarQuestoes();
+
+</script>
+
+</body>
+</html>

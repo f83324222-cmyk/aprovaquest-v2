@@ -34,69 +34,135 @@
       opacity: 0.85;
     }
 
+    /* GRID DOS CARDS */
+
     .simulados-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
+      gap: 22px;
       max-width: 900px;
       margin: 0 auto;
     }
 
+    /* CARD */
+
     .simulado-card {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 210px;
+
+      padding: 30px;
+
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 18px;
+
       text-decoration: none;
-      padding: 28px;
-      border-radius: 14px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: inherit;
+
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.07);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
     }
 
     .simulado-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.11);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .simulado-icone {
+      width: 58px;
+      height: 58px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 14px;
+
+      background: #f4f6f8;
+
+      font-size: 30px;
+
+      margin-bottom: 18px;
     }
 
     .simulado-card h2 {
       margin: 0 0 10px;
-      font-size: 22px;
+      font-size: 21px;
     }
 
     .simulado-card p {
       margin: 0;
       line-height: 1.6;
-      opacity: 0.85;
+      opacity: 0.75;
     }
 
-    .simulado-icone {
-      font-size: 32px;
-      margin-bottom: 12px;
-    }
+    /* CARD GERAL */
 
     .simulado-geral {
-      grid-column: 1 / -1;
+      grid-column: auto;
     }
+
+    /* INFORMAÇÕES */
 
     .informacao-simulados {
       max-width: 900px;
-      margin: 40px auto 0;
-      padding: 25px;
-      border-radius: 14px;
+      margin: 45px auto 0;
+
+      padding: 28px;
+
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 18px;
+
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+
       line-height: 1.7;
     }
 
     .informacao-simulados h2 {
       margin-top: 0;
+      margin-bottom: 15px;
     }
 
+    .informacao-simulados p {
+      margin-bottom: 12px;
+    }
+
+    .informacao-simulados p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* MOBILE */
+
     @media (max-width: 700px) {
+
       .simulados-pagina {
         padding: 30px 15px 50px;
       }
 
       .simulados-grid {
         grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .simulado-card {
+        min-height: 190px;
+        padding: 25px;
       }
 
       .simulado-geral {
         grid-column: auto;
+      }
+
+      .informacao-simulados {
+        padding: 22px;
       }
     }
   </style>
@@ -139,12 +205,16 @@
 
     <section class="simulados-grid">
 
+      <!-- BIOLOGIA -->
+
       <a
         class="simulado-card"
         href="biologia/"
       >
 
-        <div class="simulado-icone">🧬</div>
+        <div class="simulado-icone">
+          🧬
+        </div>
 
         <h2>Simulado de Biologia</h2>
 
@@ -155,12 +225,16 @@
       </a>
 
 
+      <!-- MATEMÁTICA -->
+
       <a
         class="simulado-card"
         href="matematica/"
       >
 
-        <div class="simulado-icone">📐</div>
+        <div class="simulado-icone">
+          📐
+        </div>
 
         <h2>Simulado de Matemática</h2>
 
@@ -171,12 +245,16 @@
       </a>
 
 
+      <!-- FÍSICA -->
+
       <a
         class="simulado-card"
         href="fisica/"
       >
 
-        <div class="simulado-icone">⚡</div>
+        <div class="simulado-icone">
+          ⚡
+        </div>
 
         <h2>Simulado de Física</h2>
 
@@ -188,12 +266,16 @@
       </a>
 
 
+      <!-- QUÍMICA -->
+
       <a
         class="simulado-card"
         href="quimica/"
       >
 
-        <div class="simulado-icone">🧪</div>
+        <div class="simulado-icone">
+          🧪
+        </div>
 
         <h2>Simulado de Química</h2>
 
@@ -204,18 +286,22 @@
       </a>
 
 
+      <!-- SIMULADO GERAL -->
+
       <a
         class="simulado-card simulado-geral"
         href="geral/"
       >
 
-        <div class="simulado-icone">🎯</div>
+        <div class="simulado-icone">
+          🎯
+        </div>
 
         <h2>Simulado Geral</h2>
 
         <p>
-          Uma mistura de questões de diferentes matérias para testar
-          seus conhecimentos de forma completa.
+          Uma mistura de questões de Matemática, Física, Química
+          e Biologia para testar seus conhecimentos.
         </p>
 
       </a>
@@ -233,9 +319,9 @@
       </p>
 
       <p>
-        Os simulados serão desenvolvidos utilizando as questões
-        disponíveis no AprovaQuest, permitindo que você pratique os
-        conteúdos estudados em diferentes matérias.
+        Os simulados utilizam as questões disponíveis no AprovaQuest,
+        permitindo que você pratique os conteúdos estudados em
+        diferentes matérias.
       </p>
 
     </section>

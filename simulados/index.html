@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Simulados | AprovaQuest</title>
+
+  <meta
+    name="description"
+    content="Faça simulados do AprovaQuest, pratique seus conhecimentos e confira seu desempenho."
+  >
+
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .simulados-pagina {
+      padding: 45px 0 70px;
+    }
+
+    .simulados-cabecalho {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .simulados-cabecalho h1 {
+      margin-bottom: 12px;
+    }
+
+    .simulados-cabecalho p {
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+      opacity: 0.85;
+    }
+
+    .simulados-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .simulado-card {
+      display: block;
+      text-decoration: none;
+      padding: 28px;
+      border-radius: 14px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .simulado-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .simulado-card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .simulado-card p {
+      margin: 0;
+      line-height: 1.6;
+      opacity: 0.85;
+    }
+
+    .simulado-icone {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .simulado-geral {
+      grid-column: 1 / -1;
+    }
+
+    .informacao-simulados {
+      max-width: 900px;
+      margin: 40px auto 0;
+      padding: 25px;
+      border-radius: 14px;
+      line-height: 1.7;
+    }
+
+    .informacao-simulados h2 {
+      margin-top: 0;
+    }
+
+    @media (max-width: 700px) {
+      .simulados-pagina {
+        padding: 30px 15px 50px;
+      }
+
+      .simulados-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .simulado-geral {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container header-content">
+
+    <a href="../" class="logo">
+      Aprova<span>Quest</span>
+    </a>
+
+    <nav>
+      <a href="../questoes/">Questões</a>
+      <a href="../simulados/">Simulados</a>
+      <a href="../sobre/">Sobre</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main class="simulados-pagina">
+
+  <div class="container">
+
+    <section class="simulados-cabecalho">
+
+      <h1>Simulados</h1>
+
+      <p>
+        Teste seus conhecimentos com questões de diferentes matérias
+        e veja como está o seu desempenho.
+      </p>
+
+    </section>
+
+
+    <section class="simulados-grid">
+
+      <a
+        class="simulado-card"
+        href="biologia/"
+      >
+
+        <div class="simulado-icone">🧬</div>
+
+        <h2>Simulado de Biologia</h2>
+
+        <p>
+          Pratique conteúdos de Biologia e teste seus conhecimentos.
+        </p>
+
+      </a>
+
+
+      <a
+        class="simulado-card"
+        href="matematica/"
+      >
+
+        <div class="simulado-icone">📐</div>
+
+        <h2>Simulado de Matemática</h2>
+
+        <p>
+          Resolva questões de Matemática e pratique seus cálculos.
+        </p>
+
+      </a>
+
+
+      <a
+        class="simulado-card"
+        href="fisica/"
+      >
+
+        <div class="simulado-icone">⚡</div>
+
+        <h2>Simulado de Física</h2>
+
+        <p>
+          Teste seus conhecimentos sobre os principais conteúdos
+          de Física.
+        </p>
+
+      </a>
+
+
+      <a
+        class="simulado-card"
+        href="quimica/"
+      >
+
+        <div class="simulado-icone">🧪</div>
+
+        <h2>Simulado de Química</h2>
+
+        <p>
+          Pratique Química com questões de diferentes assuntos.
+        </p>
+
+      </a>
+
+
+      <a
+        class="simulado-card simulado-geral"
+        href="geral/"
+      >
+
+        <div class="simulado-icone">🎯</div>
+
+        <h2>Simulado Geral</h2>
+
+        <p>
+          Uma mistura de questões de diferentes matérias para testar
+          seus conhecimentos de forma completa.
+        </p>
+
+      </a>
+
+    </section>
+
+
+    <section class="informacao-simulados">
+
+      <h2>Como funcionam os simulados?</h2>
+
+      <p>
+        Escolha um simulado, responda às questões e confira seu
+        resultado ao final.
+      </p>
+
+      <p>
+        Os simulados serão desenvolvidos utilizando as questões
+        disponíveis no AprovaQuest, permitindo que você pratique os
+        conteúdos estudados em diferentes matérias.
+      </p>
+
+    </section>
+
+  </div>
+
+</main>
+
+
+<footer class="footer">
+
+  <div class="container">
+
+    <p>© 2026 AprovaQuest</p>
+
+    <p>
+      <a href="../sobre/">Sobre</a>
+      &nbsp; | &nbsp;
+      <a href="../politica-privacidade/">Política de Privacidade</a>
+      &nbsp; | &nbsp;
+      <a href="../termos-de-uso/">Termos de Uso</a>
+    </p>
+
+  </div>
+
+</footer>
+
+</body>
+</html>

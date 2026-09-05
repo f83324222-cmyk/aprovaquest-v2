@@ -1,11 +1,24 @@
-```html
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Zoologia | AprovaQuest</title>
+  <title>Questões de Zoologia para ENEM e Vestibulares | AprovaQuest</title>
+
+<meta
+name="description"
+content="Resolva questões de Zoologia para ENEM e vestibulares. Estude animais, invertebrados, vertebrados, classificação, fisiologia, reprodução e evolução dos animais no AprovaQuest."
+
+>
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/zoologia/"
+  >
 
   <link rel="stylesheet" href="../../../css/style.css">
 
@@ -327,6 +340,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -336,208 +350,224 @@
       <div class="header-content">
         <a href="../../../" class="logo">AprovaQuest</a>
 
-        <nav>
-          <a href="../../../">Início</a>
-          <a href="../../">Questões</a>
-          <a href="../">Biologia</a>
-        </nav>
-      </div>
-    </div>
+```
+    <nav>
+      <a href="../../../">Início</a>
+      <a href="../../">Questões</a>
+      <a href="../">Biologia</a>
+    </nav>
+  </div>
+</div>
+```
+
   </header>
 
   <main class="container">
 
-    <div class="breadcrumb">
-      <a href="../../../">Início</a> /
-      <a href="../../">Questões</a> /
-      <a href="../">Biologia</a> /
-      Zoologia
+```
+<div class="breadcrumb">
+  <a href="../../../">Início</a> /
+  <a href="../../">Questões</a> /
+  <a href="../">Biologia</a> /
+  Zoologia
+</div>
+
+<section class="pagina-header">
+
+  <h1>🐾 Questões de Zoologia</h1>
+
+  <p>
+    Resolva questões de Zoologia para estudar para o ENEM,
+    vestibulares e provas escolares. Pratique seus conhecimentos
+    sobre os animais e teste seu desempenho em diferentes níveis
+    de dificuldade.
+  </p>
+
+  <p>
+    Estude conteúdos como classificação dos animais,
+    invertebrados, vertebrados, características dos principais
+    grupos, fisiologia, reprodução, evolução, diversidade animal
+    e relações ecológicas.
+  </p>
+
+</section>
+
+<div class="controles">
+
+  <div class="controle-grupo">
+
+    <div class="controle-item">
+      <label for="dificuldade">Dificuldade</label>
+
+      <select id="dificuldade">
+        <option value="Todas">Todas</option>
+        <option value="Fácil">Fácil</option>
+        <option value="Médio">Médio</option>
+        <option value="Difícil">Difícil</option>
+      </select>
     </div>
 
-    <section class="pagina-header">
-      <h1>🐾 Zoologia</h1>
+    <div class="controle-item">
+      <label for="quantidade">Quantidade</label>
 
-      <p>
-        Pratique questões sobre características, classificação,
-        evolução e diversidade dos animais.
-      </p>
-    </section>
-
-    <div class="controles">
-
-      <div class="controle-grupo">
-
-        <div class="controle-item">
-          <label for="dificuldade">Dificuldade</label>
-
-          <select id="dificuldade">
-            <option value="Todas">Todas</option>
-            <option value="Fácil">Fácil</option>
-            <option value="Médio">Médio</option>
-            <option value="Difícil">Difícil</option>
-          </select>
-        </div>
-
-        <div class="controle-item">
-          <label for="quantidade">Quantidade</label>
-
-          <select id="quantidade">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="todas">Todas</option>
-          </select>
-        </div>
-
-        <div class="controle-item">
-          <label for="tempo">Tempo</label>
-
-          <select id="tempo">
-            <option value="0">Sem limite</option>
-            <option value="5">5 minutos</option>
-            <option value="10">10 minutos</option>
-            <option value="15">15 minutos</option>
-            <option value="20">20 minutos</option>
-            <option value="30">30 minutos</option>
-          </select>
-        </div>
-
-      </div>
-
-      <div class="botoes-prova">
-
-        <button
-          id="btnShuffle"
-          class="btn btn-sorteio"
-          type="button">
-          🔀 Embaralhar: OFF
-        </button>
-
-        <button
-          id="btnIniciar"
-          class="btn btn-principal"
-          type="button">
-          ▶️ Iniciar prova
-        </button>
-
-        <button
-          id="btnRefazer"
-          class="btn btn-secundario"
-          type="button"
-          style="display:none;">
-          🔄 Refazer prova
-        </button>
-
-      </div>
-
+      <select id="quantidade">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="todas">Todas</option>
+      </select>
     </div>
 
-    <div class="placar">
+    <div class="controle-item">
+      <label for="tempo">Tempo</label>
 
-      <div class="placar-item">
-        <strong id="acertos">0</strong>
-        <span>Acertos</span>
-      </div>
-
-      <div class="placar-item">
-        <strong id="erros">0</strong>
-        <span>Erros</span>
-      </div>
-
-      <div class="placar-item">
-        <strong id="aproveitamento">0%</strong>
-        <span>Aproveitamento</span>
-      </div>
-
+      <select id="tempo">
+        <option value="0">Sem limite</option>
+        <option value="5">5 minutos</option>
+        <option value="10">10 minutos</option>
+        <option value="15">15 minutos</option>
+        <option value="20">20 minutos</option>
+        <option value="30">30 minutos</option>
+      </select>
     </div>
 
-    <div
-      id="mensagemInicial"
-      class="mensagem-inicial">
+  </div>
 
-      <strong>🐾 Prepare-se!</strong>
+  <div class="botoes-prova">
 
-      <p>
-        Escolha a dificuldade, a quantidade de questões
-        e o tempo. Depois clique em "Iniciar prova".
-      </p>
+    <button
+      id="btnShuffle"
+      class="btn btn-sorteio"
+      type="button">
+      🔀 Embaralhar: OFF
+    </button>
 
-    </div>
+    <button
+      id="btnIniciar"
+      class="btn btn-principal"
+      type="button">
+      ▶️ Iniciar prova
+    </button>
 
-    <div
-      id="cronometro"
-      class="cronometro"
+    <button
+      id="btnRefazer"
+      class="btn btn-secundario"
+      type="button"
       style="display:none;">
-      ⏱️ <span id="tempoRestante">00:00</span>
-    </div>
+      🔄 Refazer prova
+    </button>
 
+  </div>
+
+</div>
+
+<div class="placar">
+
+  <div class="placar-item">
+    <strong id="acertos">0</strong>
+    <span>Acertos</span>
+  </div>
+
+  <div class="placar-item">
+    <strong id="erros">0</strong>
+    <span>Erros</span>
+  </div>
+
+  <div class="placar-item">
+    <strong id="aproveitamento">0%</strong>
+    <span>Aproveitamento</span>
+  </div>
+
+</div>
+
+<div
+  id="mensagemInicial"
+  class="mensagem-inicial">
+
+  <strong>🐾 Prepare-se!</strong>
+
+  <p>
+    Escolha a dificuldade, a quantidade de questões
+    e o tempo. Depois clique em "Iniciar prova".
+  </p>
+
+</div>
+
+<div
+  id="cronometro"
+  class="cronometro"
+  style="display:none;">
+  ⏱️ <span id="tempoRestante">00:00</span>
+</div>
+
+<div
+  id="progressoContainer"
+  class="progresso-container"
+  style="display:none;">
+
+  <div class="progresso-info">
+    <span id="progressoTexto">Questão 0 de 0</span>
+    <span id="progressoStatus">0%</span>
+  </div>
+
+  <div class="progresso">
     <div
-      id="progressoContainer"
-      class="progresso-container"
-      style="display:none;">
+      id="progressoBarra"
+      class="progresso-barra">
+    </div>
+  </div>
 
-      <div class="progresso-info">
-        <span id="progressoTexto">Questão 0 de 0</span>
-        <span id="progressoStatus">0%</span>
-      </div>
+</div>
 
-      <div class="progresso">
-        <div
-          id="progressoBarra"
-          class="progresso-barra">
-        </div>
-      </div>
+<div
+  id="statusProva"
+  class="status-prova"
+  style="display:none;">
+</div>
 
+<div id="questoesContainer"></div>
+
+<div
+  id="resultadoFinal"
+  class="resultado-final">
+
+  <h2>🏆 Prova concluída!</h2>
+
+  <div
+    id="resultadoPercentual"
+    class="resultado-percentual">
+    0%
+  </div>
+
+  <div class="resultado-detalhes">
+
+    <div>
+      <strong id="resultadoAcertos">0</strong>
+      <span>Acertos</span>
     </div>
 
-    <div
-      id="statusProva"
-      class="status-prova"
-      style="display:none;">
+    <div>
+      <strong id="resultadoErros">0</strong>
+      <span>Erros</span>
     </div>
 
-    <div id="questoesContainer"></div>
-
-    <div
-      id="resultadoFinal"
-      class="resultado-final">
-
-      <h2>🏆 Prova concluída!</h2>
-
-      <div
-        id="resultadoPercentual"
-        class="resultado-percentual">
-        0%
-      </div>
-
-      <div class="resultado-detalhes">
-
-        <div>
-          <strong id="resultadoAcertos">0</strong>
-          <span>Acertos</span>
-        </div>
-
-        <div>
-          <strong id="resultadoErros">0</strong>
-          <span>Erros</span>
-        </div>
-
-        <div>
-          <strong id="resultadoTotal">0</strong>
-          <span>Total</span>
-        </div>
-
-      </div>
-
-      <button
-        id="btnRefazerFinal"
-        class="btn btn-principal"
-        type="button">
-        🔄 Refazer prova
-      </button>
-
+    <div>
+      <strong id="resultadoTotal">0</strong>
+      <span>Total</span>
     </div>
+
+  </div>
+
+  <button
+    id="btnRefazerFinal"
+    class="btn btn-principal"
+    type="button">
+    🔄 Refazer prova
+  </button>
+
+</div>
+```
 
   </main>
 
@@ -1163,4 +1193,3 @@
 
 </body>
 </html>
-```

@@ -1,11 +1,25 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Reprodução e Desenvolvimento | AprovaQuest</title>
+  <title>Questões de Reprodução e Desenvolvimento para ENEM e Vestibulares | AprovaQuest</title>
+
+<meta
+name="description"
+content="Resolva questões de Reprodução e Desenvolvimento para ENEM e vestibulares. Estude reprodução humana, gametas, fecundação, ciclo menstrual, desenvolvimento embrionário, gestação e hormônios no AprovaQuest."
+
+>
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/reproducao-e-desenvolvimento/"
+  >
 
   <link rel="stylesheet" href="../../../css/style.css">
 
@@ -248,6 +262,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -258,11 +273,13 @@
       Aprova<span>Quest</span>
     </div>
 
-    <nav>
-      <a href="../../../">Início</a>
-      <a href="../../">Questões</a>
-      <a href="../">Biologia</a>
-    </nav>
+```
+<nav>
+  <a href="../../../">Início</a>
+  <a href="../../">Questões</a>
+  <a href="../">Biologia</a>
+</nav>
+```
 
   </div>
 </header>
@@ -277,87 +294,105 @@
   </div>
 
   <section class="materia-header">
-    <h1>🧬 Reprodução e Desenvolvimento</h1>
 
-    <p>
-      Pratique questões sobre reprodução, fecundação,
-      gametas, desenvolvimento embrionário, gestação,
-      hormônios e ciclos reprodutivos.
-    </p>
+```
+<h1>🧬 Questões de Reprodução e Desenvolvimento</h1>
+
+<p>
+  Resolva questões de Reprodução e Desenvolvimento para estudar
+  para o ENEM, vestibulares e provas escolares. Pratique seus
+  conhecimentos sobre reprodução dos seres vivos e desenvolvimento
+  humano e teste seu desempenho em diferentes níveis de dificuldade.
+</p>
+
+<p>
+  Estude conteúdos como reprodução sexuada e assexuada, gametas,
+  fecundação, ciclo menstrual, hormônios, desenvolvimento
+  embrionário, gestação, formação do embrião, placenta e
+  desenvolvimento humano.
+</p>
+```
+
   </section>
 
   <section class="controles">
 
-    <div class="controle">
-      <label for="dificuldade">Dificuldade</label>
+```
+<div class="controle">
+  <label for="dificuldade">Dificuldade</label>
 
-      <select id="dificuldade">
-        <option value="todas">Todas</option>
-        <option value="Fácil">Fácil</option>
-        <option value="Médio">Médio</option>
-        <option value="Difícil">Difícil</option>
-      </select>
-    </div>
+  <select id="dificuldade">
+    <option value="todas">Todas</option>
+    <option value="Fácil">Fácil</option>
+    <option value="Médio">Médio</option>
+    <option value="Difícil">Difícil</option>
+  </select>
+</div>
 
-    <div class="controle">
-      <label for="quantidade">Quantidade</label>
+<div class="controle">
+  <label for="quantidade">Quantidade</label>
 
-      <select id="quantidade">
-        <option value="5">5 questões</option>
-        <option value="10">10 questões</option>
-        <option value="15">15 questões</option>
-        <option value="20" selected>20 questões</option>
-        <option value="todas">Todas disponíveis</option>
-      </select>
-    </div>
+  <select id="quantidade">
+    <option value="5">5 questões</option>
+    <option value="10">10 questões</option>
+    <option value="15">15 questões</option>
+    <option value="20" selected>20 questões</option>
+    <option value="todas">Todas disponíveis</option>
+  </select>
+</div>
 
-    <div class="controle">
-      <label for="tempo">Tempo</label>
+<div class="controle">
+  <label for="tempo">Tempo</label>
 
-      <select id="tempo">
-        <option value="0">Sem limite</option>
-        <option value="5">5 minutos</option>
-        <option value="10">10 minutos</option>
-        <option value="15">15 minutos</option>
-        <option value="20">20 minutos</option>
-        <option value="30">30 minutos</option>
-      </select>
-    </div>
+  <select id="tempo">
+    <option value="0">Sem limite</option>
+    <option value="5">5 minutos</option>
+    <option value="10">10 minutos</option>
+    <option value="15">15 minutos</option>
+    <option value="20">20 minutos</option>
+    <option value="30">30 minutos</option>
+  </select>
+</div>
+```
 
   </section>
 
   <section class="acoes">
 
-    <button type="button" class="btn btn-secundario" id="embaralhar">
-      🔀 Embaralhamento: OFF
-    </button>
+```
+<button type="button" class="btn btn-secundario" id="embaralhar">
+  🔀 Embaralhamento: OFF
+</button>
 
-    <button type="button" class="btn btn-principal" id="iniciar">
-      ▶️ Iniciar prova
-    </button>
+<button type="button" class="btn btn-principal" id="iniciar">
+  ▶️ Iniciar prova
+</button>
 
-    <button type="button" class="btn btn-refazer" id="refazer-prova">
-      🔄 Refazer prova
-    </button>
+<button type="button" class="btn btn-refazer" id="refazer-prova">
+  🔄 Refazer prova
+</button>
+```
 
   </section>
 
   <section class="pontuacao">
 
-    <div class="pontuacao-item">
-      Acertos
-      <strong id="acertos">0</strong>
-    </div>
+```
+<div class="pontuacao-item">
+  Acertos
+  <strong id="acertos">0</strong>
+</div>
 
-    <div class="pontuacao-item">
-      Erros
-      <strong id="erros">0</strong>
-    </div>
+<div class="pontuacao-item">
+  Erros
+  <strong id="erros">0</strong>
+</div>
 
-    <div class="pontuacao-item">
-      Aproveitamento
-      <strong id="aproveitamento">0%</strong>
-    </div>
+<div class="pontuacao-item">
+  Aproveitamento
+  <strong id="aproveitamento">0%</strong>
+</div>
+```
 
   </section>
 
@@ -381,35 +416,37 @@
 
   <section class="final-result" id="resultado-final">
 
-    <h2>🎉 Prova finalizada!</h2>
+```
+<h2>🎉 Prova finalizada!</h2>
 
-    <div class="resultado-grid">
+<div class="resultado-grid">
 
-      <div class="resultado-item">
-        <strong id="resultado-acertos">0</strong>
-        Acertos
-      </div>
+  <div class="resultado-item">
+    <strong id="resultado-acertos">0</strong>
+    Acertos
+  </div>
 
-      <div class="resultado-item">
-        <strong id="resultado-erros">0</strong>
-        Erros
-      </div>
+  <div class="resultado-item">
+    <strong id="resultado-erros">0</strong>
+    Erros
+  </div>
 
-      <div class="resultado-item">
-        <strong id="resultado-acerto-percentual">0%</strong>
-        Aproveitamento
-      </div>
+  <div class="resultado-item">
+    <strong id="resultado-acerto-percentual">0%</strong>
+    Aproveitamento
+  </div>
 
-      <div class="resultado-item">
-        <strong id="resultado-erro-percentual">0%</strong>
-        Percentual de erros
-      </div>
+  <div class="resultado-item">
+    <strong id="resultado-erro-percentual">0%</strong>
+    Percentual de erros
+  </div>
 
-    </div>
+</div>
 
-    <button type="button" class="btn btn-refazer" id="refazer-prova-final">
-      🔄 Refazer prova
-    </button>
+<button type="button" class="btn btn-refazer" id="refazer-prova-final">
+  🔄 Refazer prova
+</button>
+```
 
   </section>
 

@@ -6,13 +6,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Questões de Função Quadrática com Gabarito | AprovaQuest</title>
+  <title>Questões de Função Quadrática para ENEM e Vestibulares | AprovaQuest</title>
 
 <meta
 name="description"
-content="Resolva questões de Função Quadrática para ENEM, vestibulares e concursos. Pratique com gabarito, explicações e dicas."
+content="Resolva questões de Função Quadrática para ENEM e vestibulares. Estude parábolas, raízes, vértice, discriminante, máximo, mínimo e gráficos de funções quadráticas no AprovaQuest."
 
 >
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/funcao-quadratica/"
+  >
 
   <link rel="stylesheet" href="../../../css/style.css">
 </head>
@@ -52,11 +59,20 @@ content="Resolva questões de Função Quadrática para ENEM, vestibulares e con
     Função Quadrática
   </p>
 
-  <h1>Questões de Função Quadrática</h1>
+  <h1>📈 Questões de Função Quadrática</h1>
 
   <p>
-    Pratique Função Quadrática com questões de diferentes níveis
-    de dificuldade.
+    Resolva questões de Função Quadrática para estudar para o ENEM,
+    vestibulares e provas escolares. Pratique seus conhecimentos
+    sobre funções do segundo grau e teste seu desempenho em
+    diferentes níveis de dificuldade.
+  </p>
+
+  <p>
+    Estude conteúdos como função do segundo grau, parábolas,
+    raízes da função, discriminante (Δ), vértice da parábola,
+    máximo e mínimo, concavidade, eixo de simetria, interceptos
+    e interpretação de gráficos de funções quadráticas.
   </p>
 
   <!-- CONTROLES -->
@@ -197,15 +213,13 @@ content="Resolva questões de Função Quadrática para ENEM, vestibulares e con
   <!-- INICIAR -->
 
 <button
- id="iniciar-prova"
- class="start-button"
- type="button">
+id="iniciar-prova"
+class="start-button"
+type="button">
 
-```
 ▶️ Iniciar prova
-```
 
-  </button>
+</button>
 
   <!-- MENSAGEM -->
 
@@ -213,9 +227,7 @@ content="Resolva questões de Função Quadrática para ENEM, vestibulares e con
     id="mensagem-iniciar"
     class="start-message">
 
-```
 🔒 Inicie a prova para marcar as questões.
-```
 
   </div>
 
@@ -225,12 +237,10 @@ content="Resolva questões de Função Quadrática para ENEM, vestibulares e con
     id="progresso-container"
     class="progress-container">
 
-```
 <div
   id="progresso"
   class="progress-bar">
 </div>
-```
 
   </div>
 
@@ -240,9 +250,7 @@ content="Resolva questões de Função Quadrática para ENEM, vestibulares e con
     id="status"
     class="status">
 
-```
 Carregando questões...
-```
 
   </div>
 
@@ -259,7 +267,6 @@ Carregando questões...
     class="final-result"
     style="display:none;">
 
-```
 <h2>
   🏆 Resultado da prova
 </h2>
@@ -286,13 +293,12 @@ Carregando questões...
 </p>
 
 <button
-  id="refazer-prova"
-  type="button">
+id="refazer-prova"
+type="button">
 
-  🔄 Refazer prova
+🔄 Refazer prova
 
 </button>
-```
 
   </div>
 
@@ -1294,6 +1300,9 @@ function resetarProva() {
 
   mensagemIniciar.style.display =
     "block";
+
+
+  montarProva();
 
 }
 

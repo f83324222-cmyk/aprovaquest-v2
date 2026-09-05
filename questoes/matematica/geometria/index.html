@@ -1,14 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Questões de Geometria | AprovaQuest</title>
+  <title>Questões de Geometria para ENEM e Vestibulares | AprovaQuest</title>
 
-  <meta
-    name="description"
-    content="Resolva questões de Geometria e teste seus conhecimentos no AprovaQuest."
+<meta
+name="description"
+content="Resolva questões de Geometria para ENEM e vestibulares. Estude áreas, perímetros, ângulos, triângulos, quadriláteros, circunferência e propriedades geométricas no AprovaQuest."
+
+>
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/geometria/"
   >
 
   <link rel="stylesheet" href="../../../css/style.css">
@@ -275,6 +284,7 @@
       }
     }
   </style>
+
 </head>
 
 <body>
@@ -285,192 +295,205 @@
         Aprova<span>Quest</span>
       </div>
 
-      <nav>
-        <a href="../../../">Início</a>
-        <a href="../../">Questões</a>
-        <a href="../">Matemática</a>
-      </nav>
-    </div>
+```
+  <nav>
+    <a href="../../../">Início</a>
+    <a href="../../">Questões</a>
+    <a href="../">Matemática</a>
+  </nav>
+</div>
+```
+
   </header>
 
   <main class="container">
 
-    <div class="breadcrumb">
-      <a href="../../../">Início</a> /
-      <a href="../../">Questões</a> /
-      <a href="../">Matemática</a> /
-      Geometria
-    </div>
+```
+<div class="breadcrumb">
+  <a href="../../../">Início</a> /
+  <a href="../../">Questões</a> /
+  <a href="../">Matemática</a> /
+  Geometria
+</div>
 
-    <h1>Questões de Geometria</h1>
+<h1>📐 Questões de Geometria</h1>
 
-    <p>
-      Teste seus conhecimentos de Geometria com questões de diferentes níveis
-      de dificuldade.
-    </p>
+<p>
+  Resolva questões de Geometria para estudar para o ENEM,
+  vestibulares e provas escolares. Pratique seus conhecimentos
+  sobre formas, medidas e propriedades geométricas e teste seu
+  desempenho em diferentes níveis de dificuldade.
+</p>
 
-    <!-- CONTROLES -->
-    <section class="controles">
+<p>
+  Estude conteúdos como áreas, perímetros, ângulos, triângulos,
+  quadriláteros, polígonos, circunferência, círculo, semelhança
+  de figuras, relações métricas e propriedades geométricas.
+</p>
 
-      <div class="controle">
-        <label for="dificuldade">Dificuldade</label>
+<!-- CONTROLES -->
+<section class="controles">
 
-        <select id="dificuldade">
-          <option value="Todas">Todas</option>
-          <option value="Fácil">Fácil</option>
-          <option value="Médio">Médio</option>
-          <option value="Difícil">Difícil</option>
-        </select>
-      </div>
+  <div class="controle">
+    <label for="dificuldade">Dificuldade</label>
 
-      <div class="controle">
-        <label for="quantidade">Quantidade</label>
+    <select id="dificuldade">
+      <option value="Todas">Todas</option>
+      <option value="Fácil">Fácil</option>
+      <option value="Médio">Médio</option>
+      <option value="Difícil">Difícil</option>
+    </select>
+  </div>
 
-        <select id="quantidade">
-          <option value="5">5 questões</option>
-          <option value="10">10 questões</option>
-          <option value="20">20 questões</option>
-          <option value="todas">Todas</option>
-        </select>
-      </div>
+  <div class="controle">
+    <label for="quantidade">Quantidade</label>
 
-      <div class="controle">
-        <label for="tempo">Tempo</label>
+    <select id="quantidade">
+      <option value="5">5 questões</option>
+      <option value="10">10 questões</option>
+      <option value="20">20 questões</option>
+      <option value="todas">Todas</option>
+    </select>
+  </div>
 
-        <select id="tempo">
-          <option value="5">5 minutos</option>
-          <option value="10">10 minutos</option>
-          <option value="20">20 minutos</option>
-          <option value="30">30 minutos</option>
-        </select>
-      </div>
+  <div class="controle">
+    <label for="tempo">Tempo</label>
 
-    </section>
+    <select id="tempo">
+      <option value="5">5 minutos</option>
+      <option value="10">10 minutos</option>
+      <option value="20">20 minutos</option>
+      <option value="30">30 minutos</option>
+    </select>
+  </div>
 
-    <div class="acoes">
+</section>
 
-      <button
-        id="embaralhar"
-        class="btn btn-secundario"
-        type="button"
-      >
-        🔀 Embaralhar
-      </button>
+<div class="acoes">
 
-      <button
-        id="iniciar"
-        class="btn btn-principal"
-        type="button"
-      >
-        ▶️ Iniciar prova
-      </button>
+  <button
+    id="embaralhar"
+    class="btn btn-secundario"
+    type="button"
+  >
+    🔀 Embaralhar
+  </button>
 
-    </div>
+  <button
+    id="iniciar"
+    class="btn btn-principal"
+    type="button"
+  >
+    ▶️ Iniciar prova
+  </button>
 
-    <!-- PONTUAÇÃO -->
-    <section class="pontuacao">
+</div>
 
-      <div class="pontuacao-item">
-        Acertos
-        <strong id="acertos">0</strong>
-      </div>
+<!-- PONTUAÇÃO -->
+<section class="pontuacao">
 
-      <div class="pontuacao-item">
-        Erros
-        <strong id="erros">0</strong>
-      </div>
+  <div class="pontuacao-item">
+    Acertos
+    <strong id="acertos">0</strong>
+  </div>
 
-      <div class="pontuacao-item">
-        Aproveitamento
-        <strong id="aproveitamento">0%</strong>
-      </div>
+  <div class="pontuacao-item">
+    Erros
+    <strong id="erros">0</strong>
+  </div>
 
-    </section>
+  <div class="pontuacao-item">
+    Aproveitamento
+    <strong id="aproveitamento">0%</strong>
+  </div>
 
-    <!-- MENSAGEM INICIAL -->
+</section>
+
+<!-- MENSAGEM INICIAL -->
+<div
+  id="mensagem-inicial"
+  class="mensagem-inicial"
+>
+  🔒 Inicie a prova para marcar as questões.
+</div>
+
+<!-- TIMER -->
+<div
+  id="timer"
+  class="timer"
+>
+  ⏱️ 00:00
+</div>
+
+<!-- PROGRESSO -->
+<div class="progresso-container">
+
+  <div class="progresso-barra">
     <div
-      id="mensagem-inicial"
-      class="mensagem-inicial"
-    >
-      🔒 Inicie a prova para marcar as questões.
+      id="progresso"
+      class="progresso"
+    ></div>
+  </div>
+
+  <div
+    id="status"
+    class="status"
+  >
+    Carregando questões...
+  </div>
+
+</div>
+
+<!-- QUESTÕES -->
+<section id="questoes-container"></section>
+
+<!-- RESULTADO FINAL -->
+<section
+  id="resultado-final"
+  class="final-result"
+  style="display: none;"
+>
+
+  <h2>🏆 Resultado da prova</h2>
+
+  <p>
+    Você terminou a prova!
+  </p>
+
+  <div class="resultado-grid">
+
+    <div class="resultado-item">
+      <span>✅ Acertos</span>
+      <strong id="resultado-acertos">0</strong>
     </div>
 
-    <!-- TIMER -->
-    <div
-      id="timer"
-      class="timer"
-    >
-      ⏱️ 00:00
+    <div class="resultado-item">
+      <span>❌ Erros</span>
+      <strong id="resultado-erros">0</strong>
     </div>
 
-    <!-- PROGRESSO -->
-    <div class="progresso-container">
-
-      <div class="progresso-barra">
-        <div
-          id="progresso"
-          class="progresso"
-        ></div>
-      </div>
-
-      <div
-        id="status"
-        class="status"
-      >
-        Carregando questões...
-      </div>
-
+    <div class="resultado-item">
+      <span>📊 Taxa de acerto</span>
+      <strong id="resultado-acerto-percentual">0%</strong>
     </div>
 
-    <!-- QUESTÕES -->
-    <section id="questoes-container"></section>
+    <div class="resultado-item">
+      <span>📉 Taxa de erro</span>
+      <strong id="resultado-erro-percentual">0%</strong>
+    </div>
 
-    <!-- RESULTADO FINAL -->
-    <section
-      id="resultado-final"
-      class="final-result"
-      style="display: none;"
-    >
+  </div>
 
-      <h2>🏆 Resultado da prova</h2>
+  <button
+    id="refazer-prova"
+    class="btn btn-refazer"
+    type="button"
+  >
+    🔄 Refazer prova
+  </button>
 
-      <p>
-        Você terminou a prova!
-      </p>
-
-      <div class="resultado-grid">
-
-        <div class="resultado-item">
-          <span>✅ Acertos</span>
-          <strong id="resultado-acertos">0</strong>
-        </div>
-
-        <div class="resultado-item">
-          <span>❌ Erros</span>
-          <strong id="resultado-erros">0</strong>
-        </div>
-
-        <div class="resultado-item">
-          <span>📊 Taxa de acerto</span>
-          <strong id="resultado-acerto-percentual">0%</strong>
-        </div>
-
-        <div class="resultado-item">
-          <span>📉 Taxa de erro</span>
-          <strong id="resultado-erro-percentual">0%</strong>
-        </div>
-
-      </div>
-
-      <button
-        id="refazer-prova"
-        class="btn btn-refazer"
-        type="button"
-      >
-        🔄 Refazer prova
-      </button>
-
-    </section>
+</section>
+```
 
   </main>
 

@@ -1,10 +1,25 @@
-```html
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Questões de Eletroquímica - AprovaQuest</title>
+
+  <title>Questões de Eletroquímica para ENEM e Vestibulares | AprovaQuest</title>
+
+<meta
+name="description"
+content="Resolva questões de Eletroquímica para ENEM e vestibulares. Estude oxidação, redução, pilhas, eletrólise, potencial elétrico, agentes oxidantes e Lei de Faraday no AprovaQuest."
+
+>
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/eletroquimica/"
+  >
+
   <link rel="stylesheet" href="../../../css/style.css">
 
   <style>
@@ -198,6 +213,7 @@
       margin-top: 5px;
     }
   </style>
+
 </head>
 
 <body>
@@ -205,15 +221,17 @@
 <header>
   <div class="container">
 
-    <div class="logo">
-      Aprova<span>Quest</span>
-    </div>
+```
+<div class="logo">
+  Aprova<span>Quest</span>
+</div>
 
-    <nav>
-      <a href="../../../">Início</a>
-      <a href="../../">Questões</a>
-      <a href="../">Química</a>
-    </nav>
+<nav>
+  <a href="../../../">Início</a>
+  <a href="../../">Questões</a>
+  <a href="../">Química</a>
+</nav>
+```
 
   </div>
 </header>
@@ -227,86 +245,100 @@
     Eletroquímica
   </div>
 
-  <h1>Questões de Eletroquímica</h1>
+  <h1>⚡ Questões de Eletroquímica</h1>
 
   <p>
-    Pratique seus conhecimentos sobre oxidação, redução, pilhas,
-    eletrólise, agentes oxidantes e redutores, potencial elétrico e Lei de Faraday.
+    Resolva questões de Eletroquímica para estudar para o ENEM,
+    vestibulares e provas escolares. Pratique seus conhecimentos
+    sobre reações de oxidação e redução e teste seu desempenho
+    em diferentes níveis de dificuldade.
+  </p>
+
+  <p>
+    Estude conteúdos como oxidação, redução, agentes oxidantes
+    e redutores, pilhas, células eletroquímicas, potencial elétrico,
+    eletrólise, espontaneidade das reações, corrosão e Lei de Faraday.
   </p>
 
   <div class="controles">
 
-    <div class="controle">
-      <label for="dificuldade">Dificuldade</label>
+```
+<div class="controle">
+  <label for="dificuldade">Dificuldade</label>
 
-      <select id="dificuldade">
-        <option value="todas">Todas</option>
-        <option value="Fácil">Fácil</option>
-        <option value="Médio">Médio</option>
-        <option value="Difícil">Difícil</option>
-      </select>
-    </div>
+  <select id="dificuldade">
+    <option value="todas">Todas</option>
+    <option value="Fácil">Fácil</option>
+    <option value="Médio">Médio</option>
+    <option value="Difícil">Difícil</option>
+  </select>
+</div>
 
-    <div class="controle">
-      <label for="quantidade">Quantidade</label>
+<div class="controle">
+  <label for="quantidade">Quantidade</label>
 
-      <select id="quantidade">
-        <option value="5">5 questões</option>
-        <option value="10">10 questões</option>
-        <option value="15">15 questões</option>
-        <option value="20" selected>20 questões</option>
-        <option value="todas">Todas</option>
-      </select>
-    </div>
+  <select id="quantidade">
+    <option value="5">5 questões</option>
+    <option value="10">10 questões</option>
+    <option value="15">15 questões</option>
+    <option value="20" selected>20 questões</option>
+    <option value="todas">Todas</option>
+  </select>
+</div>
 
-    <div class="controle">
-      <label for="tempo">Tempo</label>
+<div class="controle">
+  <label for="tempo">Tempo</label>
 
-      <select id="tempo">
-        <option value="0">Sem limite</option>
-        <option value="5">5 minutos</option>
-        <option value="10">10 minutos</option>
-        <option value="15">15 minutos</option>
-        <option value="20">20 minutos</option>
-        <option value="30">30 minutos</option>
-      </select>
-    </div>
+  <select id="tempo">
+    <option value="0">Sem limite</option>
+    <option value="5">5 minutos</option>
+    <option value="10">10 minutos</option>
+    <option value="15">15 minutos</option>
+    <option value="20">20 minutos</option>
+    <option value="30">30 minutos</option>
+  </select>
+</div>
+```
 
   </div>
 
   <div class="acoes">
 
-    <button type="button" class="btn btn-secundario" id="embaralhar">
-      🔀 Embaralhamento: OFF
-    </button>
+```
+<button type="button" class="btn btn-secundario" id="embaralhar">
+  🔀 Embaralhamento: OFF
+</button>
 
-    <button type="button" class="btn btn-principal" id="iniciar">
-      Iniciar prova
-    </button>
+<button type="button" class="btn btn-principal" id="iniciar">
+  Iniciar prova
+</button>
 
-    <button type="button" class="btn btn-refazer" id="refazer-prova">
-      Refazer prova
-    </button>
+<button type="button" class="btn btn-refazer" id="refazer-prova">
+  Refazer prova
+</button>
+```
 
   </div>
 
   <div class="pontuacao">
 
-    <div class="pontuacao-item">
-      Acertos: <strong id="acertos">0</strong>
-    </div>
+```
+<div class="pontuacao-item">
+  Acertos: <strong id="acertos">0</strong>
+</div>
 
-    <div class="pontuacao-item">
-      Erros: <strong id="erros">0</strong>
-    </div>
+<div class="pontuacao-item">
+  Erros: <strong id="erros">0</strong>
+</div>
 
-    <div class="pontuacao-item">
-      Aproveitamento: <strong id="aproveitamento">0%</strong>
-    </div>
+<div class="pontuacao-item">
+  Aproveitamento: <strong id="aproveitamento">0%</strong>
+</div>
 
-    <div class="pontuacao-item timer" id="timer">
-      Tempo: --
-    </div>
+<div class="pontuacao-item timer" id="timer">
+  Tempo: --
+</div>
+```
 
   </div>
 
@@ -326,35 +358,37 @@
 
   <section class="final-result" id="final-result" style="display:none;">
 
-    <h2>🎉 Resultado final</h2>
+```
+<h2>🎉 Resultado final</h2>
 
-    <div class="resultado-grid">
+<div class="resultado-grid">
 
-      <div class="resultado-item">
-        Acertos
-        <strong id="resultado-acertos">0</strong>
-      </div>
+  <div class="resultado-item">
+    Acertos
+    <strong id="resultado-acertos">0</strong>
+  </div>
 
-      <div class="resultado-item">
-        Erros
-        <strong id="resultado-erros">0</strong>
-      </div>
+  <div class="resultado-item">
+    Erros
+    <strong id="resultado-erros">0</strong>
+  </div>
 
-      <div class="resultado-item">
-        Acertos
-        <strong id="resultado-acerto-percentual">0%</strong>
-      </div>
+  <div class="resultado-item">
+    Acertos
+    <strong id="resultado-acerto-percentual">0%</strong>
+  </div>
 
-      <div class="resultado-item">
-        Erros
-        <strong id="resultado-erro-percentual">0%</strong>
-      </div>
+  <div class="resultado-item">
+    Erros
+    <strong id="resultado-erro-percentual">0%</strong>
+  </div>
 
-    </div>
+</div>
 
-    <button type="button" class="btn btn-refazer" id="refazer-prova-final">
-      Refazer prova
-    </button>
+<button type="button" class="btn btn-refazer" id="refazer-prova-final">
+  Refazer prova
+</button>
+```
 
   </section>
 
@@ -1162,4 +1196,3 @@ carregarQuestoes();
 
 </body>
 </html>
-```

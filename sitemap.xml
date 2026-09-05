@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- PRINCIPAIS -->
+
   <url>
     <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/</loc>
   </url>
@@ -21,6 +23,9 @@
     <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/contato/</loc>
   </url>
 
+
+  <!-- QUESTÕES -->
+
   <url>
     <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/</loc>
   </url>
@@ -40,6 +45,193 @@
   <url>
     <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/</loc>
   </url>
+
+
+  <!-- MATEMÁTICA -->
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/porcentagem/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/regra-de-tres/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/funcao-afim/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/funcao-quadratica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/juros-simples/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/juros-compostos/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/equacoes/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/geometria/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/probabilidade/</loc>
+  </url>
+
+
+  <!-- FÍSICA -->
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/cinematica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/dinamica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/eletricidade/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/eletrodinamica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/eletromagnetismo/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/gravitacao/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/hidrostatica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/leis-de-newton/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/ondulatoria/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/optica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/termodinamica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/fisica/trabalho-e-energia/</loc>
+  </url>
+
+
+  <!-- QUÍMICA -->
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/cinetica-quimica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/eletroquimica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/equilibrio-quimico/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/estequiometria/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/estrutura-atomica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/funcoes-inorganicas/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/ligacoes-quimicas/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/quimica-organica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/reacoes-quimicas/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/solucoes/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/tabela-periodica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/quimica/termoquimica/</loc>
+  </url>
+
+
+  <!-- BIOLOGIA -->
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/genetica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/biologia-celular/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/bioquimica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/botanica/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/ecologia/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/evolucao/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/fisiologia-humana/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/microbiologia/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/reproducao-e-desenvolvimento/</loc>
+  </url>
+
+  <url>
+    <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/biologia/zoologia/</loc>
+  </url>
+
+
+  <!-- SIMULADOS -->
 
   <url>
     <loc>https://f83324222-cmyk.github.io/aprovaquest-v2/simulados/</loc>

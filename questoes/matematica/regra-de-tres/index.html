@@ -1,16 +1,24 @@
-```html
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Questões de Regra de Três com Gabarito | AprovaQuest</title>
+  <title>Questões de Regra de Três para ENEM e Vestibulares | AprovaQuest</title>
 
-  <meta
-    name="description"
-    content="Resolva questões de Regra de Três para ENEM, vestibulares e concursos. Pratique com gabarito, explicações e dicas."
+<meta
+name="description"
+content="Resolva questões de Regra de Três para ENEM e vestibulares. Estude proporções diretas e inversas, cálculos, porcentagens e problemas matemáticos no AprovaQuest."
+
+>
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://f83324222-cmyk.github.io/aprovaquest-v2/questoes/matematica/regra-de-tres/"
   >
 
   <link rel="stylesheet" href="../../../css/style.css">
@@ -22,20 +30,21 @@
 
   <div class="container header-content">
 
-    <a href="../../../" class="logo">
-      Aprova<span>Quest</span>
-    </a>
+```
+<a href="../../../" class="logo">
+  Aprova<span>Quest</span>
+</a>
 
-    <nav>
-      <a href="../../../">Início</a>
-      <a href="../../">Questões</a>
-      <a href="../">Matemática</a>
-    </nav>
+<nav>
+  <a href="../../../">Início</a>
+  <a href="../../">Questões</a>
+  <a href="../">Matemática</a>
+</nav>
+```
 
   </div>
 
 </header>
-
 
 <main>
 
@@ -50,102 +59,110 @@
     Regra de Três
   </p>
 
-
-  <h1>Questões de Regra de Três</h1>
+  <h1>📐 Questões de Regra de Três</h1>
 
   <p>
-    Pratique Regra de Três com questões de diferentes níveis
+    Resolva questões de Regra de Três para estudar para o ENEM,
+    vestibulares e provas escolares. Pratique seus conhecimentos
+    sobre proporções e teste seu desempenho em diferentes níveis
     de dificuldade.
   </p>
 
+  <p>
+    Estude conteúdos como regra de três simples, proporções
+    diretamente proporcionais, proporções inversamente
+    proporcionais, grandezas, porcentagens, cálculos e problemas
+    matemáticos envolvendo situações do cotidiano.
+  </p>
 
   <!-- CONTROLES DA PROVA -->
 
   <div class="controls">
 
-    <label for="filtro-dificuldade">
-      Dificuldade:
-    </label>
+```
+<label for="filtro-dificuldade">
+  Dificuldade:
+</label>
 
-    <select id="filtro-dificuldade">
+<select id="filtro-dificuldade">
 
-      <option value="Todas">
-        Todas
-      </option>
+  <option value="Todas">
+    Todas
+  </option>
 
-      <option value="Fácil">
-        Fácil
-      </option>
+  <option value="Fácil">
+    Fácil
+  </option>
 
-      <option value="Médio">
-        Médio
-      </option>
+  <option value="Médio">
+    Médio
+  </option>
 
-      <option value="Difícil">
-        Difícil
-      </option>
+  <option value="Difícil">
+    Difícil
+  </option>
 
-    </select>
-
-
-    <label for="quantidade">
-      Quantidade:
-    </label>
-
-    <select id="quantidade">
-
-      <option value="5">
-        5 questões
-      </option>
-
-      <option value="10">
-        10 questões
-      </option>
-
-      <option value="20">
-        20 questões
-      </option>
-
-      <option value="todas">
-        Todas
-      </option>
-
-    </select>
+</select>
 
 
-    <label for="tempo">
-      Tempo:
-    </label>
+<label for="quantidade">
+  Quantidade:
+</label>
 
-    <select id="tempo">
+<select id="quantidade">
 
-      <option value="5">
-        5 minutos
-      </option>
+  <option value="5">
+    5 questões
+  </option>
 
-      <option value="10">
-        10 minutos
-      </option>
+  <option value="10">
+    10 questões
+  </option>
 
-      <option value="20">
-        20 minutos
-      </option>
+  <option value="20">
+    20 questões
+  </option>
 
-      <option value="30">
-        30 minutos
-      </option>
+  <option value="todas">
+    Todas
+  </option>
 
-    </select>
+</select>
 
 
-    <button
-      id="embaralhar"
-      type="button">
-      🔀 Embaralhar
-    </button>
+<label for="tempo">
+  Tempo:
+</label>
+
+<select id="tempo">
+
+  <option value="5">
+    5 minutos
+  </option>
+
+  <option value="10">
+    10 minutos
+  </option>
+
+  <option value="20">
+    20 minutos
+  </option>
+
+  <option value="30">
+    30 minutos
+  </option>
+
+</select>
+
+
+<button
+  id="embaralhar"
+  type="button">
+  🔀 Embaralhar
+</button>
+```
 
   </div>
-
 
   <!-- PLACAR -->
 
@@ -153,27 +170,28 @@
     id="placar"
     class="score-box">
 
-    <strong>
-      Pontuação
-    </strong>
+```
+<strong>
+  Pontuação
+</strong>
 
-    <div>
-      Acertos:
-      <span id="acertos">0</span>
-    </div>
+<div>
+  Acertos:
+  <span id="acertos">0</span>
+</div>
 
-    <div>
-      Erros:
-      <span id="erros">0</span>
-    </div>
+<div>
+  Erros:
+  <span id="erros">0</span>
+</div>
 
-    <div>
-      Aproveitamento:
-      <span id="aproveitamento">0%</span>
-    </div>
+<div>
+  Aproveitamento:
+  <span id="aproveitamento">0%</span>
+</div>
+```
 
   </div>
-
 
   <!-- CRONÔMETRO -->
 
@@ -181,25 +199,27 @@
     id="cronometro"
     class="timer">
 
-    ⏱️
-    <span id="tempo-restante">
-      00:00
-    </span>
+```
+⏱️
+<span id="tempo-restante">
+  00:00
+</span>
+```
 
   </div>
 
-
   <!-- BOTÃO INICIAR -->
 
-  <button
-    id="iniciar-prova"
-    class="start-button"
-    type="button">
+<button
+ id="iniciar-prova"
+ class="start-button"
+ type="button">
 
-    ▶️ Iniciar prova
+```
+▶️ Iniciar prova
+```
 
   </button>
-
 
   <!-- MENSAGEM -->
 
@@ -207,10 +227,11 @@
     id="mensagem-iniciar"
     class="start-message">
 
-    🔒 Inicie a prova para marcar as questões.
+```
+🔒 Inicie a prova para marcar as questões.
+```
 
   </div>
-
 
   <!-- PROGRESSO -->
 
@@ -218,29 +239,30 @@
     id="progresso-container"
     class="progress-container">
 
-    <div
-      id="progresso"
-      class="progress-bar">
-    </div>
+```
+<div
+  id="progresso"
+  class="progress-bar">
+</div>
+```
 
   </div>
-
 
   <div
     id="status"
     class="status">
 
-    Carregando questões...
+```
+Carregando questões...
+```
 
   </div>
-
 
   <!-- QUESTÕES -->
 
   <div
     id="questoes-container">
   </div>
-
 
   <!-- RESULTADO FINAL -->
 
@@ -249,38 +271,40 @@
     class="final-result"
     style="display:none;">
 
-    <h2>
-      🏆 Resultado da prova
-    </h2>
+```
+<h2>
+  🏆 Resultado da prova
+</h2>
 
-    <p>
-      Acertos:
-      <strong id="resultado-acertos">
-        0
-      </strong>
-    </p>
+<p>
+  Acertos:
+  <strong id="resultado-acertos">
+    0
+  </strong>
+</p>
 
-    <p>
-      Erros:
-      <strong id="resultado-erros">
-        0
-      </strong>
-    </p>
+<p>
+  Erros:
+  <strong id="resultado-erros">
+    0
+  </strong>
+</p>
 
-    <p>
-      Aproveitamento:
-      <strong id="resultado-percentual">
-        0%
-      </strong>
-    </p>
+<p>
+  Aproveitamento:
+  <strong id="resultado-percentual">
+    0%
+  </strong>
+</p>
 
-    <button
-      id="refazer-prova"
-      type="button">
+<button
+  id="refazer-prova"
+  type="button">
 
-      🔄 Refazer prova
+  🔄 Refazer prova
 
-    </button>
+</button>
+```
 
   </div>
 
@@ -289,7 +313,6 @@
 </section>
 
 </main>
-
 
 <footer class="footer">
 
@@ -302,7 +325,6 @@
 </div>
 
 </footer>
-
 
 <style>
 
@@ -521,7 +543,6 @@
 }
 
 </style>
-
 
 <script type="module">
 
@@ -1423,3 +1444,4 @@ carregarQuestoes();
 </html>
 ```
 
+Essa página agora fica alinhada ao padrão SEO das outras páginas de Matemática do AprovaQuest.
